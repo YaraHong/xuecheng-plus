@@ -31,3 +31,7 @@ logs/
 
 ### VS Code ###
 .vscode/
+
+### VS Code ###
+/node_modules/
+/dist/
