@@ -3,14 +3,18 @@ package com.atyaoh.content.service.impl;
 import com.atyaoh.base.model.PageParams;
 import com.atyaoh.base.model.PageResult;
 import com.atyaoh.content.mapper.CourseBaseMapper;
-import com.atyaoh.content.model.dto.QueryCourseParamsDTO;
+import com.atyaoh.content.mapper.CourseMarketMapper;
+import com.atyaoh.content.model.dto.QueryCourseParamsDto;
 import com.atyaoh.content.model.po.CourseBase;
+import com.atyaoh.content.model.po.CourseMarket;
+import com.atyaoh.content.model.vo.CourseInfoVo;
 import com.atyaoh.content.service.CourseBaseService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -22,6 +26,8 @@ public class CourseBaseServiceImpl extends ServiceImpl<CourseBaseMapper, CourseB
 
     @Resource
     private CourseBaseMapper courseBaseMapper;
+    @Resource
+    private CourseMarketMapper courseMarketMapper;
 
     /**
      * 分页查询
@@ -31,7 +37,7 @@ public class CourseBaseServiceImpl extends ServiceImpl<CourseBaseMapper, CourseB
      * @return PageResult<CourseBase>
      */
     @Override
-    public PageResult<CourseBase> list(PageParams pageParams, QueryCourseParamsDTO queryDto) {
+    public PageResult<CourseBase> list(PageParams pageParams, QueryCourseParamsDto queryDto) {
 
         Page<CourseBase> page = new Page<>(pageParams.getPage(), pageParams.getPageSize());
 
@@ -51,5 +57,28 @@ public class CourseBaseServiceImpl extends ServiceImpl<CourseBaseMapper, CourseB
         long counts = courseBasePage.getTotal();
 
         return new PageResult<CourseBase>(items, counts, pageParams.getPage(), pageParams.getPageSize());
+    }
+
+
+    /**
+     * 根据id查询
+     *
+     * @param id
+     * @return CourseInfoVo
+     */
+    @Override
+    public CourseInfoVo getById(long id) {
+        CourseInfoVo courseInfoVo = new CourseInfoVo();
+
+        CourseBase courseBase = courseBaseMapper.selectById(id);
+        if (courseBase == null) {
+            return null;
+        }
+        BeanUtils.copyProperties(courseBase, courseInfoVo);
+        CourseMarket courseMarket = courseMarketMapper.selectById(id);
+        if (courseMarket != null) {
+            BeanUtils.copyProperties(courseMarket, courseInfoVo);
+        }
+        return courseInfoVo;
     }
 }
