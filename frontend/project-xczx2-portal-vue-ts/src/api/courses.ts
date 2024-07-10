@@ -1,10 +1,9 @@
 import {createAPI} from '@/utils/request'
 
 import {ICoursePageList} from '@/entity/course-page-list'
-import {ICourseCategory, ICourseBaseInfo} from '@/entity/course-add-base'
+import {ICourseBaseInfo, ICourseCategory} from '@/entity/course-add-base'
 import {ICourseOutlineTreeNode} from '@/entity/course-add-outline'
 import {ICourseTeacherList} from '@/entity/course-add-teacher'
-import {ICoursePubDTO} from '@/entity/course-publish'
 
 // 课程分类列表
 export async function category(): Promise<ICourseCategory[]> {

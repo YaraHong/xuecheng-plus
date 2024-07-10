@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts">
-import {Component, Vue, PropSync} from 'vue-property-decorator'
+import {Component, PropSync, Vue} from 'vue-property-decorator'
 
 @Component
 export default class CommonEnteringStep1SignAgreement extends Vue {

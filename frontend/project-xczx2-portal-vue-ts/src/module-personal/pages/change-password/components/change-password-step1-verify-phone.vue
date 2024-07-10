@@ -13,9 +13,9 @@
           </el-col>
           <el-col :span="4">
             <el-button
-                type="primary"
                 :disabled="isSending"
                 class="verify-button"
+                type="primary"
                 @click="smsMsg"
             >{{ buttonTips }}
             </el-button>
@@ -67,24 +67,6 @@ export default class ChangePasswordStep1VerifyPhone extends Vue {
   }
 
   /**
-   * 发送短信验证码
-   */
-  private async smsMsg() {
-    this.isSending = true
-    this.sendCount = TIME_COUNT
-    this.form.verifyKey = await smsMsg(this.form.phone)
-
-    this.sendTimer = setInterval(() => {
-      if (this.sendCount > 0) {
-        this.sendCount--
-      } else {
-        clearInterval(this.sendTimer)
-        this.isSending = false
-      }
-    }, 1000)
-  }
-
-  /**
    * 验证短信验证码
    */
   public async verify(): Promise<boolean> {
@@ -103,6 +85,24 @@ export default class ChangePasswordStep1VerifyPhone extends Vue {
         }
       })
     })
+  }
+
+  /**
+   * 发送短信验证码
+   */
+  private async smsMsg() {
+    this.isSending = true
+    this.sendCount = TIME_COUNT
+    this.form.verifyKey = await smsMsg(this.form.phone)
+
+    this.sendTimer = setInterval(() => {
+      if (this.sendCount > 0) {
+        this.sendCount--
+      } else {
+        clearInterval(this.sendTimer)
+        this.isSending = false
+      }
+    }, 1000)
   }
 }
 </script>

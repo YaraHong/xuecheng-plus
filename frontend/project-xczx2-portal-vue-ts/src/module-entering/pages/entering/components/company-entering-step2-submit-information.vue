@@ -55,12 +55,12 @@
       </el-form-item>
       <el-form-item label="机构简介：" prop="intro">
         <el-input
-            type="textarea"
-            :rows="10"
             v-model="form.intro"
-            placeholder="例：传智播客，目前已经成为拥有2000多名员工的教育集团；从成立最初的单一Java学科，到现在已包括JavaEE、Python+人工智能、前端与移动开发、UI/UE设计、大数据、Go语言与区块链等14门学科培训；从屈指可数的几间教室，发展成为分布于北京、上海、广州、深圳、武汉、郑州、西安、长沙、济南、重庆、南京、杭州、成都、石家庄、合肥、太原、厦门、沈阳等18所城市直营中心的规模。"
+            :rows="10"
             maxlength="500"
+            placeholder="例：传智播客，目前已经成为拥有2000多名员工的教育集团；从成立最初的单一Java学科，到现在已包括JavaEE、Python+人工智能、前端与移动开发、UI/UE设计、大数据、Go语言与区块链等14门学科培训；从屈指可数的几间教室，发展成为分布于北京、上海、广州、深圳、武汉、郑州、西安、长沙、济南、重庆、南京、杭州、成都、石家庄、合肥、太原、厦门、沈阳等18所城市直营中心的规模。"
             show-word-limit
+            type="textarea"
         ></el-input>
       </el-form-item>
       <el-form-item label="一句话简介：" prop="briefIntro">
@@ -91,7 +91,7 @@
       <el-form-item label="承诺书：" prop="promiseLetter">
         <common-entering-step2-upload-image :imageUrl.sync="form.promiseLetter">
           请填写完毕本页面的信息后，点击下载
-          <a href="/doc/承诺书模板.docx" download>承诺书模板</a>，
+          <a download href="/doc/承诺书模板.docx">承诺书模板</a>，
           <br/>上传加盖公章的扫描件
         </common-entering-step2-upload-image>
       </el-form-item>
@@ -126,6 +126,51 @@ export default class CompanyEnteringStep2Submitform extends Vue {
     verifyCode: '',
     verifyKey: ''
   }
+
+  /**
+   * 提交资料
+   */
+  public async submitCompany(): Promise<boolean> {
+    // TODO: 这种嵌套方式不好，不优雅
+    // https://github.com/yiminghe/async-validator
+    return new Promise((resolve, reject) => {
+      let form1 = this.$refs['form1'] as ElForm
+      form1.validate((valid: boolean) => {
+        if (!valid) {
+          reject()
+          return
+        }
+
+        let form2 = this.$refs['form2'] as ElForm
+        form2.validate((valid: boolean) => {
+          if (!valid) {
+            reject()
+            return
+          }
+
+          let form3 = this.$refs['form3'] as ElForm
+          form3.validate(async (valid: boolean) => {
+            if (!valid) {
+              reject()
+              return
+            }
+
+            await submitCompany(this.form)
+            resolve()
+          })
+        })
+      })
+    })
+
+    // TODO: 研究下这种写法
+    // if (await this.formValidate('form1')) return false
+    // if (await this.formValidate('form2')) return false
+    // if (await this.formValidate('form3')) return false
+
+    // await submitCompany(this.form)
+    // return true
+  }
+
   // 手机号正则，参考：http://caibaojian.com/phone-regexp.html
   private validatePhone = (rule: any, value: any, callback: any) => {
     if (!/^1[0-9]{10}$/.test(value)) {
@@ -134,6 +179,7 @@ export default class CompanyEnteringStep2Submitform extends Vue {
       callback()
     }
   }
+
   // TODO: 增加rules校验
   private rules: any = {
     // 机构资料
@@ -206,50 +252,6 @@ export default class CompanyEnteringStep2Submitform extends Vue {
         trigger: 'change'
       }
     ]
-  }
-
-  /**
-   * 提交资料
-   */
-  public async submitCompany(): Promise<boolean> {
-    // TODO: 这种嵌套方式不好，不优雅
-    // https://github.com/yiminghe/async-validator
-    return new Promise((resolve, reject) => {
-      let form1 = this.$refs['form1'] as ElForm
-      form1.validate((valid: boolean) => {
-        if (!valid) {
-          reject()
-          return
-        }
-
-        let form2 = this.$refs['form2'] as ElForm
-        form2.validate((valid: boolean) => {
-          if (!valid) {
-            reject()
-            return
-          }
-
-          let form3 = this.$refs['form3'] as ElForm
-          form3.validate(async (valid: boolean) => {
-            if (!valid) {
-              reject()
-              return
-            }
-
-            await submitCompany(this.form)
-            resolve()
-          })
-        })
-      })
-    })
-
-    // TODO: 研究下这种写法
-    // if (await this.formValidate('form1')) return false
-    // if (await this.formValidate('form2')) return false
-    // if (await this.formValidate('form3')) return false
-
-    // await submitCompany(this.form)
-    // return true
   }
 
   // private formValidate(formName: string): Promise<boolean> {

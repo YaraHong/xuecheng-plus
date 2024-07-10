@@ -1,46 +1,47 @@
 <template>
   <div>
     <el-upload
-        action
-        list-type="picture-card"
-        accept=".jpg, .png, .bmp"
-        :file-list="fileList"
         :before-upload="handleBeforeUpload"
+        :class="{disabled:uploadDisabled}"
+        :file-list="fileList"
         :http-request="handleHttpRequest"
         :on-preview="handleOnPreview"
         :on-remove="handleOnRemove"
-        :class="{disabled:uploadDisabled}"
+        accept=".jpg, .png, .bmp"
+        action
+        list-type="picture-card"
     >
       <i class="el-icon-plus"></i>
-      <div class="el-upload__tip" slot="tip" style="line-height: 20px;">
+      <div slot="tip" class="el-upload__tip" style="line-height: 20px;">
         <slot></slot>
         <br/>文件小于2M
         <br/>支持JPG/PNG/BMP等格式图片
       </div>
     </el-upload>
     <el-dialog :visible.sync="dialogVisible">
-      <img width="100%" :src="syncedImageUrl" alt/>
+      <img :src="syncedImageUrl" alt width="100%"/>
     </el-dialog>
   </div>
 </template>
 
 <script lang="ts">
-import {Component, Vue, PropSync, Watch} from 'vue-property-decorator'
-import {
-  ElUploadInternalRawFile,
-  ElUploadInternalFileDetail,
-  HttpRequestOptions
-} from 'element-ui/types/upload'
+import {Component, PropSync, Vue, Watch} from 'vue-property-decorator'
+import {ElUploadInternalFileDetail, ElUploadInternalRawFile, HttpRequestOptions} from 'element-ui/types/upload'
 import * as qiniu from 'qiniu-js'
 import {IQnParamsDTO} from '@/entity/media-page-list'
 import {getQnParams} from '@/api/common'
 
 @Component
 export default class CommonEnteringStep2UploadImage extends Vue {
-  private dialogVisible: boolean = false
-
   @PropSync('imageUrl', {type: String, required: false, default: ''})
   syncedImageUrl!: string
+  private dialogVisible: boolean = false
+  private fileList: any[] = []
+
+  // computed
+  get uploadDisabled() {
+    return this.fileList.length > 0
+  }
 
   @Watch('syncedImageUrl')
   onImageUrlChanged(newImageUrl: string, oldImageUrl: string) {
@@ -53,13 +54,6 @@ export default class CommonEnteringStep2UploadImage extends Vue {
     }
     // console.log('--------------onImageUrlChanged后--------------')
     // console.log(this.fileList)
-  }
-
-  private fileList: any[] = []
-
-  // computed
-  get uploadDisabled() {
-    return this.fileList.length > 0
   }
 
   /**

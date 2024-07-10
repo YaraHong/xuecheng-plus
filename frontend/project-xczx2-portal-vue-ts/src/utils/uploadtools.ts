@@ -1,4 +1,4 @@
-import {upRegister, checkchunk, upChunk, mergeChunks} from '@/api/upload'
+import {checkchunk, mergeChunks, upChunk, upRegister} from '@/api/upload'
 import CryptoJS from 'crypto-js'
 
 export const uploadByPieces = ({file, pieceSize = 5, success, error}: any) => {

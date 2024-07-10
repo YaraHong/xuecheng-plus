@@ -3,9 +3,9 @@
     <div class="banner">
       <span class="primary-title">课程管理</span>
       <el-button
-          type="primary"
-          size="medium"
           class="btn-add el-button"
+          size="medium"
+          type="primary"
           @click="handleShowTypeDlg"
       >+添加课程
       </el-button>
@@ -14,10 +14,10 @@
     <!-- 搜索栏 -->
     <div class="searcher">
       <el-input
+          v-model="listQueryData.courseName"
           class="el-input"
           placeholder="课程名称"
           suffix-icon="el-icon-search"
-          v-model="listQueryData.courseName"
       />
       <el-select v-model="listQueryData.auditStatus" placeholder="请选择">
         <el-option
@@ -39,93 +39,93 @@
 
     <!-- 数据列表 -->
     <el-table
-        class="dataList"
         v-loading="listLoading"
         :data="listData.items"
-        border
-        style="width: 100%"
         :header-cell-style="{textAlign: 'center'}"
+        border
+        class="dataList"
+        style="width: 100%"
     >
-      <el-table-column prop="name" label="课程名称" width="250"></el-table-column>
-      <el-table-column prop="subsectionNum" label="任务数" align="center" width="100"></el-table-column>
-      <el-table-column label="创建时间" align="center" width="160">
+      <el-table-column label="课程名称" prop="name" width="250"></el-table-column>
+      <el-table-column align="center" label="任务数" prop="subsectionNum" width="100"></el-table-column>
+      <el-table-column align="center" label="创建时间" width="160">
         <template slot-scope="scope">
           <div>{{ scope.row.createDate | dateTimeFormat }}</div>
         </template>
       </el-table-column>
       <!--<el-table-column prop="learners" label="报名人数" align="center" width="100"></el-table-column>-->
-      <el-table-column label="是否付费" align="center" width="80">
+      <el-table-column align="center" label="是否付费" width="80">
         <template slot-scope="scope">
           <div>{{ scope.row.charge | chargeText }}</div>
         </template>
       </el-table-column>
-      <el-table-column label="审核状态" align="center" width="100">
+      <el-table-column align="center" label="审核状态" width="100">
         <template slot-scope="scope">
           <div>
             {{ scope.row.auditStatus | auditStatusText }}
             <br/>
             <el-button
                 v-if="scope.row.auditStatus == '202001'"
-                type="text"
                 size="mini"
+                type="text"
                 @click="showMessageBox(scope.row.auditMind, '审核未通过')"
             >查看审核意见
             </el-button>
             <el-button
                 v-else-if="scope.row.auditStatus == '202005'"
-                type="text"
                 size="mini"
+                type="text"
                 @click="handleViewDetail(scope.$index, scope.row)"
             >查看课程详情
             </el-button>
           </div>
         </template>
       </el-table-column>
-      <el-table-column label="类型" align="center" width="80">
+      <el-table-column align="center" label="类型" width="80">
         <template slot-scope="scope">
           <div>{{ scope.row.teachmode | teachmodeText }}</div>
         </template>
       </el-table-column>
       <!-- TODO: 增加友好提示 -->
-      <el-table-column label="操作" align="center">
+      <el-table-column align="center" label="操作">
         <template slot-scope="scope">
           <el-button
-              type="text"
               size="mini"
+              type="text"
               @click="handleEdit(scope.$index, scope.row)"
           >编辑
           </el-button>
           <el-button
-              type="text"
-              size="mini"
               :disabled="scope.row.auditStatus != '202002'"
+              size="mini"
+              type="text"
               @click="handleDelete(scope.$index, scope.row)"
           >删除
           </el-button>
           <el-button
-              type="text"
               size="mini"
+              type="text"
               @click="handlePreview(scope.$index, scope.row)"
           >预览
           </el-button>
           <el-button
-              type="text"
-              size="mini"
               :disabled="scope.row.auditStatus == '202003'"
+              size="mini"
+              type="text"
               @click="handleCommit(scope.$index, scope.row)"
           >提交审核
           </el-button>
           <el-button
-              type="text"
-              size="mini"
               :disabled="scope.row.status == '203002' || scope.row.auditStatus != '202004' "
+              size="mini"
+              type="text"
               @click="handlePublish(scope.$index, scope.row)"
           >发布
           </el-button>
           <el-button
-              type="text"
-              size="mini"
               :disabled="scope.row.status != '203002'"
+              size="mini"
+              type="text"
               @click="handleOffline(scope.$index, scope.row)"
           >下架
           </el-button>
@@ -137,9 +137,9 @@
     <div class="dataList-pagination">
       <Pagination
           v-show="listData.counts > 0"
-          :total="listData.counts"
-          :page.sync="listQuery.pageNo"
           :limit.sync="listQuery.pageSize"
+          :page.sync="listQuery.pageNo"
+          :total="listData.counts"
           @pagination="getList"
       />
     </div>
@@ -150,25 +150,14 @@
 </template>
 
 <script lang="ts">
-import {Component, Prop, Watch, Vue} from 'vue-property-decorator'
+import {Component, Watch} from 'vue-property-decorator'
 import {mixins} from 'vue-class-component'
 import Pagination from '@/components/pagination/index.vue'
 import CourseAddTypeDialog from './course-addtype-dialog.vue'
 import {IKVData} from '@/api/types' // 通用 interface
-import {
-  AUDIT_STATUS,
-  COURSE_CHARGE_TYPE_STATUS,
-  COUSE_PUBLIC_STATUS,
-  COUSE_TYPE_STATUS
-} from '@/api/constants' // 通用常量定义
-import {
-  list,
-  commitCourse,
-  publishCourse,
-  offlineCourse,
-  removeCourse
-} from '@/api/courses' // api interface 课程
-import {ICoursePageList, ICourseBaseDTO} from '@/entity/course-page-list'
+import {AUDIT_STATUS, COURSE_CHARGE_TYPE_STATUS, COUSE_PUBLIC_STATUS, COUSE_TYPE_STATUS} from '@/api/constants' // 通用常量定义
+import {commitCourse, list, offlineCourse, publishCourse, removeCourse} from '@/api/courses' // api interface 课程
+import {ICourseBaseDTO, ICoursePageList} from '@/entity/course-page-list'
 import MixinTools from '@/utils/mixins.vue'
 
 @Component({
@@ -228,16 +217,16 @@ export default class extends mixins(MixinTools) {
     auditStatus: ''
   }
 
+  // 生命周期 life
+  created() {
+    // this.getList();
+  }
+
   // 业务函数
   private async getList() {
     this.listLoading = true
     this.listData = await list(this.listQuery, this.listQueryData)
     this.listLoading = false
-  }
-
-  // 生命周期 life
-  created() {
-    // this.getList();
   }
 
   // 事件 handle

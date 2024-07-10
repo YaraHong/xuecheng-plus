@@ -1,16 +1,16 @@
 <template>
-  <el-dialog title="上传文件" :visible.sync="syncDialogVisible" @closed="handleClosedDialog">
+  <el-dialog :visible.sync="syncDialogVisible" title="上传文件" @closed="handleClosedDialog">
     <!-- 数据列表 -->
     <el-table
-        class="dataList"
         :data="fileList"
-        border
-        style="width: 100%"
         :header-cell-style="{ textAlign: 'center' }"
+        border
+        class="dataList"
+        style="width: 100%"
     >
-      <el-table-column prop="name" label="文件名" align="center"></el-table-column>
-      <el-table-column prop="size" label="大小" align="center"></el-table-column>
-      <el-table-column label="状态" align="center">
+      <el-table-column align="center" label="文件名" prop="name"></el-table-column>
+      <el-table-column align="center" label="大小" prop="size"></el-table-column>
+      <el-table-column align="center" label="状态">
         <template slot-scope="scope">
           <el-progress :percentage="scope.row.percentage"></el-progress>
         </template>
@@ -22,13 +22,13 @@
     </el-table>
     <span slot="footer" class="dialog-footer">
       <el-upload
-          action="#"
-          :auto-upload="false"
           :accept="'video/*'"
-          :show-file-list="false"
-          :on-change="handleChange"
+          :auto-upload="false"
           :before-upload="handleBeforeUpload"
           :http-request="handleHttpRequest"
+          :on-change="handleChange"
+          :show-file-list="false"
+          action="#"
       >
         <el-button>添加文件</el-button>
         <!-- <el-button type="primary" @click="dialogVisible = false">上传</el-button> -->
@@ -38,12 +38,8 @@
 </template>
 
 <script lang="ts">
-import {Component, Vue, PropSync} from 'vue-property-decorator'
-import {
-  ElUploadInternalRawFile,
-  ElUploadInternalFileDetail,
-  HttpRequestOptions
-} from 'element-ui/types/upload'
+import {Component, PropSync, Vue} from 'vue-property-decorator'
+import {ElUploadInternalFileDetail, ElUploadInternalRawFile, HttpRequestOptions} from 'element-ui/types/upload'
 
 import * as qiniu from 'qiniu-js'
 import {Base64} from 'js-base64'

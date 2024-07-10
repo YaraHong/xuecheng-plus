@@ -1,20 +1,20 @@
 <template>
   <div class="allclass-content">
     <div class="top-title">
-      <span :class="{active: listPostBody.status == ''}" id="all" @click="handleState('')">全部课程</span>
+      <span id="all" :class="{active: listPostBody.status == ''}" @click="handleState('')">全部课程</span>
       <span
-          :class="{active: listPostBody.status == '600001'}"
           id="wait"
+          :class="{active: listPostBody.status == '600001'}"
           @click="handleState('600001')"
       >待付款</span>
       <span
-          :class="{active: listPostBody.status == '600002'}"
           id="succ"
+          :class="{active: listPostBody.status == '600002'}"
           @click="handleState('600002')"
       >已完成</span>
       <span
-          :class="{active: listPostBody.status == '600004'}"
           id="outs"
+          :class="{active: listPostBody.status == '600004'}"
           @click="handleState('600004')"
       >已关闭</span>
     </div>
@@ -35,7 +35,7 @@
           <div class="content">
             <!-- 数据列表 -->
             <template v-if="listData.items !== undefined">
-              <div class="item" v-for="(item, index) in listData.items" :key="index">
+              <div v-for="(item, index) in listData.items" :key="index" class="item">
                 <div class="time-orderid">
                   <span>{{ item.createDate|dataText }}</span>
                   订单号：{{ item.orderNo }}
@@ -47,7 +47,7 @@
                 </div>
                 <div class="item-content">
                   <div class="item-left col-lg-2">
-                    <img src="../../../assets/img/dem.png" width="100%" alt/>
+                    <img alt src="../../../assets/img/dem.png" width="100%"/>
                   </div>
                   <div class="item-cent col-lg-4">
                     <div class="title">{{ item.coursePubName }}</div>
@@ -77,9 +77,9 @@
                       600004 已关闭
                       600005 已退款
                     -->
-                    <a href="#" v-if="item.status == '600001'">去 支 付</a>
-                    <a href="#" v-if="item.status == '600001'">取消订单</a>
-                    <a href="#" class="class-com" v-if="item.status == '600002'">课程评价</a>
+                    <a v-if="item.status == '600001'" href="#">去 支 付</a>
+                    <a v-if="item.status == '600001'" href="#">取消订单</a>
+                    <a v-if="item.status == '600002'" class="class-com" href="#">课程评价</a>
                     <!-- <span
                       class="undef"
                       v-if="item.status == '600003' || item.status == '600004'|| item.status == '600005'"
@@ -93,9 +93,9 @@
             <div class="page-item">
               <Pagination
                   v-show="listData.counts > 0"
-                  :total="listData.counts"
-                  :page.sync="listQuery.pageNo"
                   :limit.sync="listQuery.pageSize"
+                  :page.sync="listQuery.pageNo"
+                  :total="listData.counts"
                   @pagination="getList"
               />
             </div>
@@ -108,18 +108,16 @@
 
 
 <script lang="ts">
-import {Component, Prop, Watch, Vue} from 'vue-property-decorator'
+import {Component, Watch} from 'vue-property-decorator'
 import {mixins} from 'vue-class-component'
 import MixinTools from '@/utils/mixins.vue'
 import Pagination from '@/components/pagination/index.vue'
 import moment from 'moment'
-
-moment.locale('zh-cn')
-
 import {ORDER_TYPE_STATUS} from '@/api/constants' // 通用常量定义
-
 import {getMyOrdersPageList} from '@/api/my-orders'
 import {IMyOrdersPageList} from '@/entity/my-orders-page-list'
+
+moment.locale('zh-cn')
 
 @Component({
   name: 'Orders',

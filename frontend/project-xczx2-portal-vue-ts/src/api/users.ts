@@ -1,5 +1,5 @@
-import {createAPI, createFormAPI} from '@/utils/request'
-import {IUserLogin, IUserInfo} from '@/entity/user-login'
+import {createFormAPI} from '@/utils/request'
+import {IUserLogin} from '@/entity/user-login'
 
 // 登录
 export async function login(

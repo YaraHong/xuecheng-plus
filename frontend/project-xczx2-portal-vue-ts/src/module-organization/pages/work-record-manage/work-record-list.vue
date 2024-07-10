@@ -8,29 +8,29 @@
       <!-- 搜索栏 -->
       <div class="searcher">
         <el-input
+            v-model="listQueryData.courseName"
             class="el-input"
             placeholder="请输入课程名称"
             suffix-icon="el-icon-search"
-            v-model="listQueryData.courseName"
         />
       </div>
 
       <!-- 数据列表 -->
       <el-table
-          class="dataList"
           v-loading="listLoading"
           :data="listResult.items"
-          border
-          style="width: 100%"
           :header-cell-style="{ textAlign: 'center' }"
+          border
+          class="dataList"
+          style="width: 100%"
       >
-        <el-table-column prop="courseName" label="课程名称" width="400" align="center"></el-table-column>
+        <el-table-column align="center" label="课程名称" prop="courseName" width="400"></el-table-column>
 
-        <el-table-column prop="totalUsers" label="答题人数" align="center"></el-table-column>
+        <el-table-column align="center" label="答题人数" prop="totalUsers"></el-table-column>
 
-        <el-table-column prop="tobeReviewed" label="待批阅数" align="center"></el-table-column>
+        <el-table-column align="center" label="待批阅数" prop="tobeReviewed"></el-table-column>
 
-        <el-table-column label="最后提交/最后批阅" align="center">
+        <el-table-column align="center" label="最后提交/最后批阅">
           <template slot-scope="scope">
             {{ scope.row.commitedTime | dateTimeFormat }}
             <br/>
@@ -38,11 +38,11 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="操作" align="center">
+        <el-table-column align="center" label="操作">
           <template slot-scope="scope">
             <el-button
-                type="text"
                 size="mini"
+                type="text"
                 @click="goToWorkRecordReadOverAllView(scope.row.courseWorkId)"
             >批阅
             </el-button>
@@ -54,9 +54,9 @@
       <div class="dataList-pagination">
         <Pagination
             v-show="listResult.counts > 0"
-            :total="listResult.counts"
-            :page.sync="listQuery.pageNo"
             :limit.sync="listQuery.pageSize"
+            :page.sync="listQuery.pageNo"
+            :total="listResult.counts"
             @pagination="getWorkRecordPageList"
         />
       </div>

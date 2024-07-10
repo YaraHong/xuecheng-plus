@@ -2,21 +2,21 @@
   <el-dialog
       :title="`${getAction()}作业`"
       :visible.sync="syncDialogVisible"
-      @open="clearValidate"
       @close="clearValidate"
+      @open="clearValidate"
   >
-    <el-form ref="form" :model="work" :rules="rules" :label-width="formLabelWidth">
+    <el-form ref="form" :label-width="formLabelWidth" :model="work" :rules="rules">
       <el-form-item label="作业名称：" prop="title">
         <el-input v-model="work.title" placeholder="请输入作业名称"></el-input>
       </el-form-item>
       <el-form-item label="题干：" prop="question">
         <el-input
-            type="textarea"
-            :rows="5"
             v-model="work.question"
-            placeholder="请输入作业要求"
+            :rows="5"
             maxlength="500"
+            placeholder="请输入作业要求"
             show-word-limit
+            type="textarea"
         ></el-input>
       </el-form-item>
     </el-form>
@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts">
-import {Component, Vue, Prop, PropSync, Emit} from 'vue-property-decorator'
+import {Component, Emit, Prop, PropSync, Vue} from 'vue-property-decorator'
 import {Form as ElForm} from 'element-ui'
 import {IWorkVO} from '@/entity/work-page-list'
 import {addWork} from '@/api/works'

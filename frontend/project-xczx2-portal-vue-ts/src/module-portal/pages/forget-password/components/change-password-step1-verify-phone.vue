@@ -11,9 +11,9 @@
           </el-col>
           <el-col :span="8">
             <el-button
-                type="primary"
                 :disabled="isSending"
                 class="verify-button"
+                type="primary"
                 @click="smsMsg"
             >{{ buttonTips }}
             </el-button>
@@ -43,6 +43,36 @@ export default class ChangePasswordStep1VerifyPhone extends Vue {
     verifyCode: '',
     verifyKey: ''
   }
+
+  // computed
+  get buttonTips() {
+    if (!this.isSending) {
+      return '获取验证码'
+    }
+    return `${this.sendCount}s`
+  }
+
+  /**
+   * 验证短信验证码
+   */
+  public async verify(): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      let form = this.$refs['form'] as ElForm
+      form.validate(async (isValid: boolean) => {
+        if (isValid) {
+          let verifyToken: string = await verify(this.form)
+          this.$emit('formInfo', {
+            phone: this.form.phone,
+            verifyToken: verifyToken
+          })
+          resolve()
+        } else {
+          reject()
+        }
+      })
+    })
+  }
+
   // 手机号正则，参考：http://caibaojian.com/phone-regexp.html
   private validatePhone = (rule: any, value: any, callback: any) => {
     if (!/^1[0-9]{10}$/.test(value)) {
@@ -51,6 +81,7 @@ export default class ChangePasswordStep1VerifyPhone extends Vue {
       callback()
     }
   }
+
   // 表单验证
   private rules: any = {
     phone: [
@@ -58,14 +89,6 @@ export default class ChangePasswordStep1VerifyPhone extends Vue {
       {validator: this.validatePhone, trigger: 'change'}
     ],
     verifyCode: [{required: true, message: '请填写验证码', trigger: 'change'}]
-  }
-
-  // computed
-  get buttonTips() {
-    if (!this.isSending) {
-      return '获取验证码'
-    }
-    return `${this.sendCount}s`
   }
 
   /**
@@ -89,27 +112,6 @@ export default class ChangePasswordStep1VerifyPhone extends Vue {
           this.isSending = false
         }
       }, 1000)
-    })
-  }
-
-  /**
-   * 验证短信验证码
-   */
-  public async verify(): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-      let form = this.$refs['form'] as ElForm
-      form.validate(async (isValid: boolean) => {
-        if (isValid) {
-          let verifyToken: string = await verify(this.form)
-          this.$emit('formInfo', {
-            phone: this.form.phone,
-            verifyToken: verifyToken
-          })
-          resolve()
-        } else {
-          reject()
-        }
-      })
     })
   }
 }

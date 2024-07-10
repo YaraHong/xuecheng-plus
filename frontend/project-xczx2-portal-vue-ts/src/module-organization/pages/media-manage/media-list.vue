@@ -4,9 +4,9 @@
       <div class="banner">
         <span class="primary-title">媒资管理</span>
         <el-button
-            type="primary"
-            size="medium"
             class="btn-add el-button"
+            size="medium"
+            type="primary"
             @click="handleOpenAddMediaDialog"
         >上传视频
         </el-button>
@@ -15,10 +15,10 @@
       <!-- 搜索栏 -->
       <div class="searcher">
         <el-input
+            v-model="listQueryData.filename"
             class="el-input"
             placeholder="请输入关键词"
             suffix-icon="el-icon-search"
-            v-model="listQueryData.filename"
         />
         <el-select v-model="listQueryData.fileType" placeholder="请选择文件类型">
           <el-option
@@ -32,29 +32,29 @@
 
       <!-- 数据列表 -->
       <el-table
-          class="dataList"
           v-loading="listLoading"
           :data="listResult.items"
-          border
-          style="width: 100%"
           :header-cell-style="{ textAlign: 'center' }"
+          border
+          class="dataList"
+          style="width: 100%"
       >
-        <el-table-column label="文件名称" width="400" align="center">
+        <el-table-column align="center" label="文件名称" width="400">
           <template slot-scope="scope">
             {{ scope.row.filename }}
             <!--<br />
             视频时长：{{ scope.row.timelength }}-->
           </template>
         </el-table-column>
-        <el-table-column label="类型" align="center">
+        <el-table-column align="center" label="类型">
           <template slot-scope="scope">
             {{ getMediaTypes(scope.row.fileType) }}
 
           </template>
         </el-table-column>
-        <el-table-column prop="tags" label="标签" align="center"></el-table-column>
+        <el-table-column align="center" label="标签" prop="tags"></el-table-column>
 
-        <el-table-column label="上传时间" align="center">
+        <el-table-column align="center" label="上传时间">
           <template slot-scope="scope">
             {{ scope.row.username }}
             <br/>
@@ -62,7 +62,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="审核状态" align="center">
+        <el-table-column align="center" label="审核状态">
           <template slot-scope="scope">
             {{ getMediaAuditStatus(scope.row.auditStatus) }}
             <br/>
@@ -75,15 +75,15 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="操作" align="center">
+        <el-table-column align="center" label="操作">
           <template slot-scope="scope">
-            <el-button type="text" size="mini" :disabled="scope.row.url == undefined"
+            <el-button :disabled="scope.row.url == undefined" size="mini" type="text"
                        @click="handleDownloadMedia(scope.row.id)">预览
             </el-button>
 
             <el-button
-                type="text"
                 size="mini"
+                type="text"
                 @click="handleOpenDeleteMediaConfirm(scope.row.id)"
             >移除
             </el-button>
@@ -95,9 +95,9 @@
       <div class="dataList-pagination">
         <Pagination
             v-show="listResult.counts > 0"
-            :total="listResult.counts"
-            :page.sync="listQuery.pageNo"
             :limit.sync="listQuery.pageSize"
+            :page.sync="listQuery.pageNo"
+            :total="listResult.counts"
             @pagination="getMediaPageList"
         />
       </div>
@@ -113,9 +113,9 @@ import {Component, Vue, Watch} from 'vue-property-decorator'
 import Pagination from '@/components/pagination/index.vue'
 import MediaAddDialog from './components/media-add-dialog.vue'
 import {IKVData} from '@/api/types'
-import {RESOURCE_STATUS, MEDIA_AUDIT_STATUS} from '@/api/constants'
+import {MEDIA_AUDIT_STATUS, RESOURCE_STATUS} from '@/api/constants'
 import {IMediaPageList} from '@/entity/media-page-list'
-import {getMediaPageList, previewMedia, deleteMedia} from '@/api/media'
+import {deleteMedia, getMediaPageList, previewMedia} from '@/api/media'
 
 @Component({
   components: {

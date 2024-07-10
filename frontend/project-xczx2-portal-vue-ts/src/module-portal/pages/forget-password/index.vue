@@ -5,7 +5,7 @@
     </a>
     <div class="register-body container text-center">
       <div class="signIco">
-        <img src="@/assets/img/logoIco.png" alt="logo" width="180"/>
+        <img alt="logo" src="@/assets/img/logoIco.png" width="180"/>
       </div>
       <div class="signTit cl">
         <span class="sign">忘记密码</span>
@@ -14,19 +14,19 @@
         <div class="body">
           <!-- step 1 验证身份 -->
           <change-password-step1-verify-phone
-              ref="step1"
               v-show="stepsActive === 0"
+              ref="step1"
               @formInfo="handleFormInfo"
           />
           <!-- step 2 设置密码 -->
           <change-password-step2-setting-password
-              ref="step2"
               v-show="stepsActive === 1"
+              ref="step2"
               :phone="phone"
               :verifyToken="verifyToken"
           />
           <!-- step 3 完成 -->
-          <change-password-step3-finish ref="step3" v-show="stepsActive === 2"/>
+          <change-password-step3-finish v-show="stepsActive === 2" ref="step3"/>
         </div>
         <el-row :gutter="10">
           <el-col :span="stepsActive === 1 ? 12 : 0">
@@ -35,7 +35,7 @@
           </el-col>
           <el-col :span="stepsActive === 1 ? 12 : 24">
             <!-- 下一步 -->
-            <el-button type="primary" style="width: 100%;" @click="handleNext">
+            <el-button style="width: 100%;" type="primary" @click="handleNext">
               <template v-if="stepsActive === 0">下一步</template>
               <template v-else-if="stepsActive === 1">下一步</template>
               <template v-else>返回首页</template>

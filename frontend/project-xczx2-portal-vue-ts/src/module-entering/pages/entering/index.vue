@@ -20,24 +20,24 @@
       <div class="body">
         <!-- step 1 签订入驻协议 -->
         <common-entering-step1-sign-agreement
-            ref="step1"
             v-show="stepsActive === 0"
+            ref="step1"
             :signAgreement.sync="signAgreement"
         />
 
         <!-- step 2 机构提交资料 -->
         <company-entering-step2-submit-information
-            ref="company-step2"
             v-show="stepsActive === 1 && type === '0'"
+            ref="company-step2"
         />
         <!-- step 2 个人提交资料 -->
         <personal-entering-step2-submit-information
-            ref="personal-step2"
             v-show="stepsActive === 1 && type === '1'"
+            ref="personal-step2"
         />
 
         <!-- step 3 入驻审核 -->
-        <common-entering-step3-audit-information ref="step3" v-show="stepsActive === 2"/>
+        <common-entering-step3-audit-information v-show="stepsActive === 2" ref="step3"/>
       </div>
 
       <!-- 按钮 上一步 下一步 提交 -->
@@ -45,7 +45,7 @@
         <!-- 上一步 -->
         <el-button v-if="stepsActive === 1" @click="handlePrev">上一步</el-button>
         <!-- 下一步 -->
-        <el-button type="primary" :disabled="!signAgreement" @click="handleNext">
+        <el-button :disabled="!signAgreement" type="primary" @click="handleNext">
           <template v-if="stepsActive === 0">下一步</template>
           <template v-else-if="stepsActive === 1">提交</template>
           <template v-else>回首页</template>

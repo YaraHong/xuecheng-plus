@@ -1,5 +1,5 @@
 import axios, {AxiosRequestConfig, Method} from 'axios'
-import {Message, MessageBox} from 'element-ui'
+import {Message} from 'element-ui'
 import {getToken} from '@/utils/cookies'
 
 const service = axios.create({

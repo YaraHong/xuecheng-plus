@@ -1,10 +1,5 @@
 import {createAPI} from '@/utils/request'
-import {
-    IMediaPageList,
-    IMediaBaseDTO,
-    IQnParamsDTO,
-    IVodTokenDTO
-} from '@/entity/media-page-list'
+import {IMediaBaseDTO, IMediaPageList, IVodTokenDTO} from '@/entity/media-page-list'
 
 // 机构查询媒资信息
 export async function getMediaPageList(

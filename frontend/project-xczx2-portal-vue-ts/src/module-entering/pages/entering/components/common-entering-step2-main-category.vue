@@ -11,7 +11,7 @@
 
 
 <script lang="ts">
-import {Component, Vue, PropSync} from 'vue-property-decorator'
+import {Component, PropSync, Vue} from 'vue-property-decorator'
 import {category} from '@/api/courses'
 import {ICourseCategory} from '@/entity/course-add-base'
 

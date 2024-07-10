@@ -11,9 +11,9 @@
           </el-col>
           <el-col :span="9">
             <el-button
-                type="primary"
                 :disabled="isSending"
                 class="verify-button"
+                type="primary"
                 @click="smsMsg"
             >{{ buttonTips }}
             </el-button>
@@ -28,10 +28,10 @@
       </el-form-item>
       <el-form-item prop="signAgreement">
         <el-checkbox v-model="form.signAgreement">同意协议并注册</el-checkbox>
-        <a href="/doc/学成网注册协议.docx" download>《学成网注册协议》</a>
+        <a download href="/doc/学成网注册协议.docx">《学成网注册协议》</a>
       </el-form-item>
       <el-form-item>
-        <el-button :loading="loading" type="primary" style="width:100%;" @click="handleRegister">注册</el-button>
+        <el-button :loading="loading" style="width:100%;" type="primary" @click="handleRegister">注册</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -61,6 +61,33 @@ export default class RegisterForm extends Vue {
     signAgreement: false
   }
   // 验证详情
+
+  // computed
+  get buttonTips() {
+    if (!this.isSending) {
+      return '获取验证码'
+    }
+    return `${this.sendCount}s`
+  }
+
+  /**
+   * 用户注册
+   */
+  public async handleRegister() {
+    let form: ElForm = this.$refs['form'] as ElForm
+    form.validate(async (isValid: boolean) => {
+      if (isValid) {
+        this.loading = true
+        await register(this.form)
+
+        this.$emit('changeState', false)
+        this.loading = false
+      } else {
+        return false
+      }
+    })
+  }
+
   // 手机号正则，参考：http://caibaojian.com/phone-regexp.html
   private validatePhone = (rule: any, value: any, callback: any) => {
     if (!/^1[0-9]{10}$/.test(value)) {
@@ -69,6 +96,7 @@ export default class RegisterForm extends Vue {
       callback()
     }
   }
+
   // TODO: 密码其他校验
   private validatePassword: any = (rule, value, callback) => {
     if (value === '') {
@@ -82,6 +110,8 @@ export default class RegisterForm extends Vue {
       callback()
     }
   }
+  // 表单验证
+
   private validateConfirmPwd: any = (rule, value, callback) => {
     if (value === '') {
       callback(new Error('请再次输入密码'))
@@ -91,6 +121,7 @@ export default class RegisterForm extends Vue {
       callback()
     }
   }
+
   private validateSignAgreement: any = (rule, value, callback) => {
     if (!value) {
       callback(new Error('请阅读并同意协议'))
@@ -98,7 +129,7 @@ export default class RegisterForm extends Vue {
       callback()
     }
   }
-  // 表单验证
+
   // TODO: 增加rules校验
   private rules: any = {
     phone: [
@@ -123,14 +154,6 @@ export default class RegisterForm extends Vue {
     ]
   }
 
-  // computed
-  get buttonTips() {
-    if (!this.isSending) {
-      return '获取验证码'
-    }
-    return `${this.sendCount}s`
-  }
-
   /**
    * 发送短信验证码
    */
@@ -152,24 +175,6 @@ export default class RegisterForm extends Vue {
           this.isSending = false
         }
       }, 1000)
-    })
-  }
-
-  /**
-   * 用户注册
-   */
-  public async handleRegister() {
-    let form: ElForm = this.$refs['form'] as ElForm
-    form.validate(async (isValid: boolean) => {
-      if (isValid) {
-        this.loading = true
-        await register(this.form)
-
-        this.$emit('changeState', false)
-        this.loading = false
-      } else {
-        return false
-      }
     })
   }
 }

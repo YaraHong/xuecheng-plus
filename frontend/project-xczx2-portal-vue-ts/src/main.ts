@@ -4,20 +4,18 @@ import router from '@/router'
 import store from '@/store'
 import filters from '@/filter'
 import {SystemModule} from '@/store/modules/system'
-
-Vue.config.productionTip = false
-
 // ElementUI
 import ElementUI from 'element-ui'
 import '@/scss/element-ui/index.scss'
-
-Vue.use(ElementUI)
-
 // 注册模块
 import Portal from '@/module-portal'
 import Organization from '@/module-organization'
 import Personal from '@/module-personal'
 import Entering from './module-entering'
+
+Vue.config.productionTip = false
+
+Vue.use(ElementUI)
 
 Portal.install(router)
 Organization.install(router)

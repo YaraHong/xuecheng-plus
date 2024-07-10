@@ -3,8 +3,8 @@
     <el-pagination
         :background="background"
         :current-page.sync="currentPage"
-        :page-size.sync="pageSize"
         :layout="layout"
+        :page-size.sync="pageSize"
         :page-sizes="pageSizes"
         :total="total"
         v-bind="$attrs"

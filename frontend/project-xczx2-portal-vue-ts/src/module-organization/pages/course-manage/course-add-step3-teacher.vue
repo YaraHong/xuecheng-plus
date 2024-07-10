@@ -1,27 +1,27 @@
 <template>
   <div class="step-body">
     <div class="banner">
-      <el-button type="primary" size="medium" class="btn-add el-button" @click="handleAdd">+添加教师</el-button>
+      <el-button class="btn-add el-button" size="medium" type="primary" @click="handleAdd">+添加教师</el-button>
     </div>
 
     <!-- 数据列表 -->
     <el-table
-        class="dataList"
         v-loading="listLoading"
         :data="listData"
-        border
-        style="width: 100%"
         :header-cell-style="{textAlign: 'center'}"
+        border
+        class="dataList"
+        style="width: 100%"
     >
-      <el-table-column prop="teacherName" label="教师名称" align="center" width="100"></el-table-column>
-      <el-table-column prop="position" label="教师职位" align="center" width="100"></el-table-column>
-      <el-table-column prop="introduction" label="教师简介" width="600"></el-table-column>
-      <el-table-column label="教师照片" align="center" width="100">
+      <el-table-column align="center" label="教师名称" prop="teacherName" width="100"></el-table-column>
+      <el-table-column align="center" label="教师职位" prop="position" width="100"></el-table-column>
+      <el-table-column label="教师简介" prop="introduction" width="600"></el-table-column>
+      <el-table-column align="center" label="教师照片" width="100">
         <template slot-scope="scope">
-          <img :src="scope.row.photograph" :alt="scope.row.teacherName" width="90"/>
+          <img :alt="scope.row.teacherName" :src="scope.row.photograph" width="90"/>
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center">
+      <el-table-column align="center" label="操作">
         <template slot-scope="scope">
           <el-button type="text" @click="handleEdit(scope.row)">编辑</el-button>
           <el-button type="text" @click="handleDelete(scope.row)">删除</el-button>
@@ -41,10 +41,9 @@
 
 
 <script lang="ts">
-import {Component, Prop, PropSync, Watch, Vue} from 'vue-property-decorator'
+import {Component, Prop} from 'vue-property-decorator'
 import {mixins} from 'vue-class-component'
-import {IKVData} from '@/api/types'
-import {getTeachers, deleteTeacher} from '@/api/courses'
+import {deleteTeacher, getTeachers} from '@/api/courses'
 import {ICourseTeacherList} from '@/entity/course-add-teacher'
 import SaveTeacherDialog from './course-add-step3-teacher-dialog.vue'
 import MixinTools from '@/utils/mixins.vue'

@@ -1,8 +1,5 @@
 import {createAPI} from '@/utils/request'
-import {
-    ICourseCommentPageVO,
-    ICommentReplyDTO
-} from '@/entity/course-comment-page-list'
+import {ICommentReplyDTO, ICourseCommentPageVO} from '@/entity/course-comment-page-list'
 
 // 课程的评论列表
 export async function getCourseCommentPageList(

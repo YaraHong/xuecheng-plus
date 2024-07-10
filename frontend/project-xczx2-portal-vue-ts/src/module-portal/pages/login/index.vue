@@ -5,7 +5,7 @@
     </a>
     <div class="register-body container text-center">
       <div class="signIco">
-        <img src="@/assets/img/logoIco.png" alt="logo" width="180"/>
+        <img alt="logo" src="@/assets/img/logoIco.png" width="180"/>
       </div>
       <div class="signTit cl">
         <span class="sign" v-bind:class="{ activ: !isRegnew }" @click="onTabSelect('sign')">登录</span>
@@ -31,8 +31,7 @@
 </template>
 
 <script lang="ts">
-import {Component, Prop, Vue} from 'vue-property-decorator'
-import {Form as ElForm, Input} from 'element-ui'
+import {Component, Vue} from 'vue-property-decorator'
 import LoginForm from './components/login-form.vue'
 import RegisterForm from './components/register-form.vue'
 

@@ -2,7 +2,7 @@
   <div class="workspace">
     <div class="banner">
       <span class="primary-title">机构成员</span>
-      <el-button type="primary" size="medium" class="btn-add el-button" @click="handleShowDlg">+绑定用户</el-button>
+      <el-button class="btn-add el-button" size="medium" type="primary" @click="handleShowDlg">+绑定用户</el-button>
     </div>
 
     <!-- 搜索栏 -->
@@ -25,20 +25,20 @@
 
     <!-- 数据列表 -->
     <el-table
-        class="dataList"
         v-loading="listLoading"
         :data="listData.items"
-        border
-        style="width: 100%"
         :header-cell-style="{textAlign: 'center'}"
+        border
+        class="dataList"
+        style="width: 100%"
     >
-      <el-table-column prop="name" label="成员" width="100" align="center"></el-table-column>
-      <el-table-column prop="phone" label="手机" width="150" align="center"></el-table-column>
-      <el-table-column prop="intro" label="成员介绍"></el-table-column>
+      <el-table-column align="center" label="成员" prop="name" width="100"></el-table-column>
+      <el-table-column align="center" label="手机" prop="phone" width="150"></el-table-column>
+      <el-table-column label="成员介绍" prop="intro"></el-table-column>
       <!-- <el-table-column prop="createDate" label="关联课程数" align="center" width="100"></el-table-column> -->
-      <el-table-column label="操作" align="center" width="100">
+      <el-table-column align="center" label="操作" width="100">
         <template slot-scope="scope">
-          <el-button type="text" size="mini" @click="handleUnbindUser(scope.$index, scope.row)">解绑</el-button>
+          <el-button size="mini" type="text" @click="handleUnbindUser(scope.$index, scope.row)">解绑</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -47,9 +47,9 @@
     <div class="dataList-pagination">
       <Pagination
           v-show="listData.counts > 0"
-          :total="listData.counts"
-          :page.sync="listQuery.pageNo"
           :limit.sync="listQuery.pageSize"
+          :page.sync="listQuery.pageNo"
+          :total="listData.counts"
           @pagination="getList"
       />
     </div>
@@ -61,19 +61,13 @@
 
 
 <script lang="ts">
-import {Component, Prop, Watch, Vue} from 'vue-property-decorator'
+import {Component, Watch} from 'vue-property-decorator'
 import {mixins} from 'vue-class-component'
 import Pagination from '@/components/pagination/index.vue'
 import BindDialog from './bind-dialog.vue'
-import {
-  memberPageList,
-  findUserByPhone,
-  bindUser,
-  unbindUser
-} from '@/api/learning-member' // api interface 课程
+import {memberPageList, unbindUser} from '@/api/learning-member' // api interface 课程
 import {ILearningMemberPageList, IMemberDTO} from '@/entity/learning-member'
 import MixinTools from '@/utils/mixins.vue'
-import {ElForm} from 'element-ui/types/form'
 
 @Component({
   name: 'MemberList',
@@ -98,16 +92,16 @@ export default class extends mixins(MixinTools) {
   // api post body
   private listQueryData = {}
 
+  // 生命周期 life
+  created() {
+    this.getList()
+  }
+
   // 业务函数
   private async getList() {
     this.listLoading = true
     this.listData = await memberPageList(this.listQuery)
     this.listLoading = false
-  }
-
-  // 生命周期 life
-  created() {
-    this.getList()
   }
 
   // 事件 handle

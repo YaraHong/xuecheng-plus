@@ -1,14 +1,14 @@
 <template>
-  <el-dialog :title="title" width="500px" :visible.sync="syncDialogVisible">
+  <el-dialog :title="title" :visible.sync="syncDialogVisible" width="500px">
     <div class="types">
       <el-select
           v-model="selValue"
+          :loading="loading"
+          :remote-method="remoteQuery"
           filterable
+          placeholder="请输入关键词"
           remote
           reserve-keyword
-          placeholder="请输入关键词"
-          :remote-method="remoteQuery"
-          :loading="loading"
       >
         <!-- 视频 文档 -->
         <template v-if="options.items !== undefined && (type === 'video' || type === 'doc')">
@@ -61,12 +61,10 @@
 </style>
 
 <script lang="ts">
-import {Component, Prop, PropSync, Watch, Vue} from 'vue-property-decorator'
+import {Component, Prop, PropSync, Vue} from 'vue-property-decorator'
 import CourseAddTypeItem from './course-addtype-item.vue'
-import {IMediaPageList, IMediaBaseDTO} from '@/entity/media-page-list'
 import {getMediaPageList} from '@/api/media'
 import {getWorkPageList} from '@/api/works'
-import {IWorkPageList, IWorkDTO} from '@/entity/work-page-list'
 
 @Component({
   name: 'OutlineSelectDialog',

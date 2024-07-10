@@ -1,5 +1,5 @@
 import {createAPI} from '@/utils/request'
-import {IWorkPageList, IWorkDTO, IWorkVO} from '@/entity/work-page-list'
+import {IWorkDTO, IWorkPageList, IWorkVO} from '@/entity/work-page-list'
 
 export const defaultWork: IWorkVO = {
     question: '',

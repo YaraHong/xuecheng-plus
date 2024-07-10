@@ -1,5 +1,5 @@
 <template>
-  <el-row type="flex" justify="space-between">
+  <el-row justify="space-between" type="flex">
     <el-col :span="10">
       <el-form-item prop="phone">
         <el-input v-model="form.phone" placeholder="请填写手机号码"></el-input>
@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts">
-import {Component, Vue, PropSync} from 'vue-property-decorator'
+import {Component, PropSync, Vue} from 'vue-property-decorator'
 import {Form as ElForm} from 'element-ui'
 import {smsMsg} from '@/api/common'
 

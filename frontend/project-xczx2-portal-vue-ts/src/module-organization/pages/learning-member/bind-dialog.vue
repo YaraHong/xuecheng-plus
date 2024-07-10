@@ -1,10 +1,10 @@
 <template>
-  <el-dialog title="绑定用户" :visible.sync="syncDialogVisible">
+  <el-dialog :visible.sync="syncDialogVisible" title="绑定用户">
     <div class="types">
-      <el-form label-width="100px" v-loading="loading">
+      <el-form v-loading="loading" label-width="100px">
         <!-- 查询手机号 -->
         <el-form-item label="成员手机号：">
-          <el-input v-model="phone" @change="remoteQuery" placeholder="输入手机号 回车确认"></el-input>
+          <el-input v-model="phone" placeholder="输入手机号 回车确认" @change="remoteQuery"></el-input>
         </el-form-item>
         <!-- 用户信息 -->
         <el-form-item label="成员昵称：">
@@ -14,13 +14,13 @@
           <el-input v-model="member.phone" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="成员介绍：">
-          <el-input v-model="member.intro" type="textarea" :rows="5" :disabled="true"></el-input>
+          <el-input v-model="member.intro" :disabled="true" :rows="5" type="textarea"></el-input>
         </el-form-item>
       </el-form>
     </div>
     <div slot="footer">
       <el-button @click="handleCancel">取消</el-button>
-      <el-button type="primary" @click="handleSubmit" :loading="loading">提交</el-button>
+      <el-button :loading="loading" type="primary" @click="handleSubmit">提交</el-button>
     </div>
   </el-dialog>
 </template>
@@ -32,9 +32,9 @@
 </style>
 
 <script lang="ts">
-import {Component, Prop, PropSync, Watch, Vue} from 'vue-property-decorator'
+import {Component, PropSync, Vue} from 'vue-property-decorator'
 import {IMemberDTO} from '@/entity/learning-member'
-import {findUserByPhone, bindUser} from '@/api/learning-member'
+import {bindUser, findUserByPhone} from '@/api/learning-member'
 
 @Component({
   name: 'MemberBindDialog',

@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import {Component, Vue, Prop} from 'vue-property-decorator'
+import {Component, Prop, Vue} from 'vue-property-decorator'
 import {Form as ElForm} from 'element-ui'
 import {changePwd} from '@/api/learning-user'
 
@@ -28,34 +28,8 @@ export default class ChangePasswordStep2SettingPassword extends Vue {
     password: '',
     confirmPwd: ''
   }
+
   // 验证详情
-  // TODO: 密码其他校验
-  private validatePassword: any = (rule, value, callback) => {
-    if (value === '') {
-      callback(new Error('请输入密码'))
-    } else {
-      if (this.form.confirmPwd !== '') {
-        let form = this.$refs['form'] as ElForm
-        form.validateField('confirmPwd', () => {
-        })
-      }
-      callback()
-    }
-  }
-  private validateConfirmPwd: any = (rule, value, callback) => {
-    if (value === '') {
-      callback(new Error('请再次输入密码'))
-    } else if (value !== this.form.password) {
-      callback(new Error('两次输入密码不一致!'))
-    } else {
-      callback()
-    }
-  }
-  // 表单验证
-  private rules: any = {
-    password: [{validator: this.validatePassword, trigger: 'change'}],
-    confirmPwd: [{validator: this.validateConfirmPwd, trigger: 'change'}]
-  }
 
   /**
    * 新密码提交
@@ -73,6 +47,36 @@ export default class ChangePasswordStep2SettingPassword extends Vue {
         }
       })
     })
+  }
+
+  // TODO: 密码其他校验
+  private validatePassword: any = (rule, value, callback) => {
+    if (value === '') {
+      callback(new Error('请输入密码'))
+    } else {
+      if (this.form.confirmPwd !== '') {
+        let form = this.$refs['form'] as ElForm
+        form.validateField('confirmPwd', () => {
+        })
+      }
+      callback()
+    }
+  }
+
+  private validateConfirmPwd: any = (rule, value, callback) => {
+    if (value === '') {
+      callback(new Error('请再次输入密码'))
+    } else if (value !== this.form.password) {
+      callback(new Error('两次输入密码不一致!'))
+    } else {
+      callback()
+    }
+  }
+
+  // 表单验证
+  private rules: any = {
+    password: [{validator: this.validatePassword, trigger: 'change'}],
+    confirmPwd: [{validator: this.validateConfirmPwd, trigger: 'change'}]
   }
 }
 </script>

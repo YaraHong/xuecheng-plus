@@ -8,38 +8,38 @@
       <!-- 搜索栏 -->
       <div class="searcher">
         <el-input
+            v-model="listQueryData.courseName"
             class="el-input"
             placeholder="直播列表"
             suffix-icon="el-icon-search"
-            v-model="listQueryData.courseName"
         />
       </div>
 
       <!-- 数据列表 -->
       <el-table
-          class="dataList"
           v-loading="listLoading"
           :data="listResult.items"
-          border
-          style="width: 100%"
           :header-cell-style="{ textAlign: 'center' }"
+          border
+          class="dataList"
+          style="width: 100%"
       >
-        <el-table-column prop="courseName" label="课程信息" width="400" align="center"></el-table-column>
+        <el-table-column align="center" label="课程信息" prop="courseName" width="400"></el-table-column>
 
-        <el-table-column prop="teachplanName" label="课程大纲" align="center"></el-table-column>
+        <el-table-column align="center" label="课程大纲" prop="teachplanName"></el-table-column>
 
-        <el-table-column label="直播时间" align="center">
+        <el-table-column align="center" label="直播时间">
           <template slot-scope="scope">{{ scope.row.liveStart | dateTimeFormat }}</template>
         </el-table-column>
 
-        <el-table-column label="类型" align="center">
+        <el-table-column align="center" label="类型">
           <template slot-scope="scope">{{ scope.row.isPreview === '1' ? '免费' : '收费' }}</template>
         </el-table-column>
 
-        <el-table-column label="推流地址" align="center">
+        <el-table-column align="center" label="推流地址">
           <template slot-scope="scope">
             <span v-if="scope.row.pushUrl">{{ scope.row.pushUrl }}</span>
-            <el-button v-else type="text" size="mini" @click="handleGetPushUrl(scope.row)">获取推流地址</el-button>
+            <el-button v-else size="mini" type="text" @click="handleGetPushUrl(scope.row)">获取推流地址</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -48,9 +48,9 @@
       <div class="dataList-pagination">
         <Pagination
             v-show="listResult.counts > 0"
-            :total="listResult.counts"
-            :page.sync="listQuery.pageNo"
             :limit.sync="listQuery.pageSize"
+            :page.sync="listQuery.pageNo"
+            :total="listResult.counts"
             @pagination="getLivePageList"
         />
       </div>
@@ -61,11 +61,7 @@
 <script lang="ts">
 import {Component, Vue, Watch} from 'vue-property-decorator'
 import Pagination from '@/components/pagination/index.vue'
-import {
-  ILivePageList,
-  ILiveCourseDTO,
-  IPushUrlDTO
-} from '@/entity/live-page-list'
+import {ILiveCourseDTO, ILivePageList, IPushUrlDTO} from '@/entity/live-page-list'
 import {getLivePageList, getPushUrl} from '@/api/live'
 
 @Component({

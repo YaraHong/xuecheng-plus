@@ -8,19 +8,19 @@
     </el-col>
     <el-col :span="12">
       <el-date-picker
-          style="width: 100%;"
           v-model="syncedTerm"
+          :disabled="type === 0 ? true : false"
+          placeholder="选择日期"
+          style="width: 100%;"
           type="date"
           value-format="yyyy-MM-dd"
-          placeholder="选择日期"
-          :disabled="type === 0 ? true : false"
       ></el-date-picker>
     </el-col>
   </el-row>
 </template>
 
 <script lang="ts">
-import {Component, Vue, PropSync} from 'vue-property-decorator'
+import {Component, PropSync, Vue} from 'vue-property-decorator'
 
 @Component
 export default class CommonEnteringStep2Term extends Vue {

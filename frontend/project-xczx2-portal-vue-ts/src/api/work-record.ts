@@ -1,9 +1,5 @@
 import {createAPI} from '@/utils/request'
-import {
-    IWorkRecordPageVO,
-    IWorkRecOverallDTO,
-    IWorkRecordDTO
-} from '@/entity/work-record-page-list'
+import {IWorkRecordDTO, IWorkRecordPageVO, IWorkRecOverallDTO} from '@/entity/work-record-page-list'
 
 export const defaultWorkRecord: IWorkRecordDTO = {
     coursePubId: 0,

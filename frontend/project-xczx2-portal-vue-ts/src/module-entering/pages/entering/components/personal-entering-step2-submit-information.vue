@@ -63,34 +63,34 @@
       </el-form-item>
       <el-form-item label="个人简介：" prop="intro">
         <el-input
-            type="textarea"
-            :rows="10"
             v-model="form.intro"
-            placeholder="例：传智播客，目前已经成为拥有2000多名员工的教育集团；从成立最初的单一Java学科，到现在已包括JavaEE、Python+人工智能、前端与移动开发、UI/UE设计、大数据、Go语言与区块链等14门学科培训；从屈指可数的几间教室，发展成为分布于北京、上海、广州、深圳、武汉、郑州、西安、长沙、济南、重庆、南京、杭州、成都、石家庄、合肥、太原、厦门、沈阳等18所城市直营中心的规模。"
+            :rows="10"
             maxlength="500"
+            placeholder="例：传智播客，目前已经成为拥有2000多名员工的教育集团；从成立最初的单一Java学科，到现在已包括JavaEE、Python+人工智能、前端与移动开发、UI/UE设计、大数据、Go语言与区块链等14门学科培训；从屈指可数的几间教室，发展成为分布于北京、上海、广州、深圳、武汉、郑州、西安、长沙、济南、重庆、南京、杭州、成都、石家庄、合肥、太原、厦门、沈阳等18所城市直营中心的规模。"
             show-word-limit
+            type="textarea"
         ></el-input>
       </el-form-item>
       <!-- TODO: 等待后端提供开始时间、结束时间字段，并且支持多条记录 -->
       <el-form-item label="教学工作经历：" prop="workExperience">
         <el-input
-            type="textarea"
-            :rows="10"
             v-model="form.workExperience"
-            placeholder="请填写教学工作经历"
+            :rows="10"
             maxlength="500"
+            placeholder="请填写教学工作经历"
             show-word-limit
+            type="textarea"
         ></el-input>
       </el-form-item>
       <!-- TODO: 等待后端提供开始时间、结束时间字段，并且支持多条记录 -->
       <el-form-item label="教学工作成果：" prop="workResults">
         <el-input
-            type="textarea"
-            :rows="10"
             v-model="form.workResults"
-            placeholder="教学工作成果"
+            :rows="10"
             maxlength="500"
+            placeholder="教学工作成果"
             show-word-limit
+            type="textarea"
         ></el-input>
       </el-form-item>
       <el-form-item label="手机：">
@@ -99,7 +99,7 @@
       <el-form-item label="承诺书：" prop="promiseLetter">
         <common-entering-step2-upload-image :imageUrl.sync="form.promiseLetter">
           请填写完毕本页面的信息后，点击下载
-          <a href="/doc/承诺书模板.docx" download>承诺书模板</a>，
+          <a download href="/doc/承诺书模板.docx">承诺书模板</a>，
           <br/>上传加盖公章的扫描件
         </common-entering-step2-upload-image>
       </el-form-item>
@@ -140,6 +140,34 @@ export default class PersonalEnteringStep2Submitform extends Vue {
   private certIndex: string = '0'
 
   // TODO: 资格证书和证书编号一一对应
+
+  /**
+   * 提交资料
+   */
+  public async savePersonalOrg(): Promise<boolean> {
+    // TODO: 这种嵌套方式不好，不优雅
+    return new Promise((resolve, reject) => {
+      let form1 = this.$refs['form1'] as ElForm
+      form1.validate((valid: boolean) => {
+        if (!valid) {
+          reject()
+          return
+        }
+
+        let form2 = this.$refs['form2'] as ElForm
+        form2.validate(async (valid: boolean) => {
+          if (!valid) {
+            reject()
+            return
+          }
+
+          await savePersonalOrg(this.form)
+          resolve()
+        })
+      })
+    })
+  }
+
   // 资格证书
   private validateCertImg = (rule: any, value: any, callback: any) => {
     if (!value && !this.form.eduCertImg && !this.form.majorCertImg) {
@@ -148,6 +176,7 @@ export default class PersonalEnteringStep2Submitform extends Vue {
       callback()
     }
   }
+
   // 证书编号
   private validateCertNo = (rule: any, value: any, callback: any) => {
     if (!value && !this.form.eduCertNo && !this.form.majorCertNo) {
@@ -156,6 +185,7 @@ export default class PersonalEnteringStep2Submitform extends Vue {
       callback()
     }
   }
+
   // 手机号正则，参考：http://caibaojian.com/phone-regexp.html
   private validatePhone = (rule: any, value: any, callback: any) => {
     if (!/^1[0-9]{10}$/.test(value)) {
@@ -164,6 +194,7 @@ export default class PersonalEnteringStep2Submitform extends Vue {
       callback()
     }
   }
+
   // TODO: 增加rules校验
   private rules: any = {
     // 身份证明
@@ -242,33 +273,6 @@ export default class PersonalEnteringStep2Submitform extends Vue {
         trigger: 'change'
       }
     ]
-  }
-
-  /**
-   * 提交资料
-   */
-  public async savePersonalOrg(): Promise<boolean> {
-    // TODO: 这种嵌套方式不好，不优雅
-    return new Promise((resolve, reject) => {
-      let form1 = this.$refs['form1'] as ElForm
-      form1.validate((valid: boolean) => {
-        if (!valid) {
-          reject()
-          return
-        }
-
-        let form2 = this.$refs['form2'] as ElForm
-        form2.validate(async (valid: boolean) => {
-          if (!valid) {
-            reject()
-            return
-          }
-
-          await savePersonalOrg(this.form)
-          resolve()
-        })
-      })
-    })
   }
 }
 </script>

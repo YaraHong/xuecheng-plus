@@ -2,7 +2,7 @@
   <div class="only-setting">
     <div class="title">个人设置</div>
     <div class="portrait">
-      <img src="../../../assets/img/myImg.jpg" alt/>
+      <img alt src="../../../assets/img/myImg.jpg"/>
       <p>{{ userInfo.name }}</p>
       <p>{{ userInfo.phone | phoneFormat }}</p>
     </div>
@@ -17,19 +17,17 @@
           </p>
           <p>您可以享受手机相关的安全及提醒服务</p>
         </div>
-        <router-link to="/personal/change-password" class="submit">修改密码</router-link>
+        <router-link class="submit" to="/personal/change-password">修改密码</router-link>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import {Component, Prop, Watch, Vue} from 'vue-property-decorator'
+import {Component} from 'vue-property-decorator'
 import {mixins} from 'vue-class-component'
 import MixinTools from '@/utils/mixins.vue'
 import Pagination from '@/components/pagination/index.vue'
-
-import {profile} from '@/api/learning-user'
 import {IUserInfo} from '@/entity/user-login'
 import {UserModule} from '@/store/modules/user'
 

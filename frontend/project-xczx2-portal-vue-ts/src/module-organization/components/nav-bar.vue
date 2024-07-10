@@ -1,6 +1,6 @@
 <template>
   <div class="nav-bar">
-    <el-tabs class="el-tabs" v-model="activeName" type="border-card" @tab-click="handleClick">
+    <el-tabs v-model="activeName" class="el-tabs" type="border-card" @tab-click="handleClick">
       <el-tab-pane label="网站首页">
         <a href="http://www.51xuecheng.cn">学成在线首页</a>
 
@@ -73,7 +73,7 @@
 </style>
 
 <script lang="ts">
-import {Component, Prop, Vue} from 'vue-property-decorator'
+import {Component, Vue} from 'vue-property-decorator'
 
 @Component({
   name: 'NavBar'

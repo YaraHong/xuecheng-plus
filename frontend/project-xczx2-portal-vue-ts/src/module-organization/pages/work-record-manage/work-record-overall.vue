@@ -1,7 +1,7 @@
 <template>
   <div class="course-list portal-content">
     <div class="workspace">
-      <el-page-header @back="goToWorkRecordListView" content="批阅详情"></el-page-header>
+      <el-page-header content="批阅详情" @back="goToWorkRecordListView"></el-page-header>
 
       <!-- TODO: 样式调整 -->
       <!-- <div class="banner">
@@ -31,30 +31,30 @@
             :name="index.toString()"
         >
           <el-table
-              class="dataList"
               :data="workRecordList"
-              border
-              style="width: 100%"
               :header-cell-style="{ textAlign: 'center' }"
+              border
+              class="dataList"
+              style="width: 100%"
           >
-            <el-table-column prop="username" label="用户名" align="center"></el-table-column>
+            <el-table-column align="center" label="用户名" prop="username"></el-table-column>
 
-            <el-table-column label="提交时间" align="center">
+            <el-table-column align="center" label="提交时间">
               <template slot-scope="scope">{{ scope.row.createDate | dateTimeFormat }}</template>
             </el-table-column>
 
-            <el-table-column prop="correctComment" label="评语" align="center"></el-table-column>
+            <el-table-column align="center" label="评语" prop="correctComment"></el-table-column>
 
-            <el-table-column label="状态" align="center">
+            <el-table-column align="center" label="状态">
               <template slot-scope="scope">{{ getCourseWorkStatus(scope.row.status) }}</template>
             </el-table-column>
 
-            <el-table-column label="操作" align="center">
+            <el-table-column align="center" label="操作">
               <template slot-scope="scope">
                 <el-button
-                    type="text"
-                    size="mini"
                     :disabled="scope.row.status !== '306002'"
+                    size="mini"
+                    type="text"
                     @click="handleOpenWorkRecordDialog(scope.row)"
                 >批阅
                 </el-button>
@@ -67,9 +67,9 @@
 
     <!-- 上传资料对话框 -->
     <work-record-correction-dialog
+        :answer="answer"
         :dialogVisible.sync="dialogVisible"
         :question="question"
-        :answer="answer"
         :workRecord="workRecord"
         @refreshList="getWorkRecordReadOverAll"
     ></work-record-correction-dialog>
@@ -77,17 +77,13 @@
 </template>
 
 <script lang="ts">
-import {Component, Vue, Watch} from 'vue-property-decorator'
+import {Component, Vue} from 'vue-property-decorator'
 import Pagination from '@/components/pagination/index.vue'
 import WorkRecordCorrectionDialog from './components/work-record-correction-dialog.vue'
 import {IKVData} from '@/api/types'
 import {COURSE_WORK_STATUS} from '@/api/constants'
-import {
-  IWorkRecOverallDTO,
-  IWorkRecGroupDTO,
-  IWorkRecordDTO
-} from '@/entity/work-record-page-list'
-import {getWorkRecordReadOverAll, defaultWorkRecord} from '@/api/work-record'
+import {IWorkRecordDTO, IWorkRecOverallDTO} from '@/entity/work-record-page-list'
+import {defaultWorkRecord, getWorkRecordReadOverAll} from '@/api/work-record'
 
 @Component({
   components: {

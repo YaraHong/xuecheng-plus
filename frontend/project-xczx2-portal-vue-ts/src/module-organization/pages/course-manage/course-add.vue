@@ -45,7 +45,7 @@
       <!-- 按钮 上一步 下一步 完成 -->
       <div class="footer">
         <!-- 上一步 -->
-        <el-button @click="handlePrev" v-if="stepsActive > 0">上一步</el-button>
+        <el-button v-if="stepsActive > 0" @click="handlePrev">上一步</el-button>
         <!-- 下一步 -->
         <el-button type="primary" @click="handleNext">
           <template v-if="stepsActive==0 || stepsActive==1">保存并进行下一步</template>
@@ -60,7 +60,7 @@
 
 
 <script lang="ts">
-import {Component, Prop, Watch, Vue} from 'vue-property-decorator'
+import {Component, Vue} from 'vue-property-decorator'
 import CourseAddStep1BaseInfo from './course-add-step1-base.vue'
 import CourseAddStep2Outline from './course-add-step2-outline.vue'
 import CourseAddStep3Teacher from './course-add-step3-teacher.vue'

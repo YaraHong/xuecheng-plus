@@ -18,13 +18,13 @@
           </div>
           <div class="item">
             <li class="active">
-              <router-link to="/personal/my-course" class="glyphicon glyphicon-tower">
+              <router-link class="glyphicon glyphicon-tower" to="/personal/my-course">
                 我的课程
                 <i class="pull-right">></i>
               </router-link>
             </li>
             <li>
-              <router-link to="/personal/my-order" class="glyphicon glyphicon-list-alt">
+              <router-link class="glyphicon glyphicon-list-alt" to="/personal/my-order">
                 我的订单
                 <i class="pull-right">></i>
               </router-link>
@@ -42,14 +42,14 @@
               </a>
             </li>-->
             <li>
-              <router-link to="/personal/setting" class="glyphicon glyphicon-cog">
+              <router-link class="glyphicon glyphicon-cog" to="/personal/setting">
                 个人设置
                 <i class="pull-right">></i>
               </router-link>
             </li>
             <li>
               <!-- TODO: 退出登录并跳转首页 -->
-              <router-link to="/" class="glyphicon glyphicon-log-out">
+              <router-link class="glyphicon glyphicon-log-out" to="/">
                 退出
                 <i class="pull-right">></i>
               </router-link>

@@ -26,19 +26,19 @@
         <div class="body">
           <!-- step 1 验证身份 -->
           <change-password-step1-verify-phone
-              ref="step1"
               v-show="stepsActive === 0"
+              ref="step1"
               @formInfo="handleFormInfo"
           />
           <!-- step 2 设置密码 -->
           <change-password-step2-setting-password
-              ref="step2"
               v-show="stepsActive === 1"
+              ref="step2"
               :phone="phone"
               :verifyToken="verifyToken"
           />
           <!-- step 3 完成 -->
-          <change-password-step3-finish ref="step3" v-show="stepsActive === 2"/>
+          <change-password-step3-finish v-show="stepsActive === 2" ref="step3"/>
         </div>
         <div class="footer">
           <!-- 上一步 -->

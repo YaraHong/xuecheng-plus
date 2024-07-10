@@ -19,16 +19,16 @@
       <div class="cont">
         <!-- 数据列表 -->
         <template v-if="listData.items">
-          <div class="col-lg-6" :key="index" v-for="(item, index) in listData.items">
+          <div v-for="(item, index) in listData.items" :key="index" class="col-lg-6">
             <div class="item">
               <div class="imgIco">
-                <img src="../../../assets/img/timg.png" width="60" height="28" alt/>
+                <img alt height="28" src="../../../assets/img/timg.png" width="60"/>
               </div>
               <div class="title">
                 <span class="lab">继续学习</span>
                 {{ item.coursePubName }}
               </div>
-              <div class="about" v-if="item.teachplanId">
+              <div v-if="item.teachplanId" class="about">
                 <span class="lab">正在学习</span>
                 {{ item.teachplanName }}
               </div>
@@ -36,20 +36,20 @@
               <div class="butItem text-center">
                 <a
                     v-if="!item.teachplanId"
-                    target="_blank"
-                    class="golearing"
                     :href="`${portal_url}/pages/learing-course-video.html?coursePubId=${item.coursePubId}`"
+                    class="golearing"
+                    target="_blank"
                 >开启课程</a>
                 <a
                     v-else
-                    target="_blank"
-                    class="golearing"
                     :href="`${portal_url}/pages/learing-course-video.html?coursePubId=${item.coursePubId}&teachplanId=${item.teachplanId}`"
+                    class="golearing"
+                    target="_blank"
                 >继续学习</a>
                 <a
-                    target="_blank"
-                    class="classcom"
                     :href="`${portal_url}/pages/learing-article-comment.html?coursePubId=${item.coursePubId}`"
+                    class="classcom"
+                    target="_blank"
                 >课程评价</a>
               </div>
             </div>
@@ -63,9 +63,9 @@
         <div class="dataList-pagination">
           <Pagination
               v-show="listData.counts > 0"
-              :total="listData.counts"
-              :page.sync="listQuery.pageNo"
               :limit.sync="listQuery.pageSize"
+              :page.sync="listQuery.pageNo"
+              :total="listData.counts"
               @pagination="getList"
           />
         </div>
@@ -98,7 +98,7 @@
 import {Component, Vue, Watch} from 'vue-property-decorator'
 import Pagination from '@/components/pagination/index.vue'
 import {getMyCoursePageList} from '@/api/my-course'
-import {IMyCoursePageList, ICourseRecordDTO} from '@/entity/my-course'
+import {IMyCoursePageList} from '@/entity/my-course'
 
 @Component({
   components: {
@@ -117,6 +117,11 @@ export default class MyCourse extends Vue {
     pageSize: 10
   }
 
+  // 生命周期 life
+  created() {
+    this.getList()
+  }
+
   // 业务函数
   private async getList() {
     this.listLoading = true
@@ -124,12 +129,8 @@ export default class MyCourse extends Vue {
     this.listLoading = false
   }
 
-  // 生命周期 life
-  created() {
-    this.getList()
-  }
-
   // 监控 watch
+
   // 翻页 pageSize
   @Watch('listQuery.pageSize', {immediate: true})
   private watchListQueryPageSize(newVal: number) {

@@ -2,16 +2,16 @@
   <div class="workspace">
     <div class="banner">
       <span class="primary-title">机构资料</span>
-      <span class="btn-edit" v-if="isEdit===false">
-        <el-button type="text" size="mini" @click="isEdit=true" icon="el-icon-edit">修改</el-button>
+      <span v-if="isEdit===false" class="btn-edit">
+        <el-button icon="el-icon-edit" size="mini" type="text" @click="isEdit=true">修改</el-button>
       </span>
       <el-button
           v-if="isEdit"
-          type="primary"
-          size="medium"
-          class="btn-add el-button"
-          @click="handleSave"
           :loading="loading"
+          class="btn-add el-button"
+          size="medium"
+          type="primary"
+          @click="handleSave"
       >保存
       </el-button>
     </div>
@@ -19,8 +19,8 @@
     <!-- 表单 -->
     <div class="form">
       <el-form
-          ref="form"
           v-if="companyData"
+          ref="form"
           :model="companyData"
           :rules="rules"
           label-width="120px"
@@ -51,9 +51,8 @@
 
 
 <script lang="ts">
-import {Component, Prop, Watch, Vue} from 'vue-property-decorator'
+import {Component} from 'vue-property-decorator'
 import {mixins} from 'vue-class-component'
-import {IKVData} from '@/api/types' // 通用 interface
 import {getCompany, updateCompany} from '@/api/teaching-company' // api interface 课程
 import {ITeachingCompany} from '@/entity/teaching-company'
 import {ICourseCategory} from '@/entity/course-add-base'
@@ -73,6 +72,9 @@ export default class extends mixins(MixinTools) {
     children: 'childrenTreeNodes',
     value: 'id',
     label: 'label'
+  }
+  private rules = {
+    name: [{required: true, message: '请输入名称', trigger: 'blur'}]
   }
 
   constructor(props) {
@@ -96,22 +98,18 @@ export default class extends mixins(MixinTools) {
     }
   }
 
-  private rules = {
-    name: [{required: true, message: '请输入名称', trigger: 'blur'}]
-  }
-
   ///////////////////////////
   /// 业务
 
-  private async getDate() {
-    this.companyData = await getCompany()
+  created() {
+    this.getDate()
   }
 
   ///////////////////////////
   /// 生命周期
 
-  created() {
-    this.getDate()
+  private async getDate() {
+    this.companyData = await getCompany()
   }
 
   ///////////////////////////

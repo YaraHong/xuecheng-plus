@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="课程教师" :visible.sync="syncDialogVisible">
+  <el-dialog :visible.sync="syncDialogVisible" title="课程教师">
     <div class="form-dialog">
       <el-form ref="form" :model="teacherData" :rules="rules" label-width="120px">
         <el-form-item label="教师姓名：" prop="teacherName">
@@ -9,7 +9,7 @@
           <el-input v-model="teacherData.position"></el-input>
         </el-form-item>
         <el-form-item label="教师简介：" prop="introduction">
-          <el-input v-model="teacherData.introduction" type="textarea" :rows="3"></el-input>
+          <el-input v-model="teacherData.introduction" :rows="3" type="textarea"></el-input>
         </el-form-item>
         <el-form-item label="教师照片：" prop="photograph">
           <common-entering-step2-upload-image :imageUrl.sync="teacherData.photograph">
@@ -35,7 +35,7 @@
 </style>
 
 <script lang="ts">
-import {Component, Prop, PropSync, Watch, Vue} from 'vue-property-decorator'
+import {Component, Prop, PropSync, Vue} from 'vue-property-decorator'
 import {submitTeacher} from '@/api/courses'
 import {ICourseTeacherList} from '@/entity/course-add-teacher'
 import {ElForm} from 'element-ui/types/form'
@@ -63,17 +63,6 @@ export default class extends Vue {
   //     introduction: ''
   //   }
   // }
-
-  public restForm() {
-    // this.teacherData = {
-    //   teacherName: '',
-    //   position: '',
-    //   introduction: ''
-    // }
-    let form: ElForm = this.$refs['form'] as ElForm
-    form.resetFields()
-  }
-
   // 验证规则
   private rules = {
     teacherName: [{required: true, message: '请输入姓名', trigger: 'blur'}],
@@ -87,6 +76,16 @@ export default class extends Vue {
     // introduction: [
     //   { required: true, message: '请输入教师简介', trigger: 'change' }
     // ]
+  }
+
+  public restForm() {
+    // this.teacherData = {
+    //   teacherName: '',
+    //   position: '',
+    //   introduction: ''
+    // }
+    let form: ElForm = this.$refs['form'] as ElForm
+    form.resetFields()
   }
 
   public validateForm(): Promise<boolean> {

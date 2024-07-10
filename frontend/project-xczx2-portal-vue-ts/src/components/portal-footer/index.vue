@@ -5,11 +5,11 @@
         <div class="col-md-7">
           <div>
             <!--<h1 style="display: inline-block">学成网</h1>-->
-            <img src="@/assets/img/logoIco.png" alt/>
+            <img alt src="@/assets/img/logoIco.png"/>
           </div>
           <div>学成网致力于普及中国最好的教育它与中国一流大学和机构合作提供在线课程。</div>
           <div>© 2017年XTCG Inc.保留所有权利。-沪ICP备15025210号</div>
-          <input type="button" class="btn btn-primary" value="下 载"/>
+          <input class="btn btn-primary" type="button" value="下 载"/>
         </div>
         <div class="col-md-5 row">
           <dl class="col-md-4">
@@ -40,7 +40,7 @@
 </template>
 
 <script lang="ts">
-import {Component, Prop, Vue} from "vue-property-decorator";
+import {Component, Vue} from "vue-property-decorator";
 
 @Component({
   name: "PortalFooter"

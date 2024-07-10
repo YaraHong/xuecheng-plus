@@ -1,12 +1,12 @@
 <template>
   <div
-      class="clouse-type"
       :class="{ selected: addtype == syncSelectedTypeCode }"
+      class="clouse-type"
       @click="handleTypeSelected"
   >
     <div class="icon">
-      <img src="@/assets/img/icon_zhiboke@2x.png" v-if="addtype == '200003'"/>
-      <img src="@/assets/img/icon_luboke@2x.png" v-if="addtype == '200002'"/>
+      <img v-if="addtype == '200003'" src="@/assets/img/icon_zhiboke@2x.png"/>
+      <img v-if="addtype == '200002'" src="@/assets/img/icon_luboke@2x.png"/>
     </div>
     <div class="title">{{ title }}</div>
   </div>
@@ -54,7 +54,7 @@
 </style>
 
 <script lang="ts">
-import {Component, Prop, PropSync, Watch, Vue} from 'vue-property-decorator'
+import {Component, Prop, PropSync, Vue} from 'vue-property-decorator'
 
 @Component({
   name: 'CourseAddTypeItem'

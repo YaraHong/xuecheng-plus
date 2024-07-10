@@ -8,10 +8,10 @@
       <!-- 搜索栏 -->
       <div class="searcher">
         <el-input
+            v-model="listQueryData.targetName"
             class="el-input"
             placeholder="请输入课程名称"
             suffix-icon="el-icon-search"
-            v-model="listQueryData.targetName"
         />
         <el-radio-group v-model="listQueryData.level">
           <el-radio :label="2">全部评价</el-radio>
@@ -25,9 +25,9 @@
       <!-- TODO: 拆成组件 -->
       <div class="dataList">
         <el-row
-            :gutter="10"
             v-for="(comment, index) in listResult.items"
             :key="index"
+            :gutter="10"
             class="course-comment"
         >
           <el-col :span="1">
@@ -43,8 +43,8 @@
                   <el-col :span="23" class="comment-text">{{ comment.commentText }}</el-col>
                   <el-col :span="1">
                     <el-button
-                        type="text"
                         size="mini"
+                        type="text"
                         @click="handleShowReplyTextarea(comment)"
                     >{{ getReplyStatus(comment) }}
                     </el-button>
@@ -57,9 +57,9 @@
               >已上课10小时 评价来自《{{ comment.comeFrom }}》 {{ comment.commentDate | dateTimeFormat }} 举报
               </el-col>
               <el-col
+                  v-if="comment.replyDTOList && comment.replyDTOList.length"
                   :span="24"
                   class="comment-reply"
-                  v-if="comment.replyDTOList && comment.replyDTOList.length"
               >
                 <el-row
                     v-for="(reply, subIndex) in comment.replyDTOList"
@@ -70,22 +70,22 @@
                   <el-col :span="24" class="reply-date">{{ reply.replyDate | dateTimeFormat }}</el-col>
                 </el-row>
               </el-col>
-              <el-col :span="24" v-if="comment.showReplyTextarea" class="my-reply-text">
+              <el-col v-if="comment.showReplyTextarea" :span="24" class="my-reply-text">
                 <el-input
-                    type="textarea"
-                    :rows="5"
                     v-model="comment.myReplyText"
-                    placeholder
+                    :rows="5"
                     maxlength="200"
+                    placeholder
                     show-word-limit
+                    type="textarea"
                 ></el-input>
               </el-col>
-              <el-col :span="24" v-if="comment.showReplyTextarea" class="reply-button">
+              <el-col v-if="comment.showReplyTextarea" :span="24" class="reply-button">
                 <el-button
-                    type="primary"
-                    size="medium"
-                    class="btn-add el-button"
                     :disabled="!comment.myReplyText"
+                    class="btn-add el-button"
+                    size="medium"
+                    type="primary"
                     @click="handleReplyCourseComment(comment)"
                 >发表回复
                 </el-button>
@@ -99,9 +99,9 @@
       <div class="dataList-pagination">
         <Pagination
             v-show="listResult.counts > 0"
-            :total="listResult.counts"
-            :page.sync="listQuery.pageNo"
             :limit.sync="listQuery.pageSize"
+            :page.sync="listQuery.pageNo"
+            :total="listResult.counts"
             @pagination="getCourseCommentPageList"
         />
       </div>
@@ -112,14 +112,8 @@
 <script lang="ts">
 import {Component, Vue, Watch} from 'vue-property-decorator'
 import Pagination from '@/components/pagination/index.vue'
-import {
-  ICourseCommentPageVO,
-  ICommentDTO
-} from '@/entity/course-comment-page-list'
-import {
-  getCourseCommentPageList,
-  replyCourseComment
-} from '@/api/course-comment'
+import {ICourseCommentPageVO} from '@/entity/course-comment-page-list'
+import {getCourseCommentPageList, replyCourseComment} from '@/api/course-comment'
 
 @Component({
   components: {

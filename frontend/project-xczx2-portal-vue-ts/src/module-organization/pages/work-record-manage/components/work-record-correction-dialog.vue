@@ -4,12 +4,12 @@
       <el-form-item>{{ answer }}</el-form-item>
       <el-form-item>
         <el-input
-            type="textarea"
-            :rows="5"
             v-model="workRecord.correctComment"
-            placeholder="请输入作业点评"
+            :rows="5"
             maxlength="500"
+            placeholder="请输入作业点评"
             show-word-limit
+            type="textarea"
         ></el-input>
       </el-form-item>
     </el-form>
@@ -21,8 +21,7 @@
 </template>
 
 <script lang="ts">
-import {Component, Vue, Prop, PropSync, Emit} from 'vue-property-decorator'
-import {Form as ElForm} from 'element-ui'
+import {Component, Emit, Prop, PropSync, Vue} from 'vue-property-decorator'
 import {IWorkRecordDTO} from '@/entity/work-record-page-list'
 import {correctionWorkRecord} from '@/api/work-record'
 

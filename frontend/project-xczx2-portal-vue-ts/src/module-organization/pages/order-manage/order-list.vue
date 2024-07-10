@@ -10,15 +10,15 @@
         <el-row :gutter="20">
           <el-col :span="6">
             <el-date-picker
-                class="el-date-picker"
-                style="width: 100%;"
                 v-model="orderDate"
-                type="daterange"
                 align="right"
-                unlink-panels
+                class="el-date-picker"
+                end-placeholder="结束日期"
                 range-separator="~"
                 start-placeholder="开始日期"
-                end-placeholder="结束日期"
+                style="width: 100%;"
+                type="daterange"
+                unlink-panels
                 value-format="yyyy-MM-dd"
                 @change="handleOrderDateChange"
             ></el-date-picker>
@@ -27,16 +27,16 @@
             <el-input
                 v-model="listQueryData.courseName"
                 class="el-input"
-                placeholder="请输入课程名称"
                 clearable
+                placeholder="请输入课程名称"
             />
           </el-col>
           <el-col :span="4">
             <el-select
                 v-model="listQueryData.status"
                 class="el-input"
-                placeholder="请选择结算状态"
                 clearable
+                placeholder="请选择结算状态"
             >
               <el-option
                   v-for="item in orderTypeStatus"
@@ -50,52 +50,52 @@
             <el-input
                 v-model="listQueryData.orderNo"
                 class="el-input"
-                placeholder="请输入订单号"
                 clearable
+                placeholder="请输入订单号"
             />
           </el-col>
           <el-col :span="4">
             <el-input
                 v-model="listQueryData.userId"
                 class="el-input"
-                placeholder="请输入学员ID"
                 clearable
+                placeholder="请输入学员ID"
             />
           </el-col>
           <el-col :span="2" style="text-align: right;">
-            <el-button type="primary" size="medium" class="el-button" @click="getOrderPageList">查询</el-button>
+            <el-button class="el-button" size="medium" type="primary" @click="getOrderPageList">查询</el-button>
           </el-col>
         </el-row>
       </div>
 
       <!-- 数据列表 -->
       <el-table
-          class="dataList"
           v-loading="listLoading"
           :data="listResult.items"
-          border
-          style="width: 100%"
           :header-cell-style="{ textAlign: 'center' }"
+          border
+          class="dataList"
+          style="width: 100%"
       >
-        <el-table-column prop="orderNo" label="订单号" align="center"></el-table-column>
+        <el-table-column align="center" label="订单号" prop="orderNo"></el-table-column>
 
-        <el-table-column label="交易时间" align="center">
+        <el-table-column align="center" label="交易时间">
           <template slot-scope="scope">{{ scope.row.createDate | dateTimeFormat }}</template>
         </el-table-column>
 
-        <el-table-column prop="userId" label="学员ID" align="center"></el-table-column>
+        <el-table-column align="center" label="学员ID" prop="userId"></el-table-column>
 
-        <el-table-column prop="coursePubName" label="课程名称" align="center"></el-table-column>
+        <el-table-column align="center" label="课程名称" prop="coursePubName"></el-table-column>
 
-        <el-table-column label="交易金额" align="center">
+        <el-table-column align="center" label="交易金额">
           <template slot-scope="scope">&#165;{{ scope.row.price.toFixed(2) }}</template>
         </el-table-column>
 
-        <el-table-column label="结算金额" align="center">
+        <el-table-column align="center" label="结算金额">
           <template slot-scope="scope">&#165;{{ scope.row.price.toFixed(2) }}</template>
         </el-table-column>
 
-        <el-table-column prop="status" label="结算状态" align="center">
+        <el-table-column align="center" label="结算状态" prop="status">
           <template slot-scope="scope">{{ getOrderTypeStatus(scope.row.status) }}</template>
         </el-table-column>
       </el-table>
@@ -104,9 +104,9 @@
       <div class="dataList-pagination">
         <Pagination
             v-show="listResult.counts > 0"
-            :total="listResult.counts"
-            :page.sync="listQuery.pageNo"
             :limit.sync="listQuery.pageSize"
+            :page.sync="listQuery.pageNo"
+            :total="listResult.counts"
             @pagination="getOrderPageList"
         />
       </div>

@@ -1,8 +1,8 @@
 <template>
   <div class="step-body">
     <el-form
-        ref="form"
         v-if="baseInfoData"
+        ref="form"
         :model="baseInfoData"
         :rules="rules"
         label-width="120px"
@@ -33,13 +33,13 @@
         </el-select>
       </el-form-item>
       <el-form-item label="课程简介：">
-        <el-input v-model="baseInfoData.description" type="textarea" :rows="5"></el-input>
+        <el-input v-model="baseInfoData.description" :rows="5" type="textarea"></el-input>
       </el-form-item>
       <!--<el-form-item label="课程目标：">
         <el-input v-model="baseInfoData.objectives" type="textarea" :rows="5"></el-input>
       </el-form-item>-->
       <el-form-item label="适用人群：" prop="users">
-        <el-input v-model="baseInfoData.users" type="textarea" :rows="5"></el-input>
+        <el-input v-model="baseInfoData.users" :rows="5" type="textarea"></el-input>
       </el-form-item>
       <el-form-item label="课程封面：" prop="pic">
         <common-entering-step2-upload-image :imageUrl.sync="baseInfoData.pic">
@@ -79,11 +79,11 @@
 
 
 <script lang="ts">
-import {Component, Prop, PropSync, Watch, Vue} from 'vue-property-decorator'
+import {Component, Prop, PropSync, Vue} from 'vue-property-decorator'
 import {IKVData} from '@/api/types'
-import {COUSE_GRADE_STATUS, COURSE_CHARGE_TYPE_STATUS} from '@/api/constants'
-import {category, submitBaseInfo, getBaseInfo} from '@/api/courses'
-import {ICourseCategory, ICourseBaseInfo} from '@/entity/course-add-base'
+import {COURSE_CHARGE_TYPE_STATUS, COUSE_GRADE_STATUS} from '@/api/constants'
+import {category, getBaseInfo, submitBaseInfo} from '@/api/courses'
+import {ICourseBaseInfo, ICourseCategory} from '@/entity/course-add-base'
 import {ElForm} from 'element-ui/types/form'
 import CommonEnteringStep2UploadImage
   from '@/module-entering/pages/entering/components/common-entering-step2-upload-image.vue'
@@ -111,6 +111,27 @@ export default class extends Vue {
   // private categoryTreeSelected: string[] = ['', ''] // 被选中的项目
   private gradeData: IKVData[] = COUSE_GRADE_STATUS // 课程等级
   private chargeData: IKVData[] = COURSE_CHARGE_TYPE_STATUS // 课程类型 收费 免费
+  // 验证规则
+  private rules = {
+    name: [{required: true, message: '请输入课程名称', trigger: 'blur'}],
+    uiCategoryTreeSelected: [
+      {
+        required: true,
+        message: '请选择课程分类',
+        trigger: 'change'
+      }
+    ],
+    charge: [{required: true, message: '请输入收费规则', trigger: 'blur'}],
+    grade: [{required: true, message: '请输入课程等级', trigger: 'blur'}],
+    users: [{required: true, message: '请输入适用人群', trigger: 'blur'}]
+    // price: [
+    //   {
+    //     required: true,
+    //     message: '请正确输入课程价格',
+    //     trigger: 'change'
+    //   }
+    // ]
+  }
 
   constructor() {
     super()
@@ -165,28 +186,6 @@ export default class extends Vue {
         reject()
       }
     })
-  }
-
-  // 验证规则
-  private rules = {
-    name: [{required: true, message: '请输入课程名称', trigger: 'blur'}],
-    uiCategoryTreeSelected: [
-      {
-        required: true,
-        message: '请选择课程分类',
-        trigger: 'change'
-      }
-    ],
-    charge: [{required: true, message: '请输入收费规则', trigger: 'blur'}],
-    grade: [{required: true, message: '请输入课程等级', trigger: 'blur'}],
-    users: [{required: true, message: '请输入适用人群', trigger: 'blur'}]
-    // price: [
-    //   {
-    //     required: true,
-    //     message: '请正确输入课程价格',
-    //     trigger: 'change'
-    //   }
-    // ]
   }
 
   public validateForm(): Promise<boolean> {

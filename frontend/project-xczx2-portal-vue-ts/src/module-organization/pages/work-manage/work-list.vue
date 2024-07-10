@@ -4,9 +4,9 @@
       <div class="banner">
         <span class="primary-title">作业管理</span>
         <el-button
-            type="primary"
-            size="medium"
             class="btn-add el-button"
+            size="medium"
+            type="primary"
             @click="handleOpenAddWorkDialog"
         >+新增作业
         </el-button>
@@ -14,31 +14,31 @@
 
       <!-- 数据列表 -->
       <el-table
-          class="dataList"
           v-loading="listLoading"
           :data="listResult.items"
-          border
-          style="width: 100%"
           :header-cell-style="{ textAlign: 'center' }"
+          border
+          class="dataList"
+          style="width: 100%"
       >
-        <el-table-column prop="title" label="作业信息" width="400" align="center"></el-table-column>
+        <el-table-column align="center" label="作业信息" prop="title" width="400"></el-table-column>
 
-        <el-table-column label="绑定课程" align="center">
+        <el-table-column align="center" label="绑定课程">
           <template slot-scope="scope">{{ scope.row.bindCourses | bindCoursesFormat }}</template>
         </el-table-column>
 
-        <el-table-column prop="userNum" label="答题人数" align="center"></el-table-column>
+        <el-table-column align="center" label="答题人数" prop="userNum"></el-table-column>
 
-        <el-table-column label="修改时间" align="center">
+        <el-table-column align="center" label="修改时间">
           <template slot-scope="scope">{{ scope.row.changeDate | dateTimeFormat }}</template>
         </el-table-column>
 
-        <el-table-column label="操作" align="center">
+        <el-table-column align="center" label="操作">
           <template slot-scope="scope">
-            <el-button type="text" size="mini" @click="handleOpenEditWorkDialog(scope.row)">编辑</el-button>
+            <el-button size="mini" type="text" @click="handleOpenEditWorkDialog(scope.row)">编辑</el-button>
             <el-button
-                type="text"
                 size="mini"
+                type="text"
                 @click="handleOpenDeleteWorkConfirm(scope.row.workId)"
             >移除
             </el-button>
@@ -50,9 +50,9 @@
       <div class="dataList-pagination">
         <Pagination
             v-show="listResult.counts > 0"
-            :total="listResult.counts"
-            :page.sync="listQuery.pageNo"
             :limit.sync="listQuery.pageSize"
+            :page.sync="listQuery.pageNo"
+            :total="listResult.counts"
             @pagination="getWorkPageList"
         />
       </div>
@@ -71,8 +71,8 @@
 import {Component, Vue, Watch} from 'vue-property-decorator'
 import Pagination from '@/components/pagination/index.vue'
 import WorkAddDialog from './components/work-add-dialog.vue'
-import {IWorkPageList, IWorkDTO, IWorkVO} from '@/entity/work-page-list'
-import {getWorkPageList, deleteWork, defaultWork} from '@/api/works'
+import {IWorkDTO, IWorkPageList, IWorkVO} from '@/entity/work-page-list'
+import {defaultWork, deleteWork, getWorkPageList} from '@/api/works'
 
 @Component({
   components: {

@@ -1,4 +1,4 @@
-import {VuexModule, Module, Action, Mutation, getModule} from 'vuex-module-decorators';
+import {Action, getModule, Module, Mutation, VuexModule} from 'vuex-module-decorators';
 import {dictionaryAll, ISystemDictionary} from '@/api/systems';
 // import { getToken, setToken, removeToken } from '@/utils/cookies';
 import store from '@/store';
@@ -11,15 +11,15 @@ export interface ISystemState {
 class System extends VuexModule implements ISystemState {
     public dicts: ISystemDictionary[] = [];
 
-    @Mutation
-    private SET_DICTS(dicts: ISystemDictionary[]) {
-        this.dicts = dicts;
-    }
-
     @Action
     public async getDicts() {
         let dicts: ISystemDictionary[] = await dictionaryAll();
         this.SET_DICTS(dicts);
+    }
+
+    @Mutation
+    private SET_DICTS(dicts: ISystemDictionary[]) {
+        this.dicts = dicts;
     }
 }
 

@@ -1,12 +1,12 @@
 <template>
-  <el-dialog title="选择课程形式" width="500px" :visible.sync="syncDialogVisible">
+  <el-dialog :visible.sync="syncDialogVisible" title="选择课程形式" width="500px">
     <div class="types">
-      <div class="item" v-for="(item, index) in courseTypes" :key="index">
+      <div v-for="(item, index) in courseTypes" :key="index" class="item">
         <CourseAddTypeItem
-            class="selected-item"
-            :selectedTypeCode.sync="selectedTypeCode"
             :addtype="item.code"
+            :selectedTypeCode.sync="selectedTypeCode"
             :title="item.title"
+            class="selected-item"
         ></CourseAddTypeItem>
       </div>
     </div>
@@ -35,7 +35,7 @@
 </style>
 
 <script lang="ts">
-import {Component, Prop, PropSync, Watch, Vue} from 'vue-property-decorator'
+import {Component, PropSync, Vue} from 'vue-property-decorator'
 import CourseAddTypeItem from './course-addtype-item.vue'
 
 @Component({

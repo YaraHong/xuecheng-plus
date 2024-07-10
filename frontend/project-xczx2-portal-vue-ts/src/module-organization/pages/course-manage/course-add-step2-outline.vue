@@ -3,7 +3,7 @@
     <!-- 工具栏 -->
     <div class="bar">
       <div class="title">任务总数：{{ outlineData.length }}</div>
-      <el-button size="medium" plain class="el-button" @click="handleAddChapter">+添加章</el-button>
+      <el-button class="el-button" plain size="medium" @click="handleAddChapter">+添加章</el-button>
     </div>
 
     <!-- 大纲列表 -->
@@ -11,17 +11,17 @@
       <el-tree
           v-if="outlineData.teachPlanTreeNodes"
           :data="outlineData.teachPlanTreeNodes"
-          node-key="teachPlanId"
-          :props="defaultProps"
           :default-expanded-keys="outlineData.teachPlanTreeNodes.map(item=> item.teachPlanId)"
+          :props="defaultProps"
+          node-key="teachPlanId"
       >
         <!-- 自定义行 -->
         <template slot-scope="{ node, data }">
           <div
-              class="tree-node"
               :class="{ ischild: data.grade =='2' }"
-              @mousemove="data.ctlBarShow = true"
+              class="tree-node"
               @mouseleave="data.ctlBarShow = false"
+              @mousemove="data.ctlBarShow = true"
           >
             <div class="icon"></div>
             <div class="operate">
@@ -31,65 +31,65 @@
                   {{ data.pname }}
                 </span>
                 <input
-                    v-focus
                     v-else
                     v-model="data.pname"
-                    v-on:keyup.enter="data.ctlEditTitle=false"
-                    @blur="handleEditTitleBlue(data)"
+                    v-focus
                     style="width:280px; height:30px;"
+                    @blur="handleEditTitleBlue(data)"
+                    v-on:keyup.enter="data.ctlEditTitle=false"
                 />
               </div>
-              <div class="preview" v-if="data.grade =='2'">
+              <div v-if="data.grade =='2'" class="preview">
                 <el-checkbox
                     v-model="data.isPreview"
-                    true-label="1"
                     false-label="0"
+                    true-label="1"
                     @change="handleChangeIsPreview(data)"
                 >免费
                 </el-checkbox>
               </div>
               <!-- 时间 -->
-              <div class="submit-time" v-if="data.grade =='2' && teachmode == '200003'">
+              <div v-if="data.grade =='2' && teachmode == '200003'" class="submit-time">
                 <!-- <span>{{ data.createDate | dateFmt }} ~ {{ data.createDate | endDateFmt }}</span> -->
                 <el-date-picker
-                    @change="handleChangePublishTime(data)"
                     v-model="data.startTime"
-                    type="datetime"
-                    placeholder="选择开始时间"
-                    default-time="12:00:00"
                     :clearable="false"
+                    default-time="12:00:00"
+                    placeholder="选择开始时间"
+                    type="datetime"
                     value-format="yyyy-MM-dd HH:mm:ss"
+                    @change="handleChangePublishTime(data)"
                 ></el-date-picker>
                 ~
                 <el-date-picker
-                    @change="handleChangePublishTime(data)"
                     v-model="data.endTime"
-                    type="datetime"
-                    placeholder="选择结束时间"
-                    default-time="12:00:00"
                     :clearable="false"
+                    default-time="12:00:00"
+                    placeholder="选择结束时间"
+                    type="datetime"
                     value-format="yyyy-MM-dd HH:mm:ss"
+                    @change="handleChangePublishTime(data)"
                 ></el-date-picker>
               </div>
               <!-- 作业、媒体 -->
-              <div class="media-file" v-if="data.grade =='2'">
+              <div v-if="data.grade =='2'" class="media-file">
                 <el-link
                     v-if="data.teachplanMedia != null && data.teachplanMedia.mediaFilename != null && data.teachplanMedia.mediaFilename != '' "
-                    icon="el-icon-delete"
                     :underline="false"
+                    icon="el-icon-delete"
                     @click="handleDeleteMedia(data)"
                 >{{ data.teachplanMedia.mediaFilename }}
                 </el-link>
                 <el-link
                     v-else-if="data.work != null && data.work.workTitle != ''"
-                    icon="el-icon-delete"
                     :underline="false"
+                    icon="el-icon-delete"
                     @click="handleDeleteWork(data)"
                 >{{ data.work.workTitle }}
                 </el-link>
               </div>
               <!-- 按钮 -->
-              <div class="buttons" v-if="data.grade =='1' ">
+              <div v-if="data.grade =='1' " class="buttons">
                 <el-button
                     type="text"
                     @click.stop="handleAddSection(data.teachPlanTreeNodes, data.id)"
@@ -102,7 +102,7 @@
                 <el-button type="text" @click.stop="moveDown(data.id)">下移</el-button>
               </div>
 
-              <div class="buttons" v-else-if="data.grade =='2'">
+              <div v-else-if="data.grade =='2'" class="buttons">
                 <template v-if="teachmode=='200002'">
                   <!--  <span v-if="data.teachplanMedia != null "  @click="handleSelectVideo(data)">
                     {{data.teachplanMedia.mediaFilename}}
@@ -147,9 +147,9 @@
       <OutlineSelectDialog
           ref="outlineSelectDialog"
           :dialogVisible.sync="mediaDialogVisible"
-          @onSelected="onRecvSelectedValue"
-          :type="selectType"
           :title="selectTypeTitle"
+          :type="selectType"
+          @onSelected="onRecvSelectedValue"
       />
     </div>
   </div>
@@ -158,17 +158,17 @@
 
 <script lang="ts">
 import moment from 'moment'
-import {Component, Prop, PropSync, Watch, Vue} from 'vue-property-decorator'
+import {Component, Prop} from 'vue-property-decorator'
 import {mixins} from 'vue-class-component'
 import {
-  submitOutlineNode,
   deleteOutlineNode,
-  moveDownSubmit,
-  moveUpSubmit,
   getOutline,
   mediaAssociation,
-  workAssociation,
   mediaUnAssociation,
+  moveDownSubmit,
+  moveUpSubmit,
+  submitOutlineNode,
+  workAssociation,
   workUnAssociation
 } from '@/api/courses'
 import {ICourseOutlineTreeNode} from '@/entity/course-add-outline'
@@ -228,14 +228,6 @@ export default class extends mixins(MixinTools) {
    功能函数
    */
 
-  // 重置媒体选择
-  private restSelectedDialog() {
-    let selDialog: HTMLFormElement = this.$refs[
-        'outlineSelectDialog'
-        ] as HTMLFormElement
-    selDialog.restForm()
-  }
-
   // 读取大纲
   public async getList() {
     if (this.courseBaseId != 0) {
@@ -283,6 +275,14 @@ export default class extends mixins(MixinTools) {
       this.outlineData = data
       // console.log(this.outlineData)
     }
+  }
+
+  // 重置媒体选择
+  private restSelectedDialog() {
+    let selDialog: HTMLFormElement = this.$refs[
+        'outlineSelectDialog'
+        ] as HTMLFormElement
+    selDialog.restForm()
   }
 
   /*
