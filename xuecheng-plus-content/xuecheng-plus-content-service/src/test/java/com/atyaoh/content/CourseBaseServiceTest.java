@@ -24,7 +24,7 @@ public class CourseBaseServiceTest {
         dto.setCourseName("汉语言");
         dto.setAuditStatus("1");
         dto.setPublishStatus("1");
-        PageResult<CourseBase> pageResult = courseBaseService.list(pageParams, dto);
+        PageResult<CourseBase> pageResult = courseBaseService.queryCourseBaseInfo(pageParams, dto);
         System.out.println(pageResult);
     }
 }

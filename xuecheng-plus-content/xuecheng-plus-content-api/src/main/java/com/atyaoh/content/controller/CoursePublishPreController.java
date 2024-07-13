@@ -1,21 +1,21 @@
-package com.atyaoh.content.api;
+package com.atyaoh.content.controller;
 
-import com.atyaoh.content.service.MqMessageHistoryService;
+import com.atyaoh.content.service.CoursePublishPreService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 前端控制器
+ * 课程发布 前端控制器
  *
  * @author YaraHong
  */
 @Slf4j
 @RestController
-@RequestMapping("mqMessageHistory")
-public class MqMessageHistoryController {
+@RequestMapping("coursePublishPre")
+public class CoursePublishPreController {
 
     @Autowired
-    private MqMessageHistoryService mqMessageHistoryService;
+    private CoursePublishPreService coursePublishPreService;
 }

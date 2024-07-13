@@ -17,4 +17,16 @@
         <module>xuecheng-plus-system-service</module>
         <module>xuecheng-plus-system-model</module>
     </modules>
+    <dependencies>
+        <!--热部署依赖包 该包包含开发所需的所有工具 热部署就包含在其中-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.atyaoh</groupId>
+            <artifactId>xuecheng-plus-base</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 </project>

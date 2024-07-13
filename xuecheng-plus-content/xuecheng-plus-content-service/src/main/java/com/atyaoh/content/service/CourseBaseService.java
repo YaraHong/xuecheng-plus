@@ -2,9 +2,10 @@ package com.atyaoh.content.service;
 
 import com.atyaoh.base.model.PageParams;
 import com.atyaoh.base.model.PageResult;
+import com.atyaoh.content.model.dto.AddCourseDto;
+import com.atyaoh.content.model.dto.CourseBaseInfoDto;
 import com.atyaoh.content.model.dto.QueryCourseParamsDto;
 import com.atyaoh.content.model.po.CourseBase;
-import com.atyaoh.content.model.vo.CourseInfoVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -23,7 +24,7 @@ public interface CourseBaseService extends IService<CourseBase> {
      * @param queryDto
      * @return PageResult<CourseBase>
      */
-    PageResult<CourseBase> list(PageParams pageParams, QueryCourseParamsDto queryDto);
+    PageResult<CourseBase> queryCourseBaseInfo(PageParams pageParams, QueryCourseParamsDto queryDto);
 
     /**
      * 根据id查询
@@ -31,5 +32,13 @@ public interface CourseBaseService extends IService<CourseBase> {
      * @param id
      * @return CourseInfoVo
      */
-    CourseInfoVo getById(long id);
+    CourseBaseInfoDto getCourseBaseInfo(long id);
+
+    /**
+     * 添加课程
+     *
+     * @param addCourseDto
+     * @return CourseBaseInfoDto
+     */
+    CourseBaseInfoDto addCourse(AddCourseDto addCourseDto);
 }

@@ -156,6 +156,12 @@
                     </exclusion>
                 </exclusions>
             </dependency>
+            <!--热部署依赖包 该包包含开发所需的所有工具 热部署就包含在其中-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-devtools</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.squareup.okhttp3</groupId>
                 <artifactId>okhttp</artifactId>
@@ -230,6 +236,14 @@
                     <encoding>utf-8</encoding>
                     <!--使用默认分隔符，resource中可以使用分割符定义过虑的路径-->
                     <useDefaultDelimiters>true</useDefaultDelimiters>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <!--打开开关-->
+                <configuration>
+                    <fork>true</fork>
                 </configuration>
             </plugin>
         </plugins>

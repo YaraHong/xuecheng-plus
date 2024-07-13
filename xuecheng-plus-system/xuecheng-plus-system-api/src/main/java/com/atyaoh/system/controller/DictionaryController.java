@@ -3,7 +3,6 @@ package com.atyaoh.system.controller;
 import com.atyaoh.system.model.po.Dictionary;
 import com.atyaoh.system.service.DictionaryService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +15,6 @@ import java.util.List;
  */
 @Slf4j
 @RestController
-@CrossOrigin
 public class DictionaryController {
 
     @Resource

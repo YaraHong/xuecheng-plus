@@ -1,4 +1,4 @@
-package com.atyaoh.content.api;
+package com.atyaoh.content.controller;
 
 import com.atyaoh.content.model.po.CourseCategory;
 import com.atyaoh.content.service.CourseCategoryService;

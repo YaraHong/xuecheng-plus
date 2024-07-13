@@ -1,4 +1,4 @@
-package com.atyaoh.content;
+package com.atyaoh;
 
 import com.spring4all.swagger.EnableSwagger2Doc;
 import org.springframework.boot.SpringApplication;

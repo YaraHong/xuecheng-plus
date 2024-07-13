@@ -1,6 +1,6 @@
-package com.atyaoh.content.api;
+package com.atyaoh.content.controller;
 
-import com.atyaoh.content.service.MqMessageService;
+import com.atyaoh.content.service.MqMessageHistoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Slf4j
 @RestController
-@RequestMapping("mqMessage")
-public class MqMessageController {
+@RequestMapping("mqMessageHistory")
+public class MqMessageHistoryController {
 
     @Autowired
-    private MqMessageService mqMessageService;
+    private MqMessageHistoryService mqMessageHistoryService;
 }

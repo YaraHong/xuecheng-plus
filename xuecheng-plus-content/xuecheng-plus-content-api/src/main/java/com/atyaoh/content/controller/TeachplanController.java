@@ -1,4 +1,4 @@
-package com.atyaoh.content.api;
+package com.atyaoh.content.controller;
 
 import com.atyaoh.content.service.TeachplanService;
 import lombok.extern.slf4j.Slf4j;

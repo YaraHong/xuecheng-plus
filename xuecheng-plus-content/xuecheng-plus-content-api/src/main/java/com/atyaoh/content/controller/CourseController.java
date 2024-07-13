@@ -1,17 +1,18 @@
-package com.atyaoh.content.api;
+package com.atyaoh.content.controller;
 
 import com.atyaoh.base.model.PageParams;
 import com.atyaoh.base.model.PageResult;
+import com.atyaoh.content.model.dto.AddCourseDto;
+import com.atyaoh.content.model.dto.CourseBaseInfoDto;
 import com.atyaoh.content.model.dto.QueryCourseParamsDto;
 import com.atyaoh.content.model.po.CourseBase;
-import com.atyaoh.content.model.vo.CourseInfoVo;
 import com.atyaoh.content.service.CourseBaseService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.validation.constraints.NotNull;
 
 /**
  * 课程信息编辑接口
@@ -37,7 +38,7 @@ public class CourseController {
     @ApiOperation("分页查询")
     @PostMapping("/list")
     public PageResult<CourseBase> list(PageParams pageParams, @RequestBody(required = false) QueryCourseParamsDto queryDto) {
-        return courseBaseService.list(pageParams, queryDto);
+        return courseBaseService.queryCourseBaseInfo(pageParams, queryDto);
     }
 
     /**
@@ -48,7 +49,19 @@ public class CourseController {
      */
     @ApiOperation("根据id查询")
     @GetMapping("/{id}")
-    public CourseInfoVo getById(@PathVariable @NotNull long id) {
-        return courseBaseService.getById(id);
+    public CourseBaseInfoDto getById(@PathVariable long id) {
+        return courseBaseService.getCourseBaseInfo(id);
+    }
+
+    /**
+     * 添加课程
+     *
+     * @param addCourseDto
+     * @return CourseBaseInfoDto
+     */
+    @ApiOperation("添加课程")
+    @PostMapping
+    public CourseBaseInfoDto addCourse(@RequestBody @Validated AddCourseDto addCourseDto) {
+        return courseBaseService.addCourse(addCourseDto);
     }
 }
