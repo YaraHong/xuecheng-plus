@@ -74,7 +74,7 @@ export default class CommonEnteringStep2UploadImage extends Vue {
         file.type === 'image/jpeg' ||
         file.type === 'image/png' ||
         file.type === 'image/bmp'
-    const isLt2M = file.size / 1024 / 1024 < 2
+    const isLt2M = file.size / 1024 / 1024 < 10
 
     if (!isJPG) {
       this.$message.error('上传头像图片只能是 JPG/PNG/BMP 格式!')
