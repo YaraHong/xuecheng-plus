@@ -1,9 +1,12 @@
 package com.atyaoh.content.model.po;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 课程分类
@@ -51,5 +54,7 @@ public class CourseCategory implements Serializable {
      */
     private Integer isLeaf;
 
-
+    @TableField(exist = false)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private List<CourseCategory> childrenTreeNodes;
 }
