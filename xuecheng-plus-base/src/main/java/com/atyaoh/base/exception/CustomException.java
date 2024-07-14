@@ -18,15 +18,15 @@ public class CustomException extends RuntimeException {
         this.errMessage = errMessage;
     }
 
-    public String getErrMessage() {
-        return errMessage;
-    }
-
     public static void cast(CommonError commonError) {
         throw new CustomException(commonError.getErrMessage());
     }
 
     public static void cast(String errMessage) {
         throw new CustomException(errMessage);
+    }
+
+    public String getErrMessage() {
+        return errMessage;
     }
 }

@@ -1,4 +1,3 @@
-
 package com.atyaoh.base.exception;
 
 
@@ -15,11 +14,11 @@ public enum CommonError {
 
     private String errMessage;
 
-    public String getErrMessage() {
-        return errMessage;
-    }
-
     private CommonError(String errMessage) {
         this.errMessage = errMessage;
+    }
+
+    public String getErrMessage() {
+        return errMessage;
     }
 }
