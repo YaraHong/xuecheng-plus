@@ -1,5 +1,6 @@
 package com.atyaoh.content.service.impl;
 
+import com.atyaoh.base.exception.CommonError;
 import com.atyaoh.base.exception.CustomException;
 import com.atyaoh.base.model.PageParams;
 import com.atyaoh.base.model.PageResult;
@@ -7,6 +8,7 @@ import com.atyaoh.content.mapper.CourseBaseMapper;
 import com.atyaoh.content.mapper.CourseMarketMapper;
 import com.atyaoh.content.model.dto.AddCourseDto;
 import com.atyaoh.content.model.dto.CourseBaseInfoDto;
+import com.atyaoh.content.model.dto.EditCourseDto;
 import com.atyaoh.content.model.dto.QueryCourseParamsDto;
 import com.atyaoh.content.model.po.CourseBase;
 import com.atyaoh.content.model.po.CourseMarket;
@@ -61,7 +63,6 @@ public class CourseBaseServiceImpl extends ServiceImpl<CourseBaseMapper, CourseB
         return new PageResult<CourseBase>(items, counts, pageParams.getPage(), pageParams.getPageSize());
     }
 
-
     /**
      * 根据id查询
      *
@@ -85,7 +86,7 @@ public class CourseBaseServiceImpl extends ServiceImpl<CourseBaseMapper, CourseB
     }
 
     /**
-     * 添加课程
+     * 添加
      *
      * @param addCourseDto
      * @return CourseBaseInfoDto
@@ -96,11 +97,9 @@ public class CourseBaseServiceImpl extends ServiceImpl<CourseBaseMapper, CourseB
         // 添加课程基本信息
         CourseBase courseBase = new CourseBase();
         BeanUtils.copyProperties(addCourseDto, courseBase);
-        // 1、TODO 机构信息
-        courseBase.setCompanyId(200200L);
+        courseBase.setCompanyId(200200L); // 1、TODO 机构信息
         courseBase.setCompanyName("手动填充");
-        // 2、TODO 审核状态
-        courseBase.setAuditStatus("202002");
+        courseBase.setAuditStatus("202002"); // 2、TODO 审核状态
         courseBase.setStatus("202002");
         int insert = courseBaseMapper.insert(courseBase);
         if (insert <= 0) {
@@ -111,12 +110,39 @@ public class CourseBaseServiceImpl extends ServiceImpl<CourseBaseMapper, CourseB
         CourseMarket newCourseMarket = new CourseMarket();
         newCourseMarket.setId(courseBase.getId());
         BeanUtils.copyProperties(addCourseDto, newCourseMarket);
-
         saveCourseMarket(newCourseMarket);
 
         // 获取课程信息
         CourseBaseInfoDto courseBaseInfoDto = getCourseBaseInfo(courseBase.getId());
         return courseBaseInfoDto;
+    }
+
+    /**
+     * 修改
+     *
+     * @param editCourseDto
+     * @return CourseBaseInfoDto
+     */
+    @Override
+    public CourseBaseInfoDto editCourse(EditCourseDto editCourseDto, long companyId) {
+        // 修改课程基本信息
+        CourseBaseInfoDto courseBaseInfo = getCourseBaseInfo(editCourseDto.getId());
+        if (courseBaseInfo == null) {
+            CustomException.cast(CommonError.OBJECT_NULL);
+        }
+        if (companyId != courseBaseInfo.getCompanyId()) {
+            CustomException.cast("只能修改本机构课程");
+        }
+        CourseBase courseBase = new CourseBase();
+        BeanUtils.copyProperties(editCourseDto, courseBase);
+        courseBaseMapper.updateById(courseBase);
+
+        // 修改课程营销信息
+        CourseMarket courseMarket = new CourseMarket();
+        BeanUtils.copyProperties(editCourseDto, courseMarket);
+        saveCourseMarket(courseMarket);
+        // 查询课程信息
+        return getCourseBaseInfo(editCourseDto.getId());
     }
 
     /**

@@ -4,6 +4,7 @@ import com.atyaoh.base.model.PageParams;
 import com.atyaoh.base.model.PageResult;
 import com.atyaoh.content.model.dto.AddCourseDto;
 import com.atyaoh.content.model.dto.CourseBaseInfoDto;
+import com.atyaoh.content.model.dto.EditCourseDto;
 import com.atyaoh.content.model.dto.QueryCourseParamsDto;
 import com.atyaoh.content.model.po.CourseBase;
 import com.atyaoh.content.service.CourseBaseService;
@@ -23,7 +24,6 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping("/course")
 public class CourseController {
-
 
     @Resource
     private CourseBaseService courseBaseService;
@@ -54,14 +54,26 @@ public class CourseController {
     }
 
     /**
-     * 添加课程
+     * 添加
      *
      * @param addCourseDto
      * @return CourseBaseInfoDto
      */
-    @ApiOperation("添加课程")
+    @ApiOperation("添加")
     @PostMapping
-    public CourseBaseInfoDto addCourse(@RequestBody @Validated AddCourseDto addCourseDto) {
+    public CourseBaseInfoDto add(@RequestBody @Validated AddCourseDto addCourseDto) {
         return courseBaseService.addCourse(addCourseDto);
+    }
+
+    /**
+     * 修改
+     *
+     * @param editCourseDto
+     * @return
+     */
+    @ApiOperation("修改")
+    @PutMapping
+    public CourseBaseInfoDto edit(@RequestBody @Validated EditCourseDto editCourseDto) {
+        return courseBaseService.editCourse(editCourseDto, 200202L);
     }
 }
