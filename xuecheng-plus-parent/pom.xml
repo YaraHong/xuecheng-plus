@@ -227,7 +227,7 @@
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
-            <!--责处理项目资源文件并拷贝到输出目录，如果有额外的资源文件目录则需要配置-->
+            <!--负责处理项目资源文件并拷贝到输出目录，如果有额外的资源文件目录则需要配置-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
@@ -238,14 +238,14 @@
                     <useDefaultDelimiters>true</useDefaultDelimiters>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <!--打开开关-->
-                <configuration>
-                    <fork>true</fork>
-                </configuration>
-            </plugin>
+            <!--<plugin>-->
+            <!--    <groupId>org.springframework.boot</groupId>-->
+            <!--    <artifactId>spring-boot-maven-plugin</artifactId>-->
+            <!--    &lt;!&ndash;打开开关&ndash;&gt;-->
+            <!--    <configuration>-->
+            <!--        <fork>true</fork>-->
+            <!--    </configuration>-->
+            <!--</plugin>-->
         </plugins>
     </build>
 </project>
