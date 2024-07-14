@@ -2,9 +2,8 @@
 <Configuration monitorInterval="180" packages="">
     <Properties>
         <Property name="logdir">logs</Property>
-        <Property name="PATTERN">%style{%d{yyyy-MM-dd HH:mm:ss,SSS}}{blue} %highlight{%p}{FATAL=red blink, ERROR=red,
-            WARN=yellow bold, INFO=green, DEBUG=cyan, TRACE=blue} [%style{%t}{magenta}][%style{%F:%L}{cyan}] -
-            %msg%n%throwable
+        <Property name="PATTERN">%d{yyyy-MM-dd HH:mm:ss,SSS} %highlight{%p}{FATAL=red blink, ERROR=red,
+            WARN=yellow bold, INFO=green, DEBUG=cyan, TRACE=blue} [%t][%F:%L] - %msg%n%throwable
         </Property>
     </Properties>
     <Appenders>
