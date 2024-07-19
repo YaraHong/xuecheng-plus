@@ -155,7 +155,7 @@ public class CourseBaseServiceImpl extends ServiceImpl<CourseBaseMapper, CourseB
         CourseMarket courseMarket = courseMarketMapper.selectById(newCourseMarket.getId());
 
         // 如果是付费课程，需要传入价格
-        if (newCourseMarket.getCharge().equals("202002")) {
+        if (newCourseMarket.getCharge().equals("201001")) { // TODO 数据字典后面优化
             if (newCourseMarket.getPrice() == null || newCourseMarket.getPrice() <= 0) {
                 CustomException.cast("课程的价格不能为空并且必须大于0");
             }
