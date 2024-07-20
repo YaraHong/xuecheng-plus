@@ -1,5 +1,6 @@
 package com.atyaoh.content.service;
 
+import com.atyaoh.content.model.dto.SaveTeachplanDto;
 import com.atyaoh.content.model.dto.TeachplanDto;
 import com.atyaoh.content.model.po.Teachplan;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -15,4 +16,12 @@ public interface TeachplanService extends IService<Teachplan> {
      * @return TeachplanDto
      */
     List<TeachplanDto> queryTreeNodes(long courseId);
+
+    /**
+     * 新增或修改
+     *
+     * @param saveTeachplanDto
+     * @return
+     */
+    void saveOrUpdate(SaveTeachplanDto saveTeachplanDto);
 }
