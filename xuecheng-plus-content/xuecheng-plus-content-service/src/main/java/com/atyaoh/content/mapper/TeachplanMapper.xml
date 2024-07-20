@@ -25,6 +25,7 @@
             <result column="item_orderby" property="orderby"/>
             <result column="item_course_id" property="courseId"/>
             <result column="item_course_pub_id" property="coursePubId"/>
+            <result column="item_is_preview" property="isPreview"/>
             <association property="teachplanMedia" javaType="com.atyaoh.content.model.po.TeachplanMedia">
                 <result column="media_id" property="id"/>
                 <result column="media_media_fileName" property="mediaFilename"/>
@@ -80,6 +81,7 @@
                t2.orderby        as item_orderby,
                t2.course_id      as item_course_id,
                t2.course_pub_id  as item_course_pub_id,
+               t2.is_preview     as item_is_preview,
                tm.id             as media_id,
                tm.media_id       as media_media_id,
                tm.media_fileName as media_media_fileName
