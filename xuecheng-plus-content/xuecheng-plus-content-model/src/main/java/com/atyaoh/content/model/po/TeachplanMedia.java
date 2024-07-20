@@ -39,7 +39,6 @@ public class TeachplanMedia implements Serializable {
     /**
      * 媒资文件原始名称
      */
-    @TableField("media_fileName")
     private String mediaFilename;
 
     @TableField(fill = FieldFill.INSERT)
@@ -55,5 +54,19 @@ public class TeachplanMedia implements Serializable {
      */
     private String changePeople;
 
+    public Long getCourseId() {
+        return courseId;
+    }
 
+    public void setCourseId(Long courseId) {
+        this.courseId = courseId;
+    }
+
+    public String getCreatePeople() {
+        return createPeople;
+    }
+
+    public void setCreatePeople(String createPeople) {
+        this.createPeople = createPeople;
+    }
 }

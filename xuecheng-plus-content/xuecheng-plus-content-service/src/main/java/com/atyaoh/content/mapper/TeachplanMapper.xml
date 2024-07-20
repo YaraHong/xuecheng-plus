@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.atyaoh.content.mapper.TeachplanMapper">
 
-    <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.atyaoh.content.model.po.Teachplan">
+    <!-- 树结构映射结果 -->
+    <resultMap id="BaseResultMap" type="com.atyaoh.content.model.dto.TeachplanDto">
         <id column="id" property="id"/>
         <result column="pname" property="pname"/>
         <result column="parentid" property="parentid"/>
@@ -11,21 +11,85 @@
         <result column="media_type" property="mediaType"/>
         <result column="start_time" property="startTime"/>
         <result column="end_time" property="endTime"/>
-        <result column="description" property="description"/>
-        <result column="timelength" property="timelength"/>
         <result column="orderby" property="orderby"/>
         <result column="course_id" property="courseId"/>
         <result column="course_pub_id" property="coursePubId"/>
-        <result column="status" property="status"/>
-        <result column="is_preview" property="isPreview"/>
-        <result column="create_date" property="createDate"/>
-        <result column="change_date" property="changeDate"/>
+        <collection property="teachPlanTreeNodes" ofType="com.atyaoh.content.model.dto.TeachplanDto">
+            <id column="item_id" property="id"/>
+            <result column="item_pname" property="pname"/>
+            <result column="item_parentid" property="parentid"/>
+            <result column="item_grade" property="grade"/>
+            <result column="item_media_type" property="mediaType"/>
+            <result column="item_start_time" property="startTime"/>
+            <result column="item_end_time" property="endTime"/>
+            <result column="item_orderby" property="orderby"/>
+            <result column="item_course_id" property="courseId"/>
+            <result column="item_course_pub_id" property="coursePubId"/>
+            <association property="teachplanMedia" javaType="com.atyaoh.content.model.po.TeachplanMedia">
+                <result column="media_id" property="id"/>
+                <result column="media_media_fileName" property="mediaFilename"/>
+                <result column="media_media_id" property="mediaId"/>
+                <result column="item_id" property="teachplanId"/>
+                <result column="item_course_id" property="courseId"/>
+            </association>
+        </collection>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id
-        , pname, parentid, grade, media_type, start_time, end_time, description, timelength, orderby, course_id, course_pub_id, status, is_preview, create_date, change_date
+        ,
+        pname,
+        parentid,
+        grade,
+        media_type,
+        start_time, end_time,
+        description,
+        timelength,
+        orderby,
+        course_id,
+        course_pub_id,
+        status, is_preview,
+        create_date,
+        change_date
     </sql>
+
+    <!-- 树结构查询 -->
+    <select id="selectTreeNodes" resultMap="BaseResultMap">
+        select t1.id,
+               t1.pname,
+               t1.parentid,
+               t1.grade,
+               t1.media_type,
+               t1.start_time,
+               t1.end_time,
+               t1.description,
+               t1.timelength,
+               t1.orderby,
+               t1.course_id,
+               t1.course_pub_id,
+               t2.id             as item_id,
+               t2.pname          as item_pname,
+               t2.parentid       as item_parentid,
+               t2.grade          as item_grade,
+               t2.media_type     as item_media_type,
+               t2.start_time     as item_start_time,
+               t2.end_time       as item_end_tiem,
+               t2.description    as item_describe,
+               t2.timelength     as item_timelength,
+               t2.orderby        as item_orderby,
+               t2.course_id      as item_course_id,
+               t2.course_pub_id  as item_course_pub_id,
+               tm.id             as media_id,
+               tm.media_id       as media_media_id,
+               tm.media_fileName as media_media_fileName
+        from teachplan t1
+                 inner join teachplan t2 on t2.parentid = t1.id
+                 left join teachplan_media tm on tm.teachplan_id = t2.id
+        where t1.grade = 1
+          and t1.course_id = #{courseId}
+        order by t1.orderby,
+                 t2.orderby
+    </select>
 
 </mapper>
