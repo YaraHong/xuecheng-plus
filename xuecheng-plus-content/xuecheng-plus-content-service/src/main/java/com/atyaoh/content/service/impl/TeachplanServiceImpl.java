@@ -37,7 +37,7 @@ public class TeachplanServiceImpl extends ServiceImpl<TeachplanMapper, Teachplan
      * @return TeachplanDto
      */
     @Override
-    public List<TeachplanDto> queryTreeNodes(Long courseId) {
+    public List<TeachplanDto> queryTreeNodes(long courseId) {
         return teachplanMapper.selectTreeNodes(courseId);
     }
 
@@ -84,7 +84,7 @@ public class TeachplanServiceImpl extends ServiceImpl<TeachplanMapper, Teachplan
      */
     @Transactional
     @Override
-    public void delete(Long id) {
+    public void delete(long id) {
         Teachplan teachplan = teachplanMapper.selectById(id);
         if (teachplan == null) {
             CustomException.cast(CommonError.QUERY_NULL);
@@ -111,6 +111,46 @@ public class TeachplanServiceImpl extends ServiceImpl<TeachplanMapper, Teachplan
 
         }
     }
+
+    /**
+     * 上移
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public void moveup(long id) {
+        Teachplan teachplan = teachplanMapper.selectById(id);
+
+        if (teachplan == null) {
+            CustomException.cast(CommonError.QUERY_NULL);
+        }
+        LambdaQueryWrapper<Teachplan> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper
+                .eq(Teachplan::getParentid, teachplan.getParentid())
+                .orderBy(teachplan.getOrderby() != null, true, Teachplan::getOrderby);
+        List<Teachplan> teachplans = teachplanMapper.selectList(queryWrapper);
+
+        // 如果仅有一个子节点或者该节点已经排在第一位，直接返回
+        if (teachplans.size() == 1 || teachplans.get(0).getId() == id) {
+            return;
+        } else {
+            for (int i = 0; i < teachplans.size(); i++) {
+                // 交换排序字段
+                if (teachplans.get(i).getId().equals(id)) {
+                    Teachplan currentNode = teachplans.get(i);
+                    Teachplan frontNode = teachplans.get(i - 1);
+                    Integer tmpOrderby = currentNode.getOrderby();
+                    currentNode.setOrderby(frontNode.getOrderby());
+                    frontNode.setOrderby(tmpOrderby);
+
+                    teachplanMapper.updateById(currentNode);
+                    teachplanMapper.updateById(frontNode);
+                }
+            }
+        }
+    }
+
 
     /**
      * 删除媒体资源信息

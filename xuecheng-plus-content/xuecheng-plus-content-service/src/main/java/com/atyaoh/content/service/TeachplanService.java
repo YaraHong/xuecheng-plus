@@ -15,7 +15,7 @@ public interface TeachplanService extends IService<Teachplan> {
      * @param courseId
      * @return TeachplanDto
      */
-    List<TeachplanDto> queryTreeNodes(Long courseId);
+    List<TeachplanDto> queryTreeNodes(long courseId);
 
     /**
      * 新增或修改
@@ -31,5 +31,13 @@ public interface TeachplanService extends IService<Teachplan> {
      * @param id
      * @return
      */
-    void delete(Long id);
+    void delete(long id);
+
+    /**
+     * 上移
+     *
+     * @param id
+     * @return
+     */
+    void moveup(long id);
 }

@@ -57,7 +57,19 @@ public class TeachplanController {
      */
     @ApiOperation("删除")
     @DeleteMapping("/{id}")
-    public void remove(@PathVariable Long id) {
+    public void remove(@PathVariable long id) {
         teachplanService.delete(id);
+    }
+
+    /**
+     * 上移
+     *
+     * @param
+     * @return
+     */
+    @ApiOperation("上移")
+    @PostMapping("/moveup/{id}")
+    public void moveup(@PathVariable long id) {
+        teachplanService.moveup(id);
     }
 }
