@@ -1,27 +1,27 @@
 <template>
   <div class="step-body">
     <div class="banner">
-      <el-button class="btn-add el-button" size="medium" type="primary" @click="handleAdd">+添加教师</el-button>
+      <el-button type="primary" size="medium" class="btn-add el-button" @click="handleAdd">+添加教师</el-button>
     </div>
 
     <!-- 数据列表 -->
     <el-table
-        v-loading="listLoading"
-        :data="listData"
-        :header-cell-style="{textAlign: 'center'}"
-        border
-        class="dataList"
-        style="width: 100%"
+      class="dataList"
+      v-loading="listLoading"
+      :data="listData"
+      border
+      style="width: 100%"
+      :header-cell-style="{textAlign: 'center'}"
     >
-      <el-table-column align="center" label="教师名称" prop="teacherName" width="100"></el-table-column>
-      <el-table-column align="center" label="教师职位" prop="position" width="100"></el-table-column>
-      <el-table-column label="教师简介" prop="introduction" width="600"></el-table-column>
-      <el-table-column align="center" label="教师照片" width="100">
+      <el-table-column prop="teacherName" label="教师名称" align="center" width="100"></el-table-column>
+      <el-table-column prop="position" label="教师职位" align="center" width="100"></el-table-column>
+      <el-table-column prop="introduction" label="教师简介" width="600"></el-table-column>
+      <el-table-column label="教师照片" align="center" width="100">
         <template slot-scope="scope">
-          <img :alt="scope.row.teacherName" :src="scope.row.photograph" width="90"/>
+          <img :src="scope.row.photograph" :alt="scope.row.teacherName" width="90" />
         </template>
       </el-table-column>
-      <el-table-column align="center" label="操作">
+      <el-table-column label="操作" align="center">
         <template slot-scope="scope">
           <el-button type="text" @click="handleEdit(scope.row)">编辑</el-button>
           <el-button type="text" @click="handleDelete(scope.row)">删除</el-button>
@@ -31,29 +31,30 @@
 
     <!-- 对话框 -->
     <SaveTeacherDialog
-        ref="dialog"
-        :dialogVisible.sync="isDialogVisible"
-        :teacherData="teacherData"
-        @complete="getList"
+      ref="dialog"
+      :dialogVisible.sync="isDialogVisible"
+      :teacherData="teacherData"
+      @complete="getList"
     />
   </div>
 </template>
 
 
 <script lang="ts">
-import {Component, Prop} from 'vue-property-decorator'
-import {mixins} from 'vue-class-component'
-import {deleteTeacher, getTeachers} from '@/api/courses'
-import {ICourseTeacherList} from '@/entity/course-add-teacher'
+import { Component, Prop, PropSync, Watch, Vue } from 'vue-property-decorator'
+import { mixins } from 'vue-class-component'
+import { IKVData } from '@/api/types'
+import { getTeachers, deleteTeacher } from '@/api/courses'
+import { ICourseTeacherList } from '@/entity/course-add-teacher'
 import SaveTeacherDialog from './course-add-step3-teacher-dialog.vue'
 import MixinTools from '@/utils/mixins.vue'
 
 @Component({
   name: 'CourseAddStep3Teacher',
-  components: {SaveTeacherDialog}
+  components: { SaveTeacherDialog }
 })
 export default class extends mixins(MixinTools) {
-  @Prop({type: Number})
+  @Prop({ type: Number })
   courseBaseId!: number
 
   // 查询
@@ -100,8 +101,7 @@ export default class extends mixins(MixinTools) {
       await this.showDeleteConfirm()
       await deleteTeacher(this.courseBaseId, data.id)
       await this.getList()
-    } catch (error) {
-    }
+    } catch (error) {}
   }
 }
 </script>
@@ -110,7 +110,6 @@ export default class extends mixins(MixinTools) {
 .step-body {
   // width: 600px;
   margin: 0px auto;
-
   .banner {
     text-align: right;
     padding-bottom: 10px;
