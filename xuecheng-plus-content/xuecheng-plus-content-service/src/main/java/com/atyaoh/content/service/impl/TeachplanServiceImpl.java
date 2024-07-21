@@ -1,10 +1,13 @@
 package com.atyaoh.content.service.impl;
 
-import com.atyaoh.content.mapper.CourseMarketMapper;
+import com.atyaoh.base.exception.CommonError;
+import com.atyaoh.base.exception.CustomException;
 import com.atyaoh.content.mapper.TeachplanMapper;
+import com.atyaoh.content.mapper.TeachplanMediaMapper;
 import com.atyaoh.content.model.dto.SaveTeachplanDto;
 import com.atyaoh.content.model.dto.TeachplanDto;
 import com.atyaoh.content.model.po.Teachplan;
+import com.atyaoh.content.model.po.TeachplanMedia;
 import com.atyaoh.content.service.TeachplanService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -25,7 +28,7 @@ public class TeachplanServiceImpl extends ServiceImpl<TeachplanMapper, Teachplan
     @Resource
     private TeachplanMapper teachplanMapper;
     @Resource
-    private CourseMarketMapper courseMarketMapper;
+    private TeachplanMediaMapper teachplanMediaMapper;
 
     /**
      * 树结构查询
@@ -34,7 +37,7 @@ public class TeachplanServiceImpl extends ServiceImpl<TeachplanMapper, Teachplan
      * @return TeachplanDto
      */
     @Override
-    public List<TeachplanDto> queryTreeNodes(long courseId) {
+    public List<TeachplanDto> queryTreeNodes(Long courseId) {
         return teachplanMapper.selectTreeNodes(courseId);
     }
 
@@ -74,13 +77,73 @@ public class TeachplanServiceImpl extends ServiceImpl<TeachplanMapper, Teachplan
     }
 
     /**
+     * 删除
+     *
+     * @param id
+     * @return
+     */
+    @Transactional
+    @Override
+    public void delete(Long id) {
+        Teachplan teachplan = teachplanMapper.selectById(id);
+        if (teachplan == null) {
+            CustomException.cast(CommonError.QUERY_NULL);
+        }
+        Integer grade = teachplan.getGrade();
+        if (grade != null && grade == 1) {
+            Integer count = getChildreNodeCount(id);
+            if (count > 0) {
+                CustomException.cast("课程计划信息还有子级信息，无法操作");
+            }
+            teachplanMapper.deleteById(id);
+        } else {
+            // 删除小节
+            teachplanMapper.deleteById(id);
+
+            // 删除相关媒体资源
+            removeMediaInfo(id);
+
+            // 如果是仅剩的最后一个小节，则将章节一同删除
+            Integer count = getChildreNodeCount(teachplan.getParentid());
+            if (count == 0) {
+                teachplanMapper.deleteById(teachplan.getParentid());
+            }
+
+        }
+    }
+
+    /**
+     * 删除媒体资源信息
+     *
+     * @param teachplanId
+     * @return
+     */
+    private void removeMediaInfo(Long teachplanId) {
+        LambdaQueryWrapper<TeachplanMedia> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(TeachplanMedia::getTeachplanId, teachplanId);
+        teachplanMediaMapper.delete(queryWrapper);
+    }
+
+    /**
+     * 获取子节点数量
+     *
+     * @param parentId
+     * @return Integer
+     */
+    private Integer getChildreNodeCount(Long parentId) {
+        LambdaQueryWrapper<Teachplan> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(parentId != null, Teachplan::getParentid, parentId);
+        return teachplanMapper.selectCount(queryWrapper);
+    }
+
+    /**
      * 获取orderby
      *
      * @param courseId
      * @param parentId
      * @return int
      */
-    private Integer getLastOrderby(long courseId, long parentId) {
+    private Integer getLastOrderby(Long courseId, Long parentId) {
         // 需要添加到最后位置
         LambdaQueryWrapper<Teachplan> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper

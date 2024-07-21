@@ -33,7 +33,7 @@ public class TeachplanController {
      */
     @ApiOperation("树结构查询")
     @GetMapping("/{courseId}/tree-nodes")
-    public List<TeachplanDto> getTreeNodes(@PathVariable long courseId) {
+    public List<TeachplanDto> getTreeNodes(@PathVariable Long courseId) {
         return teachplanService.queryTreeNodes(courseId);
     }
 
@@ -47,5 +47,17 @@ public class TeachplanController {
     @PostMapping
     public void addOrEdit(@RequestBody SaveTeachplanDto saveTeachplanDto) {
         teachplanService.saveOrUpdate(saveTeachplanDto);
+    }
+
+    /**
+     * 删除
+     *
+     * @param
+     * @return
+     */
+    @ApiOperation("删除")
+    @DeleteMapping("/{id}")
+    public void remove(@PathVariable Long id) {
+        teachplanService.delete(id);
     }
 }
