@@ -40,4 +40,12 @@ public interface TeachplanService extends IService<Teachplan> {
      * @return
      */
     void moveup(long id);
+
+    /**
+     * 下移
+     *
+     * @param id
+     * @return
+     */
+    void movedown(long id);
 }

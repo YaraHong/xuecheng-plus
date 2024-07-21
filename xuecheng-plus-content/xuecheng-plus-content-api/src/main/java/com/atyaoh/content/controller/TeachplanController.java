@@ -72,4 +72,16 @@ public class TeachplanController {
     public void moveup(@PathVariable long id) {
         teachplanService.moveup(id);
     }
+
+    /**
+     * 下移
+     *
+     * @param
+     * @return
+     */
+    @ApiOperation("下移")
+    @PostMapping("/movedown/{id}")
+    public void movedown(@PathVariable long id) {
+        teachplanService.movedown(id);
+    }
 }
