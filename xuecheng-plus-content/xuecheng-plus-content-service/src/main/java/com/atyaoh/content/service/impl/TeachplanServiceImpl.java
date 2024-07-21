@@ -113,83 +113,67 @@ public class TeachplanServiceImpl extends ServiceImpl<TeachplanMapper, Teachplan
     }
 
     /**
-     * 上移
+     * 移动
      *
      * @param id
+     * @param isMoveUp
      * @return
      */
-    @Override
-    public void moveup(long id) {
+    @Transactional
+    public void move(long id, boolean isMoveUp) {
         Teachplan teachplan = teachplanMapper.selectById(id);
 
         if (teachplan == null) {
             CustomException.cast(CommonError.QUERY_NULL);
         }
-        LambdaQueryWrapper<Teachplan> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper
-                .eq(Teachplan::getParentid, teachplan.getParentid())
-                .orderBy(teachplan.getOrderby() != null, true, Teachplan::getOrderby);
-        List<Teachplan> teachplans = teachplanMapper.selectList(queryWrapper);
 
-        // 如果仅有一个子节点或者该节点已经排在第一位，直接返回
-        if (teachplans.size() == 1 || teachplans.get(0).getId() == id) {
+        // 根据移动方向，获取不同排序方式的同级数据 1 2 3 4
+        List<Teachplan> teachplans = getSortedSiblings(teachplan.getParentid(), isMoveUp);
+
+        // 如果仅有一个子节点或者该节点已经处于开头或结尾，直接返回
+        if (teachplans.size() <= 1 || teachplans.get(0).getId() == id) {
             return;
         } else {
             for (int i = 0; i < teachplans.size(); i++) {
+                Teachplan currentNode = teachplans.get(i);
                 // 交换排序字段
-                if (teachplans.get(i).getId().equals(id)) {
-                    Teachplan currentNode = teachplans.get(i);
-                    Teachplan frontNode = teachplans.get(i - 1);
-                    Integer tmpOrderby = currentNode.getOrderby();
-                    currentNode.setOrderby(frontNode.getOrderby());
-                    frontNode.setOrderby(tmpOrderby);
-
-                    teachplanMapper.updateById(currentNode);
-                    teachplanMapper.updateById(frontNode);
+                if (currentNode.getId() == id) {
+                    Teachplan targetNode = teachplans.get(i - 1);
+                    exchangeOrderby(currentNode, targetNode);
                 }
             }
         }
     }
 
     /**
-     * 下移
+     * 根据升序/降序获取同级数据
      *
-     * @param id
-     * @return
+     * @param parentId
+     * @param isAsc
+     * @return List<Teachplan>
      */
-    @Override
-    public void movedown(long id) {
-        Teachplan teachplan = teachplanMapper.selectById(id);
-
-        if (teachplan == null) {
-            CustomException.cast(CommonError.QUERY_NULL);
-        }
+    public List<Teachplan> getSortedSiblings(long parentId, boolean isAsc) {
         LambdaQueryWrapper<Teachplan> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper
-                .eq(Teachplan::getParentid, teachplan.getParentid())
-                .orderBy(teachplan.getOrderby() != null, false, Teachplan::getOrderby);
-        List<Teachplan> teachplans = teachplanMapper.selectList(queryWrapper);
-
-        // 如果仅有一个子节点或者该节点已经排在第一位，直接返回
-        if (teachplans.size() == 1 || teachplans.get(0).getId() == id) {
-            return;
-        } else {
-            for (int i = 0; i < teachplans.size(); i++) {
-                // 交换排序字段
-                if (teachplans.get(i).getId().equals(id)) {
-                    Teachplan currentNode = teachplans.get(i);
-                    Teachplan frontNode = teachplans.get(i - 1);
-                    Integer tmpOrderby = currentNode.getOrderby();
-                    currentNode.setOrderby(frontNode.getOrderby());
-                    frontNode.setOrderby(tmpOrderby);
-
-                    teachplanMapper.updateById(currentNode);
-                    teachplanMapper.updateById(frontNode);
-                }
-            }
-        }
+                .eq(Teachplan::getParentid, parentId)
+                .orderBy(true, isAsc, Teachplan::getOrderby);
+        return teachplanMapper.selectList(queryWrapper);
     }
 
+    /**
+     * 交换排序字段
+     *
+     * @param teachplan1
+     * @param teachplan2
+     * @return
+     */
+    private void exchangeOrderby(Teachplan teachplan1, Teachplan teachplan2) {
+        Integer tmpOrderBy = teachplan1.getOrderby();
+        teachplan1.setOrderby(teachplan2.getOrderby());
+        teachplan2.setOrderby(tmpOrderBy);
+        teachplanMapper.updateById(teachplan1);
+        teachplanMapper.updateById(teachplan2);
+    }
 
     /**
      * 删除媒体资源信息

@@ -34,18 +34,11 @@ public interface TeachplanService extends IService<Teachplan> {
     void delete(long id);
 
     /**
-     * 上移
+     * 移动
      *
      * @param id
+     * @param isMoveUp
      * @return
      */
-    void moveup(long id);
-
-    /**
-     * 下移
-     *
-     * @param id
-     * @return
-     */
-    void movedown(long id);
+    void move(long id, boolean isMoveUp);
 }
