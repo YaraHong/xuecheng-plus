@@ -45,34 +45,20 @@ public class CourseTeacherServiceImpl extends ServiceImpl<CourseTeacherMapper, C
      * @return
      */
     @Override
-    public CourseTeacher add(CourseTeacher courseTeacher) {
+    public CourseTeacher addOrUpdate(CourseTeacher courseTeacher) {
         CourseBase courseBase = courseBaseMapper.selectById(courseTeacher.getCourseId());
         if (courseBase == null) {
             CustomException.cast("此课程不存在");
         }
         if (courseBase.getCompanyId() != null && courseBase.getCompanyId() != 1232141425L) {// TODO 后期获取登录信息中的机构id
-            CustomException.cast("只能为本机构课程添加老师");
+            CustomException.cast("只能编辑本机构课程的老师");
         }
-        int id = courseTeacherMapper.insert(courseTeacher);
-        return courseTeacherMapper.selectById(id);
-    }
 
-    /**
-     * 修改
-     *
-     * @param courseTeacher
-     * @return CourseTeacher
-     */
-    @Override
-    public CourseTeacher edit(CourseTeacher courseTeacher) {
-        CourseBase courseBase = courseBaseMapper.selectById(courseTeacher.getCourseId());
-        if (courseBase == null) {
-            CustomException.cast("此课程不存在");
+        if (courseTeacher.getId() == null) {
+            courseTeacherMapper.insert(courseTeacher);
+        } else {
+            courseTeacherMapper.updateById(courseTeacher);
         }
-        if (courseBase.getCompanyId() != null && courseBase.getCompanyId() != 1232141425L) {// TODO 后期获取登录信息中的机构id
-            CustomException.cast("只能为本机构课程修改老师");
-        }
-        courseTeacherMapper.updateById(courseTeacher);
         return courseTeacherMapper.selectById(courseTeacher.getId());
     }
 

@@ -4,7 +4,6 @@ import com.atyaoh.content.model.po.CourseTeacher;
 import com.atyaoh.content.service.CourseTeacherService;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -36,27 +35,15 @@ public class CourseTeacherController {
     }
 
     /**
-     * 添加
+     * 添加或修改
      *
      * @param courseTeacher
      * @return
      */
     @ApiOperation("添加")
     @PostMapping
-    public CourseTeacher add(@RequestBody @Validated CourseTeacher courseTeacher) {
-        return courseTeacherService.add(courseTeacher);
-    }
-
-    /**
-     * 修改
-     *
-     * @param courseTeacher
-     * @return CourseTeacher
-     */
-    @ApiOperation("修改")
-    @PutMapping
-    public CourseTeacher edit(CourseTeacher courseTeacher) {
-        return courseTeacherService.edit(courseTeacher);
+    public CourseTeacher addOrUpdate(@RequestBody CourseTeacher courseTeacher) {
+        return courseTeacherService.addOrUpdate(courseTeacher);
     }
 
     /**
@@ -69,6 +56,6 @@ public class CourseTeacherController {
     @ApiOperation("删除")
     @DeleteMapping("/course/{courseId}/{teacherId}")
     public void delete(@PathVariable("courseId") long courseId, @PathVariable("teacherId") long teacherId) {
-        courseTeacherService.remove(courseId,teacherId);
+        courseTeacherService.remove(courseId, teacherId);
     }
 }

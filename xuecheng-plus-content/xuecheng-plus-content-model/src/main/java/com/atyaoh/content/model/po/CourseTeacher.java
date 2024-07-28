@@ -1,6 +1,5 @@
 package com.atyaoh.content.model.po;
 
-import com.atyaoh.base.verify.ValidationGroups;
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 
@@ -24,7 +23,6 @@ public class CourseTeacher implements Serializable {
      * 主键
      */
     @TableId(value = "id", type = IdType.AUTO)
-    @NotNull(message = "课程主键不能为空", groups = ValidationGroups.update.class)
     private Long id;
 
     /**

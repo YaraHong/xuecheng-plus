@@ -16,20 +16,12 @@ public interface CourseTeacherService extends IService<CourseTeacher> {
     List<CourseTeacher> list(long courseId);
 
     /**
-     * 添加
+     * 添加或修改
      *
      * @param courseTeacher
      * @return
      */
-    CourseTeacher add(CourseTeacher courseTeacher);
-
-    /**
-     * 修改
-     *
-     * @param courseTeacher
-     * @return CourseTeacher
-     */
-    CourseTeacher edit(CourseTeacher courseTeacher);
+    CourseTeacher addOrUpdate(CourseTeacher courseTeacher);
 
     /**
      * 删除
