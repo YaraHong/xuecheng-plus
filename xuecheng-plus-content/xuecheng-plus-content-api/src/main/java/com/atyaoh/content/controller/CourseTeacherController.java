@@ -44,6 +44,18 @@ public class CourseTeacherController {
     @ApiOperation("添加")
     @PostMapping
     public CourseTeacher add(@RequestBody @Validated CourseTeacher courseTeacher) {
-       return courseTeacherService.add(courseTeacher);
+        return courseTeacherService.add(courseTeacher);
+    }
+
+    /**
+     * 修改
+     *
+     * @param courseTeacher
+     * @return CourseTeacher
+     */
+    @ApiOperation("修改")
+    @PutMapping
+    public CourseTeacher edit(CourseTeacher courseTeacher) {
+        return courseTeacherService.edit(courseTeacher);
     }
 }

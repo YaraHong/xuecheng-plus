@@ -97,7 +97,7 @@ public class CourseBaseServiceImpl extends ServiceImpl<CourseBaseMapper, CourseB
         // 添加课程基本信息
         CourseBase courseBase = new CourseBase();
         BeanUtils.copyProperties(addCourseDto, courseBase);
-        courseBase.setCompanyId(200200L); // 1、TODO 机构信息
+        courseBase.setCompanyId(1232141425L); // 1、TODO 机构信息
         courseBase.setCompanyName("手动填充");
         courseBase.setAuditStatus("202002"); // 2、TODO 审核状态
         courseBase.setStatus("202002");

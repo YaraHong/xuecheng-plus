@@ -53,9 +53,26 @@ public class CourseTeacherServiceImpl extends ServiceImpl<CourseTeacherMapper, C
         if (courseBase.getCompanyId() != null && courseBase.getCompanyId() != 1232141425L) {// TODO 后期获取登录信息中的机构id
             CustomException.cast("只能为本机构课程添加老师");
         }
-        // 添加
         int id = courseTeacherMapper.insert(courseTeacher);
-        // 返回老师信息
         return courseTeacherMapper.selectById(id);
+    }
+
+    /**
+     * 修改
+     *
+     * @param courseTeacher
+     * @return CourseTeacher
+     */
+    @Override
+    public CourseTeacher edit(CourseTeacher courseTeacher) {
+        CourseBase courseBase = courseBaseMapper.selectById(courseTeacher.getCourseId());
+        if (courseBase == null) {
+            CustomException.cast("此课程不存在");
+        }
+        if (courseBase.getCompanyId() != null && courseBase.getCompanyId() != 1232141425L) {// TODO 后期获取登录信息中的机构id
+            CustomException.cast("只能为本机构课程修改老师");
+        }
+        courseTeacherMapper.updateById(courseTeacher);
+        return courseTeacherMapper.selectById(courseTeacher.getId());
     }
 }

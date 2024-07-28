@@ -22,4 +22,12 @@ public interface CourseTeacherService extends IService<CourseTeacher> {
      * @return
      */
     CourseTeacher add(CourseTeacher courseTeacher);
+
+    /**
+     * 修改
+     *
+     * @param courseTeacher
+     * @return CourseTeacher
+     */
+    CourseTeacher edit(CourseTeacher courseTeacher);
 }

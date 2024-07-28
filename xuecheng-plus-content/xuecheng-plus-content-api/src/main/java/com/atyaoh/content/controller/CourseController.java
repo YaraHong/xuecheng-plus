@@ -74,6 +74,6 @@ public class CourseController {
     @ApiOperation("修改")
     @PutMapping
     public CourseBaseInfoDto edit(@RequestBody @Validated EditCourseDto editCourseDto) {
-        return courseBaseService.editCourse(editCourseDto, 200202L);
+        return courseBaseService.editCourse(editCourseDto, 1232141425L);
     }
 }
