@@ -9,19 +9,19 @@
     <!-- 大纲列表 -->
     <div class="outline">
       <el-tree
-          v-if="outlineData.teachPlanTreeNodes"
-          :data="outlineData.teachPlanTreeNodes"
-          node-key="teachPlanId"
-          :props="defaultProps"
-          :default-expanded-keys="outlineData.teachPlanTreeNodes.map(item=> item.teachPlanId)"
+        v-if="outlineData.teachPlanTreeNodes"
+        :data="outlineData.teachPlanTreeNodes"
+        node-key="teachPlanId"
+        :props="defaultProps"
+        :default-expanded-keys="outlineData.teachPlanTreeNodes.map(item=> item.teachPlanId)"
       >
         <!-- 自定义行 -->
         <template slot-scope="{ node, data }">
           <div
-              class="tree-node"
-              :class="{ ischild: data.grade =='2' }"
-              @mousemove="data.ctlBarShow = true"
-              @mouseleave="data.ctlBarShow = false"
+            class="tree-node"
+            :class="{ ischild: data.grade =='2' }"
+            @mousemove="data.ctlBarShow = true"
+            @mouseleave="data.ctlBarShow = false"
           >
             <div class="icon"></div>
             <div class="operate">
@@ -31,72 +31,72 @@
                   {{ data.pname }}
                 </span>
                 <input
-                    v-focus
-                    v-else
-                    v-model="data.pname"
-                    v-on:keyup.enter="data.ctlEditTitle=false"
-                    @blur="handleEditTitleBlue(data)"
-                    style="width:280px; height:30px;"
+                  v-focus
+                  v-else
+                  v-model="data.pname"
+                  v-on:keyup.enter="data.ctlEditTitle=false"
+                  @blur="handleEditTitleBlue(data)"
+                  style="width:280px; height:30px;"
                 />
               </div>
               <div class="preview" v-if="data.grade =='2'">
                 <el-checkbox
-                    v-model="data.isPreview"
-                    true-label="1"
-                    false-label="0"
-                    @change="handleChangeIsPreview(data)"
+                  v-model="data.isPreview"
+                  true-label="1"
+                  false-label="0"
+                  @change="handleChangeIsPreview(data)"
                 >免费</el-checkbox>
               </div>
               <!-- 时间 -->
               <div class="submit-time" v-if="data.grade =='2' && teachmode == '200003'">
                 <!-- <span>{{ data.createDate | dateFmt }} ~ {{ data.createDate | endDateFmt }}</span> -->
                 <el-date-picker
-                    @change="handleChangePublishTime(data)"
-                    v-model="data.startTime"
-                    type="datetime"
-                    placeholder="选择开始时间"
-                    default-time="12:00:00"
-                    :clearable="false"
-                    value-format="yyyy-MM-dd HH:mm:ss"
+                  @change="handleChangePublishTime(data)"
+                  v-model="data.startTime"
+                  type="datetime"
+                  placeholder="选择开始时间"
+                  default-time="12:00:00"
+                  :clearable="false"
+                  value-format="yyyy-MM-dd HH:mm:ss"
                 ></el-date-picker>~
                 <el-date-picker
-                    @change="handleChangePublishTime(data)"
-                    v-model="data.endTime"
-                    type="datetime"
-                    placeholder="选择结束时间"
-                    default-time="12:00:00"
-                    :clearable="false"
-                    value-format="yyyy-MM-dd HH:mm:ss"
+                  @change="handleChangePublishTime(data)"
+                  v-model="data.endTime"
+                  type="datetime"
+                  placeholder="选择结束时间"
+                  default-time="12:00:00"
+                  :clearable="false"
+                  value-format="yyyy-MM-dd HH:mm:ss"
                 ></el-date-picker>
               </div>
               <!-- 作业、媒体 -->
               <div class="media-file" v-if="data.grade =='2'">
                 <el-link
-                    v-if="data.teachplanMedia != null && data.teachplanMedia.mediaFilename != null && data.teachplanMedia.mediaFilename != '' "
-                    icon="el-icon-delete"
-                    :underline="false"
-                    @click="handleDeleteMedia(data)"
+                  v-if="data.teachplanMedia != null && data.teachplanMedia.mediaFilename != null && data.teachplanMedia.mediaFilename != '' "
+                  icon="el-icon-delete"
+                  :underline="false"
+                  @click="handleDeleteMedia(data)"
                 >{{data.teachplanMedia.mediaFilename}}</el-link>
                 <el-link
-                    v-else-if="data.work != null && data.work.workTitle != ''"
-                    icon="el-icon-delete"
-                    :underline="false"
-                    @click="handleDeleteWork(data)"
+                  v-else-if="data.work != null && data.work.workTitle != ''"
+                  icon="el-icon-delete"
+                  :underline="false"
+                  @click="handleDeleteWork(data)"
                 >{{data.work.workTitle}}</el-link>
               </div>
               <!-- 按钮 -->
-              <div class="buttons" v-if="data.grade =='1' ">
+              <div class="buttons" v-if="data.grade =='1' "> 
                 <el-button
-                    type="text"
-                    @click.stop="handleAddSection(data.teachPlanTreeNodes, data.id)"
+                  type="text"
+                  @click.stop="handleAddSection(data.teachPlanTreeNodes, data.id)"
                 >添加小节</el-button>
                 <el-button type="text" @click.stop="handleDeleteNode(data.id)">删除本章</el-button>
-                <!-- 上移 -->
+                 <!-- 上移 -->
                 <el-button type="text" @click.stop="moveUP(data.id)">上移</el-button>
                 <!-- 下移 -->
                 <el-button type="text" @click.stop="moveDown(data.id)">下移</el-button>
               </div>
-
+            
               <div class="buttons" v-else-if="data.grade =='2'">
                 <template v-if="teachmode=='200002'">
                   <!--  <span v-if="data.teachplanMedia != null "  @click="handleSelectVideo(data)">
@@ -111,9 +111,9 @@
 
                   <!-- 视频 -->
                   <el-button
-
-                      type="text"
-                      @click.stop="handleSelectVideo(data)"
+                  
+                    type="text"
+                    @click.stop="handleSelectVideo(data)"
                   >添加视频</el-button>
 
                   <!-- 文档 
@@ -139,11 +139,11 @@
 
       <!-- 媒体选择 -->
       <OutlineSelectDialog
-          ref="outlineSelectDialog"
-          :dialogVisible.sync="mediaDialogVisible"
-          @onSelected="onRecvSelectedValue"
-          :type="selectType"
-          :title="selectTypeTitle"
+        ref="outlineSelectDialog"
+        :dialogVisible.sync="mediaDialogVisible"
+        @onSelected="onRecvSelectedValue"
+        :type="selectType"
+        :title="selectTypeTitle"
       />
     </div>
   </div>
@@ -225,8 +225,8 @@ export default class extends mixins(MixinTools) {
   // 重置媒体选择
   private restSelectedDialog() {
     let selDialog: HTMLFormElement = this.$refs[
-        'outlineSelectDialog'
-        ] as HTMLFormElement
+      'outlineSelectDialog'
+    ] as HTMLFormElement
     selDialog.restForm()
   }
 
@@ -314,8 +314,8 @@ export default class extends mixins(MixinTools) {
 
   // 添加小节
   private async handleAddSection(
-      teachPlanTreeNodes: ICourseOutlineTreeNode[],
-      parentid: number
+    teachPlanTreeNodes: ICourseOutlineTreeNode[],
+    parentid: number
   ) {
     let node: ICourseOutlineTreeNode = {
       courseId: this.courseBaseId,
@@ -349,7 +349,7 @@ export default class extends mixins(MixinTools) {
       this.getList()
     } catch (error) {}
   }
-  //下移
+ //下移
   private async moveDown(teachPlanId: number) {
     try {
       await moveDownSubmit(teachPlanId)
@@ -358,7 +358,7 @@ export default class extends mixins(MixinTools) {
   }
 
 
-
+  
 
 
   // 免费学习本章
@@ -426,13 +426,13 @@ export default class extends mixins(MixinTools) {
     //   await submitOutlineNode(this.curSelectNode)
     // }
     if (ret.type === 'video' || ret.type === 'doc') {
-
+      
       await mediaAssociation(ret.value.id,ret.value.filename ,this.curSelectNode.id)
     } else if (ret.type === 'work') {
       await workAssociation(
-          this.curSelectNode.teachPlanId,
-          ret.value.workId,
-          ret.value.title
+        this.curSelectNode.teachPlanId,
+        ret.value.workId,
+        ret.value.title
       )
     }
     this.getList()
@@ -443,16 +443,16 @@ export default class extends mixins(MixinTools) {
     console.log(node)
     try {
       if (
-          node.teachplanMedia === undefined ||
-          node.teachplanMedia.teachplanId === undefined
+        node.teachplanMedia === undefined ||
+        node.teachplanMedia.teachplanId === undefined
       ) {
         return
       }
       await this.showDeleteConfirm()
       await mediaUnAssociation(
-          node.teachplanMedia.teachplanId,
-          node.teachplanMedia.mediaId,
-          this.courseBaseId
+        node.teachplanMedia.teachplanId,
+        node.teachplanMedia.mediaId,
+        this.courseBaseId
       )
       this.getList()
     } catch (error) {}

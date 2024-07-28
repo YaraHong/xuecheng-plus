@@ -3,47 +3,47 @@
     <div class="banner">
       <span class="primary-title">课程管理</span>
       <el-button
-          type="primary"
-          size="medium"
-          class="btn-add el-button"
-          @click="handleShowTypeDlg"
+        type="primary"
+        size="medium"
+        class="btn-add el-button"
+        @click="handleShowTypeDlg"
       >+添加课程</el-button>
     </div>
 
     <!-- 搜索栏 -->
     <div class="searcher">
       <el-input
-          class="el-input"
-          placeholder="课程名称"
-          suffix-icon="el-icon-search"
-          v-model="listQueryData.courseName"
+        class="el-input"
+        placeholder="课程名称"
+        suffix-icon="el-icon-search"
+        v-model="listQueryData.courseName"
       />
       <el-select v-model="listQueryData.auditStatus" placeholder="请选择">
         <el-option
-            v-for="item in aduitStatusOptions"
-            :key="item.code"
-            :label="item.desc"
-            :value="item.code"
+          v-for="item in aduitStatusOptions" 
+          :key="item.code"
+          :label="item.desc"
+          :value="item.code"
         ></el-option>
       </el-select>
-      <el-select v-model="listQueryData.publishStatus" placeholder="请选择">
+     <el-select v-model="listQueryData.publishStatus" placeholder="请选择">
         <el-option
-            v-for="item in coursePublishStatus"
-            :key="item.code"
-            :label="item.desc"
-            :value="item.code"
+          v-for="item in coursePublishStatus"
+          :key="item.code"
+          :label="item.desc"
+          :value="item.code"
         ></el-option>
       </el-select>
     </div>
 
     <!-- 数据列表 -->
     <el-table
-        class="dataList"
-        v-loading="listLoading"
-        :data="listData.items"
-        border
-        style="width: 100%"
-        :header-cell-style="{textAlign: 'center'}"
+      class="dataList"
+      v-loading="listLoading"
+      :data="listData.items"
+      border
+      style="width: 100%"
+      :header-cell-style="{textAlign: 'center'}"
     >
       <el-table-column prop="name" label="课程名称" width="250"></el-table-column>
       <el-table-column prop="subsectionNum" label="任务数" align="center" width="100"></el-table-column>
@@ -64,16 +64,16 @@
             {{scope.row.auditStatus | auditStatusText}}
             <br />
             <el-button
-                v-if="scope.row.auditStatus == '202001'"
-                type="text"
-                size="mini"
-                @click="showMessageBox(scope.row.auditMind, '审核未通过')"
+              v-if="scope.row.auditStatus == '202001'"
+              type="text"
+              size="mini"
+              @click="showMessageBox(scope.row.auditMind, '审核未通过')"
             >查看审核意见</el-button>
             <el-button
-                v-else-if="scope.row.auditStatus == '202005'"
-                type="text"
-                size="mini"
-                @click="handleViewDetail(scope.$index, scope.row)"
+              v-else-if="scope.row.auditStatus == '202005'"
+              type="text"
+              size="mini"
+              @click="handleViewDetail(scope.$index, scope.row)"
             >查看课程详情</el-button>
           </div>
         </template>
@@ -87,38 +87,38 @@
       <el-table-column label="操作" align="center">
         <template slot-scope="scope">
           <el-button
-              type="text"
-              size="mini"
-              @click="handleEdit(scope.$index, scope.row)"
+            type="text"
+            size="mini"
+            @click="handleEdit(scope.$index, scope.row)"
           >编辑</el-button>
           <el-button
-              type="text"
-              size="mini"
-              :disabled="scope.row.auditStatus != '202002'"
-              @click="handleDelete(scope.$index, scope.row)"
+            type="text"
+            size="mini"
+            :disabled="scope.row.auditStatus != '202002'"
+            @click="handleDelete(scope.$index, scope.row)"
           >删除</el-button>
           <el-button
-              type="text"
-              size="mini"
-              @click="handlePreview(scope.$index, scope.row)"
+            type="text"
+            size="mini"
+            @click="handlePreview(scope.$index, scope.row)"
           >预览</el-button>
           <el-button
-              type="text"
-              size="mini"
-              :disabled="scope.row.auditStatus == '202003'"
-              @click="handleCommit(scope.$index, scope.row)"
+            type="text"
+            size="mini"
+            :disabled="scope.row.auditStatus == '202003'"
+            @click="handleCommit(scope.$index, scope.row)"
           >提交审核</el-button>
           <el-button
-              type="text"
-              size="mini"
-              :disabled="scope.row.status == '203002' || scope.row.auditStatus != '202004' "
-              @click="handlePublish(scope.$index, scope.row)"
+            type="text"
+            size="mini"
+            :disabled="scope.row.status == '203002' || scope.row.auditStatus != '202004' "
+            @click="handlePublish(scope.$index, scope.row)"
           >发布</el-button>
           <el-button
-              type="text"
-              size="mini"
-              :disabled="scope.row.status != '203002'"
-              @click="handleOffline(scope.$index, scope.row)"
+            type="text"
+            size="mini"
+            :disabled="scope.row.status != '203002'"
+            @click="handleOffline(scope.$index, scope.row)"
           >下架</el-button>
         </template>
       </el-table-column>
@@ -127,11 +127,11 @@
     <!-- 翻页控制 -->
     <div class="dataList-pagination">
       <Pagination
-          v-show="listData.counts > 0"
-          :total="listData.counts"
-          :page.sync="listQuery.pageNo"
-          :limit.sync="listQuery.pageSize"
-          @pagination="getList"
+        v-show="listData.counts > 0"
+        :total="listData.counts"
+        :page.sync="listQuery.pageNo"
+        :limit.sync="listQuery.pageSize"
+        @pagination="getList"
       />
     </div>
 
@@ -235,8 +235,8 @@ export default class extends mixins(MixinTools) {
   private async handlePreview(index: number, row: ICourseBaseDTO) {
     if (row.id) {
       window.open(
-          `${process.env.VUE_APP_SERVER_API_URL}/content/coursepreview/${row.id}`,
-          '_blank'
+        `${process.env.VUE_APP_SERVER_API_URL}/content/coursepreview/${row.id}`,
+        '_blank'
       )
       // window.open(
       //   `${process.env.VUE_APP_SERVER_API_URL}/content/course/preview/${row.courseBaseId}/${row.companyId}`,
@@ -251,23 +251,23 @@ export default class extends mixins(MixinTools) {
     })
   }
   private async handleCommit(index: number, row: ICourseBaseDTO) {
-
+   
     this.$confirm('请确认课程信息编辑完成，是否提交平台审核?', '提示', {
-      confirmButtonText: '确定',
-      cancelButtonText: '取消',
-      type: 'warning'
-    }).then(() => {
-      if (row.id) {
-        commitCourse(row.id).then(() => {
-              this.$message.success('提交成功')
-            }
-
-        )
-        this.getList()
-      }
-    }).catch(() => {
-
-    });
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          if (row.id) {
+           commitCourse(row.id).then(() => {
+            this.$message.success('提交成功')
+           }
+           
+           )
+          this.getList()
+          }
+        }).catch(() => {
+          
+        });
 
   }
   private async handlePublish(index: number, row: ICourseBaseDTO) {
@@ -277,27 +277,27 @@ export default class extends mixins(MixinTools) {
     // }
 
     this.$confirm('课程发布后将在网站公开，是否继续发布课程?', '提示', {
-      confirmButtonText: '确定',
-      cancelButtonText: '取消',
-      type: 'warning'
-    }).then(() => {
-      if (row.id) {
-        publishCourse(row.id).then(() => {
-              this.$message.success('操作成功，请稍后在课程搜索中搜索课程')
-            }
-
-        )
-        this.getList()
-      }
-    }).catch(() => {
-
-    });
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          if (row.id) {
+            publishCourse(row.id).then(() => {
+            this.$message.success('操作成功，请稍后在课程搜索中搜索课程')
+           }
+           
+           )
+          this.getList()
+          }
+        }).catch(() => {
+          
+        });
   }
   private async handleViewDetail(index: number, row: ICourseBaseDTO) {
     if (row.coursePubId) {
       window.open(
-          `${process.env.VUE_APP_SERVER_QINIU_URL}/course_pub/${row.coursePubId}.html`,
-          '_blank'
+        `${process.env.VUE_APP_SERVER_QINIU_URL}/course_pub/${row.coursePubId}.html`,
+        '_blank'
       )
     }
   }
@@ -309,21 +309,21 @@ export default class extends mixins(MixinTools) {
     // }
 
     this.$confirm('课程下架后无法在网站查询，但不影响现有学生学习，是否继续下架课程?', '提示', {
-      confirmButtonText: '确定',
-      cancelButtonText: '取消',
-      type: 'warning'
-    }).then(() => {
-      if (row.id) {
-        offlineCourse(row.id).then(() => {
-              this.$message.success('操作成功，稍后在课程搜索中将无法查询到课程。')
-            }
-
-        )
-        this.getList()
-      }
-    }).catch(() => {
-
-    });
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          if (row.id) {
+            offlineCourse(row.id).then(() => {
+            this.$message.success('操作成功，稍后在课程搜索中将无法查询到课程。')
+           }
+           
+           )
+          this.getList()
+          }
+        }).catch(() => {
+          
+        });
   }
   private async handleDelete(index: number, row: ICourseBaseDTO) {
     try {

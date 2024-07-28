@@ -6,12 +6,12 @@
 
     <!-- 数据列表 -->
     <el-table
-        class="dataList"
-        v-loading="listLoading"
-        :data="listData"
-        border
-        style="width: 100%"
-        :header-cell-style="{textAlign: 'center'}"
+      class="dataList"
+      v-loading="listLoading"
+      :data="listData"
+      border
+      style="width: 100%"
+      :header-cell-style="{textAlign: 'center'}"
     >
       <el-table-column prop="teacherName" label="教师名称" align="center" width="100"></el-table-column>
       <el-table-column prop="position" label="教师职位" align="center" width="100"></el-table-column>
@@ -31,10 +31,10 @@
 
     <!-- 对话框 -->
     <SaveTeacherDialog
-        ref="dialog"
-        :dialogVisible.sync="isDialogVisible"
-        :teacherData="teacherData"
-        @complete="getList"
+      ref="dialog"
+      :dialogVisible.sync="isDialogVisible"
+      :teacherData="teacherData"
+      @complete="getList"
     />
   </div>
 </template>

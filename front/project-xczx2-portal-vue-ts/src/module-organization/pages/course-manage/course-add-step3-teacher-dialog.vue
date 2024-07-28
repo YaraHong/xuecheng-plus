@@ -27,11 +27,6 @@
 </template>
 
 <style lang="scss" scoped>
-// .form-dialog {
-//   text-align: center;
-//   min-height: 80px;
-//   width: 90%;
-// }
 </style>
 
 <script lang="ts">
@@ -55,14 +50,6 @@ export default class extends Vue {
   @Prop()
   private teacherData!: ICourseTeacherList
 
-  // constructor() {
-  //   super()
-  //   this.teacherData = {
-  //     teacherName: '',
-  //     position: '',
-  //     introduction: ''
-  //   }
-  // }
   // 验证规则
   private rules = {
     teacherName: [{required: true, message: '请输入姓名', trigger: 'blur'}],
@@ -73,9 +60,6 @@ export default class extends Vue {
         trigger: 'blur'
       }
     ]
-    // introduction: [
-    //   { required: true, message: '请输入教师简介', trigger: 'change' }
-    // ]
   }
 
   public restForm() {
@@ -103,9 +87,7 @@ export default class extends Vue {
   async handleSubmit() {
     if (await this.validateForm()) {
       if (this.teacherData.photograph) {
-        // alert(this.teacherData.photograph.replace(`${process.env.VUE_APP_SERVER_PICSERVER_URL}`,''))
         this.teacherData.photograph = this.teacherData.photograph.replace(`${process.env.VUE_APP_SERVER_PICSERVER_URL}`, '')
-
       }
       await submitTeacher(this.teacherData)
       this.syncDialogVisible = false
