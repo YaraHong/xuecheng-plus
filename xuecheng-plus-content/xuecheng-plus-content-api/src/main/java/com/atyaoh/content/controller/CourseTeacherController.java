@@ -58,4 +58,17 @@ public class CourseTeacherController {
     public CourseTeacher edit(CourseTeacher courseTeacher) {
         return courseTeacherService.edit(courseTeacher);
     }
+
+    /**
+     * 删除
+     *
+     * @param courseId
+     * @param teacherId
+     * @return
+     */
+    @ApiOperation("删除")
+    @DeleteMapping("/course/{courseId}/{teacherId}")
+    public void delete(@PathVariable("courseId") long courseId, @PathVariable("teacherId") long teacherId) {
+        courseTeacherService.remove(courseId,teacherId);
+    }
 }

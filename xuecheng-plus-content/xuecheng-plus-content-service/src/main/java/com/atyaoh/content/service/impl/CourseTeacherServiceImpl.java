@@ -75,4 +75,23 @@ public class CourseTeacherServiceImpl extends ServiceImpl<CourseTeacherMapper, C
         courseTeacherMapper.updateById(courseTeacher);
         return courseTeacherMapper.selectById(courseTeacher.getId());
     }
+
+    /**
+     * 删除
+     *
+     * @param courseId
+     * @param teacherId
+     * @return
+     */
+    @Override
+    public void remove(long courseId, long teacherId) {
+        CourseBase courseBase = courseBaseMapper.selectById(courseId);
+        if (courseBase == null) {
+            CustomException.cast("此课程不存在");
+        }
+        if (courseBase.getCompanyId() != null && courseBase.getCompanyId() != 1232141425L) {// TODO 后期获取登录信息中的机构id
+            CustomException.cast("只能删除本机构课程的老师");
+        }
+        courseTeacherMapper.deleteById(teacherId);
+    }
 }

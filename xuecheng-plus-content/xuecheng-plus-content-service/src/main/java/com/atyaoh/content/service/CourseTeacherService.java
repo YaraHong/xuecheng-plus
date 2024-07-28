@@ -30,4 +30,13 @@ public interface CourseTeacherService extends IService<CourseTeacher> {
      * @return CourseTeacher
      */
     CourseTeacher edit(CourseTeacher courseTeacher);
+
+    /**
+     * 删除
+     *
+     * @param courseId
+     * @param teacherId
+     * @return
+     */
+    void remove(long courseId, long teacherId);
 }
