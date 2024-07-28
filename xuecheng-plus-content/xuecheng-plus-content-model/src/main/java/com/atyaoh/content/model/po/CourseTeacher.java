@@ -1,8 +1,10 @@
 package com.atyaoh.content.model.po;
 
+import com.atyaoh.base.verify.ValidationGroups;
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -26,16 +28,19 @@ public class CourseTeacher implements Serializable {
     /**
      * 课程标识
      */
+    @NotEmpty(message = "课程标识不可为空", groups = ValidationGroups.insert.class)
     private Long courseId;
 
     /**
      * 教师标识
      */
+    @NotEmpty(message = "教师标识不可为空", groups = ValidationGroups.insert.class)
     private String teacherName;
 
     /**
      * 教师职位
      */
+    @NotEmpty(message = "教师职位不可为空", groups = ValidationGroups.insert.class)
     private String position;
 
     /**

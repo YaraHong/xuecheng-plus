@@ -14,4 +14,12 @@ public interface CourseTeacherService extends IService<CourseTeacher> {
      * @return List<CourseTeacher>
      */
     List<CourseTeacher> list(long courseId);
+
+    /**
+     * 添加
+     *
+     * @param courseTeacher
+     * @return
+     */
+    CourseTeacher add(CourseTeacher courseTeacher);
 }
