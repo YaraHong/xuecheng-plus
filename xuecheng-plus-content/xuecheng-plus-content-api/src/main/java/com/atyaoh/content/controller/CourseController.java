@@ -76,4 +76,16 @@ public class CourseController {
     public CourseBaseInfoDto edit(@RequestBody @Validated EditCourseDto editCourseDto) {
         return courseBaseService.editCourse(editCourseDto, 1232141425L);
     }
+
+    /**
+     * 删除
+     *
+     * @param
+     * @return
+     */
+    @ApiOperation("删除")
+    @DeleteMapping("/{id}")
+    public void remove(@PathVariable long id) {
+        courseBaseService.remove(id);
+    }
 }
