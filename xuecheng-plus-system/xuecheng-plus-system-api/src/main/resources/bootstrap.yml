@@ -5,19 +5,17 @@ server:
 #微服务配置
 spring:
   application:
-    name: system-api
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://vm1:3306/xcplus_system?serverTimezone=UTC&userUnicode=true&useSSL=false
-    username: root
-    password: 121221
-# 日志文件配置路径
-logging:
-  config: classpath:log4j2-dev.xml
-# swagger 文档配置
-swagger:
-  title: "学成在线系统管理"
-  description: "系统管理接口"
-  base-package: com.atyaoh.system
-  enabled: true
-  version: 1.0.0
+    name: system-service
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      server-addr: vm1:8848
+      discovery:
+        namespace: 4d61e409-a0b0-4b55-a0f2-03c7937fa41c
+        group: xcplus
+      config:
+        file-extension: yaml
+        namespace: 4d61e409-a0b0-4b55-a0f2-03c7937fa41c
+        group: xcplus
+        refresh-enabled: true

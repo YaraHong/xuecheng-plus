@@ -5,19 +5,17 @@ server:
 #微服务配置
 spring:
   application:
-    name: content-api
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://vm1/xcplus_content?serverTimezone=UTC&userUnicode=true&useSSL=false
-    username: root
-    password: 121221
-# 日志文件配置路径
-logging:
-  config: classpath:log4j2-dev.xml
-# swagger 文档配置
-swagger:
-  title: "学成在线内容管理系统"
-  description: "内容管理接口"
-  base-package: com.atyaoh.content
-  enabled: true
-  version: 1.0.0
+    name: content-service
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      server-addr: vm1:8848
+      discovery:
+        namespace: 4d61e409-a0b0-4b55-a0f2-03c7937fa41c
+        group: xcplus
+      config:
+        file-extension: yaml
+        namespace: 4d61e409-a0b0-4b55-a0f2-03c7937fa41c
+        group: xcplus
+        refresh-enabled: true
