@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.atyaoh</groupId>
+        <artifactId>xuecheng-plus-parent</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../xuecheng-plus-parent</relativePath>
+    </parent>
+    <packaging>pom</packaging>
+    <name>xuecheng-plus-media</name>
+    <description>xuecheng-plus-media</description>
+    <artifactId>xuecheng-plus-media</artifactId>
+    <modules>
+        <module>xuecheng-plus-media-api</module>
+        <module>xuecheng-plus-media-service</module>
+        <module>xuecheng-plus-media-model</module>
+    </modules>
+    <!--热部署依赖包 该包包含开发所需的所有工具 热部署就包含在其中-->
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.atyaoh</groupId>
+            <artifactId>xuecheng-plus-base</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+</project>
