@@ -19,3 +19,14 @@ spring:
         namespace: 4d61e409-a0b0-4b55-a0f2-03c7937fa41c
         group: xcplus
         refresh-enabled: true
+        extension-configs:
+          - data-id: content-service-${spring.profiles.active}.yaml
+            group: xcplus
+            refresh: true
+        shared-configs:
+          - data-id: swagger-${spring.profiles.active}.yaml
+            group: xcplus-common
+            refresh: true
+          - data-id: logging-${spring.profiles.active}.yaml
+            group: xcplus-common
+            refresh: true

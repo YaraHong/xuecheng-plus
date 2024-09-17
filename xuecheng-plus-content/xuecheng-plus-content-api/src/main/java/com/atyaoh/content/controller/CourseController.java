@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  *
  * @author YaraHong
  */
-@Api(value = "课程信息编辑接口", tags = "课程信息编辑接口")
+@Api(value = "课程信息相关接口", tags = "课程信息相关接口")
 @RestController
 @RequestMapping("/course")
 public class CourseController {

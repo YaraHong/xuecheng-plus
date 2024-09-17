@@ -2,6 +2,7 @@ package com.atyaoh.content.controller;
 
 import com.atyaoh.content.model.po.CourseTeacher;
 import com.atyaoh.content.service.CourseTeacherService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import java.util.List;
  *
  * @author YaraHong
  */
+@Api(value = "课程-老师信息相关接口", tags = "课程-老师信息相关接口")
 @Slf4j
 @RestController
 @RequestMapping("courseTeacher")
