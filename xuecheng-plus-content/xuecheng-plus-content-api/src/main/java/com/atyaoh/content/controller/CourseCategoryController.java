@@ -17,7 +17,7 @@ import java.util.List;
  *
  * @author YaraHong
  */
-@Api(value = "课程分类相关接口",tags = "课程分类相关接口")
+@Api(value = "课程分类相关接口", tags = "课程分类相关接口")
 @Slf4j
 @RestController
 @RequestMapping("course-category")

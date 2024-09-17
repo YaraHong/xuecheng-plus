@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration monitorInterval="180" packages="">
+    <Properties>
+        <Property name="logdir">logs</Property>
+        <Property name="PATTERN">%d{yyyy-MM-dd HH:mm:ss} %highlight{%p}{FATAL=red blink, ERROR=red,
+            WARN=yellow bold, INFO=green, DEBUG=cyan, TRACE=blue} [%t][%F:%L] - %msg%n%throwable
+        </Property>
+    </Properties>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${PATTERN}"/>
+        </Console>
+        <RollingFile name="ErrorAppender" fileName="${logdir}/error.log"
+                     filePattern="${logdir}/$${date:yyyy-MM-dd}/error.%d{yyyy-MM-dd-HH}.log" append="true">
+            <PatternLayout pattern="${PATTERN}"/>
+            <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+        </RollingFile>
+        <RollingFile name="DebugAppender" fileName="${logdir}/info.log"
+                     filePattern="${logdir}/$${date:yyyy-MM-dd}/info.%d{yyyy-MM-dd-HH}.log" append="true">
+            <PatternLayout pattern="${PATTERN}"/>
+            <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+        </RollingFile>
+        <Async name="AsyncAppender" includeLocation="true">
+            <AppenderRef ref="ErrorAppender"/>
+            <AppenderRef ref="DebugAppender"/>
+        </Async>
+    </Appenders>
+    <Loggers>
+        <Logger name="org.springframework" level="INFO"/>
+        <Logger name="org.mybatis" level="INFO"/>
+        <Logger name="cn.itcast.wanxinp2p.consumer.mapper" level="DEBUG"/>
+        <Logger name="springfox" level="INFO"/>
+        <Logger name="org.apache.http" level="INFO"/>
+        <Logger name="com.netflix.discovery" level="INFO"/>
+        <Logger name="RocketmqCommon" level="INFO"/>
+        <Logger name="RocketmqRemoting" level="INFO"/>
+        <Logger name="RocketmqClient" level="WARN"/>
+        <Logger name="org.dromara.hmily" level="WARN"/>
+        <Logger name="org.dromara.hmily.lottery" level="WARN"/>
+        <Logger name="org.dromara.hmily.bonuspoint" level="WARN"/>
+        <Root level="DEBUG" includeLocation="true">
+            <AppenderRef ref="AsyncAppender"/>
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="DebugAppender"/>
+        </Root>
+    </Loggers>
+</Configuration>

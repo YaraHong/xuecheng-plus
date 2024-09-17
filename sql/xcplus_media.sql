@@ -4,16 +4,16 @@
 -- ------------------------------------------------------
 -- Server version	8.0.26
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT = @@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS = @@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION = @@COLLATION_CONNECTION */;
 /*!50503 SET NAMES utf8mb4 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+/*!40103 SET @OLD_TIME_ZONE = @@TIME_ZONE */;
+/*!40103 SET TIME_ZONE = '+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS = @@UNIQUE_CHECKS, UNIQUE_CHECKS = 0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS = @@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS = 0 */;
+/*!40101 SET @OLD_SQL_MODE = @@SQL_MODE, SQL_MODE = 'NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES = @@SQL_NOTES, SQL_NOTES = 0 */;
 
 
 
@@ -22,7 +22,7 @@
 --
 
 DROP TABLE IF EXISTS `media_files`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET @saved_cs_client = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `media_files`
 (
@@ -46,7 +46,9 @@ CREATE TABLE `media_files`
     `file_size`    bigint                                                   DEFAULT NULL COMMENT '文件大小',
     PRIMARY KEY (`id`) USING BTREE,
     UNIQUE KEY `unique_fileid` (`file_id`) USING BTREE COMMENT '文件id唯一索引 '
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='媒资信息';
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb3
+  ROW_FORMAT = DYNAMIC COMMENT ='媒资信息';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -54,8 +56,9 @@ CREATE TABLE `media_files`
 --
 
 LOCK
-TABLES `media_files` WRITE;
-/*!40000 ALTER TABLE `media_files` DISABLE KEYS */;
+    TABLES `media_files` WRITE;
+/*!40000 ALTER TABLE `media_files`
+    DISABLE KEYS */;
 INSERT INTO `media_files` (`id`, `company_id`, `company_name`, `filename`, `file_type`, `tags`, `bucket`, `file_path`,
                            `file_id`, `url`, `username`, `create_date`, `change_date`, `status`, `remark`,
                            `audit_status`, `audit_mind`, `file_size`)
@@ -199,16 +202,17 @@ VALUES ('1137f04b2f44d1b2c37bcb73608864da', 1232141425, NULL, 'course29943168382
         '2022/09/20/fbb57de7001cccf1e28fbe34c7506ddc.png', 'fbb57de7001cccf1e28fbe34c7506ddc',
         '/mediafiles/2022/09/20/fbb57de7001cccf1e28fbe34c7506ddc.png', NULL, '2022-09-20 21:55:25', NULL, '1', '',
         '002003', NULL, 4355);
-/*!40000 ALTER TABLE `media_files` ENABLE KEYS */;
+/*!40000 ALTER TABLE `media_files`
+    ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `media_process`
 --
 
 DROP TABLE IF EXISTS `media_process`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET @saved_cs_client = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `media_process`
 (
@@ -224,7 +228,9 @@ CREATE TABLE `media_process`
     `errormsg`    varchar(1024) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '失败原因',
     PRIMARY KEY (`id`) USING BTREE,
     UNIQUE KEY `unique_fileid` (`file_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb3
+  ROW_FORMAT = DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -232,18 +238,20 @@ CREATE TABLE `media_process`
 --
 
 LOCK
-TABLES `media_process` WRITE;
-/*!40000 ALTER TABLE `media_process` DISABLE KEYS */;
-/*!40000 ALTER TABLE `media_process` ENABLE KEYS */;
+    TABLES `media_process` WRITE;
+/*!40000 ALTER TABLE `media_process`
+    DISABLE KEYS */;
+/*!40000 ALTER TABLE `media_process`
+    ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `media_process_history`
 --
 
 DROP TABLE IF EXISTS `media_process_history`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET @saved_cs_client = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `media_process_history`
 (
@@ -258,7 +266,9 @@ CREATE TABLE `media_process_history`
     `file_path`   varchar(512) CHARACTER SET utf8 COLLATE utf8_general_ci  DEFAULT NULL COMMENT '文件路径',
     `errormsg`    varchar(1024) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '失败原因',
     PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb3
+  ROW_FORMAT = DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -266,8 +276,9 @@ CREATE TABLE `media_process_history`
 --
 
 LOCK
-TABLES `media_process_history` WRITE;
-/*!40000 ALTER TABLE `media_process_history` DISABLE KEYS */;
+    TABLES `media_process_history` WRITE;
+/*!40000 ALTER TABLE `media_process_history`
+    DISABLE KEYS */;
 INSERT INTO `media_process_history` (`id`, `file_id`, `filename`, `bucket`, `status`, `create_date`, `finish_date`,
                                      `url`, `file_path`, `errormsg`)
 VALUES (1, '81d7ed5153316f5774885d3b4c07d8bc', 'Spring Security快速上手-创建工程.avi', 'video', '2',
@@ -280,16 +291,17 @@ VALUES (1, '81d7ed5153316f5774885d3b4c07d8bc', 'Spring Security快速上手-创�
        (3, 'efd2eacc4485946fc27feb0caef7506c', '读写分离-理解读写分离.avi', 'video', '2', '2022-12-15 09:45:19',
         '2022-12-15 10:31:04', '/video/e/f/efd2eacc4485946fc27feb0caef7506c/efd2eacc4485946fc27feb0caef7506c.mp4',
         'e/f/efd2eacc4485946fc27feb0caef7506c/efd2eacc4485946fc27feb0caef7506c.avi', NULL);
-/*!40000 ALTER TABLE `media_process_history` ENABLE KEYS */;
+/*!40000 ALTER TABLE `media_process_history`
+    ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `mq_message`
 --
 
 DROP TABLE IF EXISTS `mq_message`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET @saved_cs_client = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `mq_message`
 (
@@ -302,7 +314,7 @@ CREATE TABLE `mq_message`
     `mq_port`            int                                                    NOT NULL COMMENT '消息队列端口',
     `mq_virtualhost`     varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '消息队列虚拟主机',
     `mq_queue`           varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '队列名称',
-    `inform_num`         int unsigned NOT NULL COMMENT '通知次数',
+    `inform_num`         int unsigned                                           NOT NULL COMMENT '通知次数',
     `state`              char(1) CHARACTER SET utf8 COLLATE utf8_general_ci     NOT NULL COMMENT '处理状态，0:初始，1:成功',
     `returnfailure_date` datetime                                                 DEFAULT NULL COMMENT '回复失败时间',
     `returnsuccess_date` datetime                                                 DEFAULT NULL COMMENT '回复成功时间',
@@ -313,7 +325,9 @@ CREATE TABLE `mq_message`
     `stage_state3`       char(1) CHARACTER SET utf8 COLLATE utf8_general_ci       DEFAULT NULL COMMENT '阶段3处理状态, 0:初始，1:成功',
     `stage_state4`       char(1) CHARACTER SET utf8 COLLATE utf8_general_ci       DEFAULT NULL COMMENT '阶段4处理状态, 0:初始，1:成功',
     PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb3
+  ROW_FORMAT = DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -321,24 +335,26 @@ CREATE TABLE `mq_message`
 --
 
 LOCK
-TABLES `mq_message` WRITE;
-/*!40000 ALTER TABLE `mq_message` DISABLE KEYS */;
+    TABLES `mq_message` WRITE;
+/*!40000 ALTER TABLE `mq_message`
+    DISABLE KEYS */;
 INSERT INTO `mq_message` (`id`, `message_type`, `business_key1`, `business_key2`, `business_key3`, `mq_host`, `mq_port`,
                           `mq_virtualhost`, `mq_queue`, `inform_num`, `state`, `returnfailure_date`,
                           `returnsuccess_date`, `returnfailure_msg`, `inform_date`, `stage_state1`, `stage_state2`,
                           `stage_state3`, `stage_state4`)
 VALUES ('f29a3149-7429-40be-8a4e-9909f32003b0', 'xc.mq.msgsync.coursepub', '111', NULL, NULL, '127.0.0.1', 5607, '/',
         'xc.course.publish.queue', 0, '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-/*!40000 ALTER TABLE `mq_message` ENABLE KEYS */;
+/*!40000 ALTER TABLE `mq_message`
+    ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `mq_message_history`
 --
 
 DROP TABLE IF EXISTS `mq_message_history`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET @saved_cs_client = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `mq_message_history`
 (
@@ -351,8 +367,8 @@ CREATE TABLE `mq_message_history`
     `mq_port`            int                                                    NOT NULL COMMENT '消息队列端口',
     `mq_virtualhost`     varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '消息队列虚拟主机',
     `mq_queue`           varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '队列名称',
-    `inform_num`         int(10) unsigned zerofill DEFAULT NULL COMMENT '通知次数',
-    `state`              int(10) unsigned zerofill DEFAULT NULL COMMENT '处理状态，0:初始，1:成功，2:失败',
+    `inform_num`         int(10) unsigned zerofill                               DEFAULT NULL COMMENT '通知次数',
+    `state`              int(10) unsigned zerofill                               DEFAULT NULL COMMENT '处理状态，0:初始，1:成功，2:失败',
     `returnfailure_date` datetime                                                DEFAULT NULL COMMENT '回复失败时间',
     `returnsuccess_date` datetime                                                DEFAULT NULL COMMENT '回复成功时间',
     `returnfailure_msg`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '回复失败内容',
@@ -362,7 +378,9 @@ CREATE TABLE `mq_message_history`
     `stage_state3`       char(1) CHARACTER SET utf8 COLLATE utf8_general_ci      DEFAULT NULL,
     `stage_state4`       char(1) CHARACTER SET utf8 COLLATE utf8_general_ci      DEFAULT NULL,
     PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb3
+  ROW_FORMAT = DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -370,19 +388,21 @@ CREATE TABLE `mq_message_history`
 --
 
 LOCK
-TABLES `mq_message_history` WRITE;
-/*!40000 ALTER TABLE `mq_message_history` DISABLE KEYS */;
-/*!40000 ALTER TABLE `mq_message_history` ENABLE KEYS */;
+    TABLES `mq_message_history` WRITE;
+/*!40000 ALTER TABLE `mq_message_history`
+    DISABLE KEYS */;
+/*!40000 ALTER TABLE `mq_message_history`
+    ENABLE KEYS */;
 UNLOCK
-TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+    TABLES;
+/*!40103 SET TIME_ZONE = @OLD_TIME_ZONE */;
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+/*!40101 SET SQL_MODE = @OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS = @OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS = @OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT = @OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS = @OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION = @OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES = @OLD_SQL_NOTES */;
 
 -- Dump completed on 2023-02-09 16:51:35

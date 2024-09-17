@@ -4,16 +4,16 @@
 -- ------------------------------------------------------
 -- Server version	8.0.26
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT = @@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS = @@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION = @@COLLATION_CONNECTION */;
 /*!50503 SET NAMES utf8mb4 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+/*!40103 SET @OLD_TIME_ZONE = @@TIME_ZONE */;
+/*!40103 SET TIME_ZONE = '+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS = @@UNIQUE_CHECKS, UNIQUE_CHECKS = 0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS = @@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS = 0 */;
+/*!40101 SET @OLD_SQL_MODE = @@SQL_MODE, SQL_MODE = 'NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES = @@SQL_NOTES, SQL_NOTES = 0 */;
 
 
 
@@ -22,7 +22,7 @@
 --
 
 DROP TABLE IF EXISTS `oauth_access_token`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET @saved_cs_client = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `oauth_access_token`
 (
@@ -34,7 +34,9 @@ CREATE TABLE `oauth_access_token`
     `authentication`    blob,
     `refresh_token`     varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
     PRIMARY KEY (`authentication_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb3
+  ROW_FORMAT = DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,18 +44,20 @@ CREATE TABLE `oauth_access_token`
 --
 
 LOCK
-TABLES `oauth_access_token` WRITE;
-/*!40000 ALTER TABLE `oauth_access_token` DISABLE KEYS */;
-/*!40000 ALTER TABLE `oauth_access_token` ENABLE KEYS */;
+    TABLES `oauth_access_token` WRITE;
+/*!40000 ALTER TABLE `oauth_access_token`
+    DISABLE KEYS */;
+/*!40000 ALTER TABLE `oauth_access_token`
+    ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `oauth_approvals`
 --
 
 DROP TABLE IF EXISTS `oauth_approvals`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET @saved_cs_client = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `oauth_approvals`
 (
@@ -63,7 +67,9 @@ CREATE TABLE `oauth_approvals`
     `status`         varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci  DEFAULT NULL,
     `expiresAt`      timestamp NOT NULL                                      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     `lastModifiedAt` timestamp NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb3
+  ROW_FORMAT = DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -71,18 +77,20 @@ CREATE TABLE `oauth_approvals`
 --
 
 LOCK
-TABLES `oauth_approvals` WRITE;
-/*!40000 ALTER TABLE `oauth_approvals` DISABLE KEYS */;
-/*!40000 ALTER TABLE `oauth_approvals` ENABLE KEYS */;
+    TABLES `oauth_approvals` WRITE;
+/*!40000 ALTER TABLE `oauth_approvals`
+    DISABLE KEYS */;
+/*!40000 ALTER TABLE `oauth_approvals`
+    ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `oauth_client_details`
 --
 
 DROP TABLE IF EXISTS `oauth_client_details`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET @saved_cs_client = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `oauth_client_details`
 (
@@ -98,7 +106,9 @@ CREATE TABLE `oauth_client_details`
     `additional_information`  varchar(4096) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
     `autoapprove`             varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci  DEFAULT NULL,
     PRIMARY KEY (`client_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb3
+  ROW_FORMAT = DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -106,24 +116,26 @@ CREATE TABLE `oauth_client_details`
 --
 
 LOCK
-TABLES `oauth_client_details` WRITE;
-/*!40000 ALTER TABLE `oauth_client_details` DISABLE KEYS */;
+    TABLES `oauth_client_details` WRITE;
+/*!40000 ALTER TABLE `oauth_client_details`
+    DISABLE KEYS */;
 INSERT INTO `oauth_client_details` (`client_id`, `resource_ids`, `client_secret`, `scope`, `authorized_grant_types`,
                                     `web_server_redirect_uri`, `authorities`, `access_token_validity`,
                                     `refresh_token_validity`, `additional_information`, `autoapprove`)
 VALUES ('app', NULL, 'app', 'app', 'password,refresh_token', NULL, NULL, NULL, NULL, NULL, NULL),
        ('XcWebApp', NULL, 'XcWebApp', 'app', 'authorization_code,password,refresh_token,client_credentials', NULL, NULL,
         43200, 43200, NULL, NULL);
-/*!40000 ALTER TABLE `oauth_client_details` ENABLE KEYS */;
+/*!40000 ALTER TABLE `oauth_client_details`
+    ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `oauth_client_token`
 --
 
 DROP TABLE IF EXISTS `oauth_client_token`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET @saved_cs_client = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `oauth_client_token`
 (
@@ -133,7 +145,9 @@ CREATE TABLE `oauth_client_token`
     `user_name`         varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
     `client_id`         varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
     PRIMARY KEY (`authentication_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb3
+  ROW_FORMAT = DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -141,24 +155,28 @@ CREATE TABLE `oauth_client_token`
 --
 
 LOCK
-TABLES `oauth_client_token` WRITE;
-/*!40000 ALTER TABLE `oauth_client_token` DISABLE KEYS */;
-/*!40000 ALTER TABLE `oauth_client_token` ENABLE KEYS */;
+    TABLES `oauth_client_token` WRITE;
+/*!40000 ALTER TABLE `oauth_client_token`
+    DISABLE KEYS */;
+/*!40000 ALTER TABLE `oauth_client_token`
+    ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `oauth_code`
 --
 
 DROP TABLE IF EXISTS `oauth_code`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET @saved_cs_client = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `oauth_code`
 (
     `code`           varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
     `authentication` blob
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb3
+  ROW_FORMAT = DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -166,25 +184,29 @@ CREATE TABLE `oauth_code`
 --
 
 LOCK
-TABLES `oauth_code` WRITE;
-/*!40000 ALTER TABLE `oauth_code` DISABLE KEYS */;
-/*!40000 ALTER TABLE `oauth_code` ENABLE KEYS */;
+    TABLES `oauth_code` WRITE;
+/*!40000 ALTER TABLE `oauth_code`
+    DISABLE KEYS */;
+/*!40000 ALTER TABLE `oauth_code`
+    ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `oauth_refresh_token`
 --
 
 DROP TABLE IF EXISTS `oauth_refresh_token`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET @saved_cs_client = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `oauth_refresh_token`
 (
     `token_id`       varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
     `token`          blob,
     `authentication` blob
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb3
+  ROW_FORMAT = DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -192,22 +214,24 @@ CREATE TABLE `oauth_refresh_token`
 --
 
 LOCK
-TABLES `oauth_refresh_token` WRITE;
-/*!40000 ALTER TABLE `oauth_refresh_token` DISABLE KEYS */;
+    TABLES `oauth_refresh_token` WRITE;
+/*!40000 ALTER TABLE `oauth_refresh_token`
+    DISABLE KEYS */;
 INSERT INTO `oauth_refresh_token` (`token_id`, `token`, `authentication`)
 VALUES ('b96e057b4e1c4920428e833db48d4c15',
         _binary '��\0sr\0Lorg.springframework.security.oauth2.common.DefaultExpiringOAuth2RefreshToken/�Gc��ɷ\0L\0\nexpirationt\0Ljava/util/Date;xr\0Dorg.springframework.security.oauth2.common.DefaultOAuth2RefreshTokens�\ncT�^\0L\0valuet\0Ljava/lang/String;xpt\0$b012d487-a908-43af-a8ef-53c5399c8bd6sr\0java.util.Datehj�KYt\0\0xpw\0\0a;tɎx',
         _binary '��\0sr\0Aorg.springframework.security.oauth2.provider.OAuth2Authentication�@bR\0L\0\rstoredRequestt\0<Lorg/springframework/security/oauth2/provider/OAuth2Request;L\0userAuthenticationt\02Lorg/springframework/security/core/Authentication;xr\0Gorg.springframework.security.authentication.AbstractAuthenticationTokenӪ(~nGd\0Z\0\rauthenticatedL\0authoritiest\0Ljava/util/Collection;L\0detailst\0Ljava/lang/Object;xp\0sr\0&java.util.Collections$UnmodifiableList�%1��\0L\0listt\0Ljava/util/List;xr\0,java.util.Collections$UnmodifiableCollectionB\0��^�\0L\0cq\0~\0xpsr\0java.util.ArrayListx����a�\0I\0sizexp\0\0\0	w\0\0\0	sr\0Borg.springframework.security.core.authority.SimpleGrantedAuthority\0\0\0\0\0\0�\0L\0rolet\0Ljava/lang/String;xpt\0\nROLE_adminsq\0~\0\rt\0apidocsq\0~\0\rt\0database/logsq\0~\0\rt\0systemsq\0~\0\rt\0user/addsq\0~\0\rt\0user/deletesq\0~\0\rt\0	user/editsq\0~\0\rt\0	user/viewsq\0~\0\rt\0userListxq\0~\0psr\0:org.springframework.security.oauth2.provider.OAuth2Request\0\0\0\0\0\0\0\0Z\0approvedL\0authoritiesq\0~\0L\0\nextensionst\0Ljava/util/Map;L\0redirectUriq\0~\0L\0refresht\0;Lorg/springframework/security/oauth2/provider/TokenRequest;L\0resourceIdst\0Ljava/util/Set;L\0\rresponseTypesq\0~\0$xr\08org.springframework.security.oauth2.provider.BaseRequest6(z>�qi�\0L\0clientIdq\0~\0L\0requestParametersq\0~\0\"L\0scopeq\0~\0$xpt\0webAppsr\0%java.util.Collections$UnmodifiableMap��t�B\0L\0mq\0~\0\"xpsr\0java.util.HashMap���`�\0F\0\nloadFactorI\0	thresholdxp?@\0\0\0\0\0w\0\0\0\0\0\0t\0\ngrant_typet\0passwordt\0usernamet\0adminxsr\0%java.util.Collections$UnmodifiableSet��я��U\0\0xq\0~\0	sr\0java.util.LinkedHashSet�l�Z��*\0\0xr\0java.util.HashSet�D�����4\0\0xpw\0\0\0?@\0\0\0\0\0t\0appxsq\0~\03w\0\0\0?@\0\0\0\0\0\0xsq\0~\0*?@\0\0\0\0\0\0w\0\0\0\0\0\0\0xppsq\0~\03w\0\0\0?@\0\0\0\0\0\0xsq\0~\03w\0\0\0?@\0\0\0\0\0\0xsr\0Oorg.springframework.security.authentication.UsernamePasswordAuthenticationToken\0\0\0\0\0\0�\0L\0credentialsq\0~\0L\0	principalq\0~\0xq\0~\0sq\0~\0sq\0~\0\0\0\0	w\0\0\0	q\0~\0q\0~\0q\0~\0q\0~\0q\0~\0q\0~\0q\0~\0q\0~\0q\0~\0xq\0~\0=sr\0java.util.LinkedHashMap4�N\\l��\0Z\0accessOrderxq\0~\0*?@\0\0\0\0\0w\0\0\0\0\0\0q\0~\0,q\0~\0-q\0~\0.q\0~\0/x\0psr\02org.springframework.security.core.userdetails.User\0\0\0\0\0\0�\0Z\0accountNonExpiredZ\0accountNonLockedZ\0credentialsNonExpiredZ\0enabledL\0authoritiesq\0~\0$L\0passwordq\0~\0L\0usernameq\0~\0xpsq\0~\00sr\0java.util.TreeSetݘP���[\0\0xpsr\0Forg.springframework.security.core.userdetails.User$AuthorityComparator\0\0\0\0\0\0�\0\0xpw\0\0\0	q\0~\0q\0~\0q\0~\0q\0~\0q\0~\0q\0~\0q\0~\0q\0~\0q\0~\0xpt\0admin');
-/*!40000 ALTER TABLE `oauth_refresh_token` ENABLE KEYS */;
+/*!40000 ALTER TABLE `oauth_refresh_token`
+    ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `xc_company`
 --
 
 DROP TABLE IF EXISTS `xc_company`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET @saved_cs_client = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `xc_company`
 (
@@ -223,7 +247,9 @@ CREATE TABLE `xc_company`
     `businesspic` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '营业执照',
     `status`      varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci  DEFAULT NULL COMMENT '企业状态',
     PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb3
+  ROW_FORMAT = DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -231,23 +257,25 @@ CREATE TABLE `xc_company`
 --
 
 LOCK
-TABLES `xc_company` WRITE;
-/*!40000 ALTER TABLE `xc_company` DISABLE KEYS */;
+    TABLES `xc_company` WRITE;
+/*!40000 ALTER TABLE `xc_company`
+    DISABLE KEYS */;
 INSERT INTO `xc_company` (`id`, `linkname`, `name`, `mobile`, `email`, `intro`, `logo`, `identitypic`, `worktype`,
                           `businesspic`, `status`)
 VALUES ('1', '张老师', '传智播客', '13333334444', 'abc@126.com', '2006年创建！', NULL, NULL, NULL, NULL, NULL),
        ('1232141425', 'M老师', '传智教育', '123456789', 'mm@qq.com', NULL, NULL, NULL, NULL, NULL, NULL),
        ('2', '李老师', '博学谷', '', '', NULL, NULL, NULL, NULL, NULL, NULL);
-/*!40000 ALTER TABLE `xc_company` ENABLE KEYS */;
+/*!40000 ALTER TABLE `xc_company`
+    ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `xc_company_user`
 --
 
 DROP TABLE IF EXISTS `xc_company_user`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET @saved_cs_client = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `xc_company_user`
 (
@@ -255,11 +283,13 @@ CREATE TABLE `xc_company_user`
     `company_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
     `user_id`    varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
     PRIMARY KEY (`id`) USING BTREE,
-    UNIQUE KEY `xc_company_user_unique` (`company_id`,`user_id`) USING BTREE,
-    KEY          `FK_xc_company_user_user_id` (`user_id`) USING BTREE,
+    UNIQUE KEY `xc_company_user_unique` (`company_id`, `user_id`) USING BTREE,
+    KEY `FK_xc_company_user_user_id` (`user_id`) USING BTREE,
     CONSTRAINT `FK_xc_company_user_company_id` FOREIGN KEY (`company_id`) REFERENCES `xc_company` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
     CONSTRAINT `FK_xc_company_user_user_id` FOREIGN KEY (`user_id`) REFERENCES `xc_user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb3
+  ROW_FORMAT = DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -267,21 +297,23 @@ CREATE TABLE `xc_company_user`
 --
 
 LOCK
-TABLES `xc_company_user` WRITE;
-/*!40000 ALTER TABLE `xc_company_user` DISABLE KEYS */;
+    TABLES `xc_company_user` WRITE;
+/*!40000 ALTER TABLE `xc_company_user`
+    DISABLE KEYS */;
 INSERT INTO `xc_company_user` (`id`, `company_id`, `user_id`)
 VALUES ('1', '1', '49'),
        ('2', '1232141425', '52');
-/*!40000 ALTER TABLE `xc_company_user` ENABLE KEYS */;
+/*!40000 ALTER TABLE `xc_company_user`
+    ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `xc_menu`
 --
 
 DROP TABLE IF EXISTS `xc_menu`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET @saved_cs_client = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `xc_menu`
 (
@@ -299,7 +331,9 @@ CREATE TABLE `xc_menu`
     `update_time` datetime                                                DEFAULT NULL,
     PRIMARY KEY (`id`) USING BTREE,
     UNIQUE KEY `FK_CODE` (`code`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb3
+  ROW_FORMAT = DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -307,8 +341,9 @@ CREATE TABLE `xc_menu`
 --
 
 LOCK
-TABLES `xc_menu` WRITE;
-/*!40000 ALTER TABLE `xc_menu` DISABLE KEYS */;
+    TABLES `xc_menu` WRITE;
+/*!40000 ALTER TABLE `xc_menu`
+    DISABLE KEYS */;
 INSERT INTO `xc_menu` (`id`, `code`, `p_id`, `menu_name`, `url`, `is_menu`, `level`, `sort`, `status`, `icon`,
                        `create_time`, `update_time`)
 VALUES ('', 'xc_teachmanager_course_pic', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-09-28 08:35:25',
@@ -373,16 +408,17 @@ VALUES ('', 'xc_teachmanager_course_pic', NULL, NULL, NULL, NULL, NULL, NULL, NU
         NULL, NULL, '2022-09-28 08:35:25', '2022-09-28 08:35:25'),
        ('903459378655395850', 'course_find_list', '903459378655395841', '查询课程列表', NULL, NULL, NULL, NULL, '1',
         NULL, '2022-09-28 08:35:25', '2022-09-28 08:35:25');
-/*!40000 ALTER TABLE `xc_menu` ENABLE KEYS */;
+/*!40000 ALTER TABLE `xc_menu`
+    ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `xc_permission`
 --
 
 DROP TABLE IF EXISTS `xc_permission`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET @saved_cs_client = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `xc_permission`
 (
@@ -391,9 +427,11 @@ CREATE TABLE `xc_permission`
     `menu_id`     varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
     `create_time` datetime DEFAULT NULL,
     PRIMARY KEY (`id`) USING BTREE,
-    UNIQUE KEY `xu_permission_unique` (`role_id`,`menu_id`) USING BTREE,
-    KEY           `fk_xc_permission_menu_id` (`menu_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+    UNIQUE KEY `xu_permission_unique` (`role_id`, `menu_id`) USING BTREE,
+    KEY `fk_xc_permission_menu_id` (`menu_id`) USING BTREE
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb3
+  ROW_FORMAT = DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -401,8 +439,9 @@ CREATE TABLE `xc_permission`
 --
 
 LOCK
-TABLES `xc_permission` WRITE;
-/*!40000 ALTER TABLE `xc_permission` DISABLE KEYS */;
+    TABLES `xc_permission` WRITE;
+/*!40000 ALTER TABLE `xc_permission`
+    DISABLE KEYS */;
 INSERT INTO `xc_permission` (`id`, `role_id`, `menu_id`, `create_time`)
 VALUES ('11', '20', '222222222222222222', '2022-09-28 08:34:56'),
        ('12', '20', '903459378655395841', '2022-09-28 08:34:56'),
@@ -447,16 +486,17 @@ VALUES ('11', '20', '222222222222222222', '2022-09-28 08:34:56'),
        ('8947692177635409926', '6', '903459378655395842', '2022-09-28 08:34:56'),
        ('8947692177635409930', '6', '903459378655395841', '2022-09-28 08:34:56'),
        ('903459378655395849', '17', '903459378655395849', '2022-09-30 14:29:08');
-/*!40000 ALTER TABLE `xc_permission` ENABLE KEYS */;
+/*!40000 ALTER TABLE `xc_permission`
+    ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `xc_role`
 --
 
 DROP TABLE IF EXISTS `xc_role`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET @saved_cs_client = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `xc_role`
 (
@@ -470,7 +510,9 @@ CREATE TABLE `xc_role`
     PRIMARY KEY (`id`) USING BTREE,
     UNIQUE KEY `unique_role_name` (`role_name`) USING BTREE,
     UNIQUE KEY `unique_role_value` (`role_code`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb3
+  ROW_FORMAT = DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -478,24 +520,26 @@ CREATE TABLE `xc_role`
 --
 
 LOCK
-TABLES `xc_role` WRITE;
-/*!40000 ALTER TABLE `xc_role` DISABLE KEYS */;
+    TABLES `xc_role` WRITE;
+/*!40000 ALTER TABLE `xc_role`
+    DISABLE KEYS */;
 INSERT INTO `xc_role` (`id`, `role_name`, `role_code`, `description`, `create_time`, `update_time`, `status`)
 VALUES ('17', '学生', 'student', NULL, '2022-09-28 08:32:57', '2022-09-28 08:32:57', '1'),
        ('18', '老师', 'teacher', NULL, '2022-09-28 08:32:57', '2022-09-28 08:32:57', '1'),
        ('20', '教学管理员', 'teachmanager', NULL, '2022-09-28 08:32:57', '2022-09-28 08:32:57', '1'),
        ('6', '管理员', 'admin', NULL, '2022-09-28 08:32:57', '2022-09-28 08:32:57', '1'),
        ('8', '超级管理员', 'super', NULL, '2022-09-28 08:32:57', '2022-09-28 08:32:57', '1');
-/*!40000 ALTER TABLE `xc_role` ENABLE KEYS */;
+/*!40000 ALTER TABLE `xc_role`
+    ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `xc_teacher`
 --
 
 DROP TABLE IF EXISTS `xc_teacher`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET @saved_cs_client = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `xc_teacher`
 (
@@ -508,7 +552,9 @@ CREATE TABLE `xc_teacher`
     PRIMARY KEY (`id`) USING BTREE,
     UNIQUE KEY `xu_teacher_user_id` (`user_id`) USING BTREE,
     CONSTRAINT `fk_xc_teacher_user_id` FOREIGN KEY (`user_id`) REFERENCES `xc_user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb3
+  ROW_FORMAT = DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -516,18 +562,20 @@ CREATE TABLE `xc_teacher`
 --
 
 LOCK
-TABLES `xc_teacher` WRITE;
-/*!40000 ALTER TABLE `xc_teacher` DISABLE KEYS */;
-/*!40000 ALTER TABLE `xc_teacher` ENABLE KEYS */;
+    TABLES `xc_teacher` WRITE;
+/*!40000 ALTER TABLE `xc_teacher`
+    DISABLE KEYS */;
+/*!40000 ALTER TABLE `xc_teacher`
+    ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `xc_user`
 --
 
 DROP TABLE IF EXISTS `xc_user`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET @saved_cs_client = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `xc_user`
 (
@@ -551,7 +599,9 @@ CREATE TABLE `xc_user`
     `update_time` datetime                                                DEFAULT NULL,
     PRIMARY KEY (`id`) USING BTREE,
     UNIQUE KEY `unique_user_username` (`username`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb3
+  ROW_FORMAT = DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -559,8 +609,9 @@ CREATE TABLE `xc_user`
 --
 
 LOCK
-TABLES `xc_user` WRITE;
-/*!40000 ALTER TABLE `xc_user` DISABLE KEYS */;
+    TABLES `xc_user` WRITE;
+/*!40000 ALTER TABLE `xc_user`
+    DISABLE KEYS */;
 INSERT INTO `xc_user` (`id`, `username`, `password`, `salt`, `wx_unionid`, `nickname`, `name`, `userpic`, `company_id`,
                        `utype`, `birthday`, `sex`, `email`, `cellphone`, `qq`, `status`, `create_time`, `update_time`)
 VALUES ('17b9d8be-cef3-400c-bec5-1478a6ef7ddc', 'o5PB1sytMXJGGv2x5OBP2uMzCpS8', 'o5PB1sytMXJGGv2x5OBP2uMzCpS8', NULL,
@@ -580,16 +631,17 @@ VALUES ('17b9d8be-cef3-400c-bec5-1478a6ef7ddc', 'o5PB1sytMXJGGv2x5OBP2uMzCpS8', 
         NULL, '101001', NULL, '1', NULL, NULL, NULL, '1', '2022-09-28 08:32:03', NULL),
        ('52', 't1', '$2a$10$0pt7WlfTbnPDTcWtp/.2Mu5CTXvohnNQhR628qq4RoKSc0dGAdEgm', NULL, NULL, NULL, 'M老师', NULL,
         '1232141425', '101002', NULL, '1', NULL, NULL, NULL, '', '2022-09-28 08:32:03', NULL);
-/*!40000 ALTER TABLE `xc_user` ENABLE KEYS */;
+/*!40000 ALTER TABLE `xc_user`
+    ENABLE KEYS */;
 UNLOCK
-TABLES;
+    TABLES;
 
 --
 -- Table structure for table `xc_user_role`
 --
 
 DROP TABLE IF EXISTS `xc_user_role`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET @saved_cs_client = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `xc_user_role`
 (
@@ -599,9 +651,11 @@ CREATE TABLE `xc_user_role`
     `create_time` datetime                                                DEFAULT NULL,
     `creator`     varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
     PRIMARY KEY (`id`) USING BTREE,
-    KEY           `fk_xc_user_role_user_id` (`user_id`) USING BTREE,
-    KEY           `fk_xc_user_role_role_id` (`role_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+    KEY `fk_xc_user_role_user_id` (`user_id`) USING BTREE,
+    KEY `fk_xc_user_role_role_id` (`role_id`) USING BTREE
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb3
+  ROW_FORMAT = DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -609,8 +663,9 @@ CREATE TABLE `xc_user_role`
 --
 
 LOCK
-TABLES `xc_user_role` WRITE;
-/*!40000 ALTER TABLE `xc_user_role` DISABLE KEYS */;
+    TABLES `xc_user_role` WRITE;
+/*!40000 ALTER TABLE `xc_user_role`
+    DISABLE KEYS */;
 INSERT INTO `xc_user_role` (`id`, `user_id`, `role_id`, `create_time`, `creator`)
 VALUES ('1', '46', '8', '2017-09-11 13:02:45', '超级管理员'),
        ('19', '50', '6', '2017-09-12 14:20:20', '超级管理员'),
@@ -621,17 +676,18 @@ VALUES ('1', '46', '8', '2017-09-11 13:02:45', '超级管理员'),
        ('3', '49', '20', '2017-09-11 13:03:12', NULL),
        ('48d759c1-a597-4220-8ddf-91696638d91d', '17b9d8be-cef3-400c-bec5-1478a6ef7ddc', '17', NULL, NULL),
        ('88f646ec-7257-4987-816e-92adfb68e0c1', 'e47ade0d-377d-4e58-99fc-6d5e2af5c148', '17', NULL, NULL);
-/*!40000 ALTER TABLE `xc_user_role` ENABLE KEYS */;
+/*!40000 ALTER TABLE `xc_user_role`
+    ENABLE KEYS */;
 UNLOCK
-TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+    TABLES;
+/*!40103 SET TIME_ZONE = @OLD_TIME_ZONE */;
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+/*!40101 SET SQL_MODE = @OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS = @OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS = @OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT = @OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS = @OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION = @OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES = @OLD_SQL_NOTES */;
 
 -- Dump completed on 2023-02-09 16:52:12
